@@ -1,0 +1,4 @@
+export { YnPage } from "./yn/yn-page";
+export { HomePage } from "./home/home-page";
+export { YnCardPage } from "./yn-card/yn-card-page";
+export { YnAdminPage } from "./yn-admin/yn-admin-page";

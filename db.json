@@ -1,0 +1,194 @@
+{
+  "yes-no-cards": [
+    {
+      "id": "1",
+      "title": "Лифт",
+      "image": "https://img.freepik.com/premium-vector/young-child-detective-costume-holding-magnifying-glass_1323048-7059.jpg?semt=ais_hybrid",
+      "question": "Некий человек живет на девятом этаже. Но каждый раз, когда он возвращается домой один, он доезжает только до седьмого. Почему?",
+      "answer": "Потому что он низкорослый и не может дотянуться до кнопки 9 этажа.",
+      "categories": [
+        {
+          "name": "Логика",
+          "color": "#e63946"
+        },
+        {
+          "name": "Мозговой штурм",
+          "color": "#5c96b8"
+        }
+      ],
+      "cardColor": "#fddde6",
+      "popularity": 85,
+      "difficulty": 4,
+      "duration": 5
+    },
+    {
+      "id": "2",
+      "title": "123",
+      "image": "https://i.pinimg.com/originals/51/77/86/51778656754323640c6b5cea6a0e7e40.jpg",
+      "question": "Человек стоит перед закрытой дверью и слышит за ней крики. Он открывает дверь и никого не видит. Что произошло?",
+      "answer": "Крики были на записи.",
+      "categories": [
+        {
+          "name": "Мистика",
+          "color": "#d19ff2"
+        },
+        {
+          "name": "Логика",
+          "color": "#e63946"
+        }
+      ],
+      "cardColor": "#e0f7ff",
+      "popularity": 72,
+      "difficulty": 6,
+      "duration": 8
+    },
+    {
+      "title": "123",
+      "question": "Почему человек бросил часы в реку?",
+      "answer": "Он хотел 'отпустить время'.",
+      "categories": [
+        {
+          "name": "Философия",
+          "color": "#2a9d8f"
+        },
+        {
+          "name": "Метафорическое",
+          "color": "#e76f51"
+        }
+      ],
+      "cardColor": "#fff0f5",
+      "image": "https://i.pinimg.com/736x/66/58/2c/66582ca49bbc52463486de182cb328b8.jpg",
+      "duration": 0,
+      "popularity": 0,
+      "difficulty": 0,
+      "id": "3"
+    },
+    {
+      "title": "Темнота",
+      "question": "Почему в комнате всегда темно, хотя свет включён?",
+      "answer": "Лампочка перегорела.",
+      "categories": [
+        {
+          "name": "Простые загадки",
+          "color": "#f4a261"
+        }
+      ],
+      "cardColor": "#f0fff0",
+      "image": "https://i.pinimg.com/736x/7c/69/67/7c6967536e1f325d15b7a1d3df9af7ab.jpg",
+      "id": "4",
+      "popularity": 78,
+      "difficulty": 3,
+      "duration": 4
+    },
+    {
+      "id": "5",
+      "title": "Опоздание",
+      "image": "https://i.pinimg.com/originals/30/0d/02/300d02e766ee3461f02ac6b4cd3b044f.png",
+      "question": "Почему человек опоздал на работу, хотя вышел вовремя?",
+      "answer": "Он забыл часы дома.",
+      "categories": [
+        {
+          "name": "Логика",
+          "color": "#e63946"
+        },
+        {
+          "name": "Повседневные ситуации",
+          "color": "#fcbf49"
+        }
+      ],
+      "cardColor": "#f2e8a8",
+      "popularity": 78,
+      "difficulty": 3,
+      "duration": 4
+    },
+    {
+      "id": "6",
+      "title": "Кошка",
+      "image": "https://img.freepik.com/premium-vector/detective-following-footprints-concept-illustration_114360-21835.jpg?semt=ais_hybrid&w=740&q=80",
+      "question": "Почему кошка всегда садится на клавиатуру?",
+      "answer": "Она любит внимание и тепло от ноутбука.",
+      "categories": [
+        {
+          "name": "Животные",
+          "color": "#007f5f"
+        },
+        {
+          "name": "Поведение",
+          "color": "#ff7b00"
+        }
+      ],
+      "cardColor": "#f0fff0",
+      "popularity": 88,
+      "difficulty": 2,
+      "duration": 1
+    },
+    {
+      "id": "7",
+      "title": "Дверь",
+      "image": "https://i.pinimg.com/736x/bd/a1/e5/bda1e5dbd5b5c8c3c8f19e6c8c50b9a5.jpg",
+      "question": "Почему дверь была заперта, хотя ключ находился внутри?",
+      "answer": "Ключ остался в замке с другой стороны.",
+      "categories": [
+        {
+          "name": "Логика",
+          "color": "#e63946"
+        },
+        {
+          "name": "Повседневные ситуации",
+          "color": "#fcbf49"
+        }
+      ],
+      "cardColor": "#ffe0a8",
+      "popularity": 70,
+      "difficulty": 4,
+      "duration": 3
+    },
+    {
+      "id": "8",
+      "title": "Зонт",
+      "image": "https://avatars.mds.yandex.net/get-altay/927916/2a000001883fb6912b34d527f57622deac4a/diploma",
+      "question": "Почему человек бросил зонт, хотя шёл дождь?",
+      "answer": "Потому что зонт был сломан.",
+      "categories": [
+        {
+          "name": "Логика",
+          "color": "#e63946"
+        },
+        {
+          "name": "Простые загадки",
+          "color": "#f4a261"
+        }
+      ],
+      "cardColor": "#fff4f0",
+      "popularity": 65,
+      "difficulty": 3,
+      "duration": 2
+    },
+    {
+      "id": "9",
+      "title": "Страх",
+      "question": "Почему кошки боятся воды",
+      "answer": "Хз",
+      "categories": [
+        {
+          "name": "Тупые",
+          "color": "#f41241"
+        }
+      ],
+      "cardColor": "#c2766f",
+      "image": "https://avatars.mds.yandex.net/i?id=517208075d350ee3c27fb4cc440b9e9f-4303091-images-thumbs&ref=rim&n=33&w=333&h=200",
+      "duration": 0,
+      "popularity": 0,
+      "difficulty": 0
+    }
+  ],
+  "reviews": [
+    {
+      "id": "68c3",
+      "liked": "no",
+      "difficulty": "low",
+      "duration": 1,
+      "cardId": 2
+    }
+  ]
+}

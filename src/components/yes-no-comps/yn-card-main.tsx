@@ -1,0 +1,141 @@
+import { LuArrowBigLeft, LuArrowBigRight } from "react-icons/lu";
+import { Link, useParams } from "react-router-dom";
+import { Button } from "../ui/button";
+import { Card } from "../ui/card";
+import { useEffect, useState } from "react";
+import { useCard } from "@/hooks/use-card";
+import { YnCardSkeleton, YnFeedBackForm } from "@/components";
+import { motion } from "framer-motion";
+import { BiLike } from "react-icons/bi";
+import { BiTimeFive } from "react-icons/bi";
+import { HiArrowsUpDown } from "react-icons/hi2";
+import { Skeleton } from "../ui/skeleton";
+
+export function YnCardMain() {
+  const id = useParams().id;
+  const [isAnswer, setIsAnswer] = useState(false);
+  const { data: card, isLoading } = useCard(String(id));
+  const [enteredAt, setEnteredAt] = useState("");
+
+  useEffect(() => {
+    const now = new Date();
+    setEnteredAt(
+      now.toLocaleTimeString("ru-RU", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    );
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <main className="bg-container-background relative container mx-auto min-h-screen px-4 py-12 md:px-12">
+      <Link
+        to="/yes-no-game"
+        className="absolute top-6 left-6 flex items-start gap-1 text-3xl font-bold transition hover:text-black"
+      >
+        <LuArrowBigLeft />
+        <span className="text-xl sm:inline">К списку</span>
+      </Link>
+      <Link
+        to={`/yes-no-game/card/${Number(id) + 1}`} // тут нужно потом изменить логику
+        className="absolute top-6 right-6 flex items-start gap-1 text-3xl font-bold transition hover:text-black"
+      >
+        <span className="text-xl sm:inline">Следующая</span>
+        <LuArrowBigRight />
+      </Link>
+
+      <section className="flex justify-center pt-7">
+        {isLoading ? (
+          <YnCardSkeleton />
+        ) : (
+          <Card
+            style={{ backgroundColor: card?.cardColor }}
+            className="flex h-auto w-full max-w-5xl flex-col overflow-hidden shadow-xl lg:grid lg:h-[420px] lg:grid-cols-3"
+          >
+            <div className="flex items-center justify-center overflow-hidden lg:pl-8">
+              <img
+                src={card?.image}
+                alt={card?.title}
+                className="w-1/2 lg:w-auto"
+              />
+            </div>
+
+            <div className="col-span-1 grid gap-4 p-8 py-4 text-center lg:col-span-2 lg:gap-6 lg:text-start">
+              <div>
+                <span className="text-muted-foreground text-sm uppercase">
+                  Данетка
+                </span>
+                <h1 className="text-2xl font-bold">{card?.title}</h1>
+              </div>
+
+              <div className="relative flex-1 perspective-distant">
+                <motion.div
+                  animate={{ rotateY: isAnswer ? -180 : 0 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="transform-3d"
+                >
+                  <div className="relative h-60 w-full text-sm transform-3d md:text-base lg:h-40">
+                    <div className="absolute inset-0 flex items-center bg-white p-6 shadow-xl backface-hidden">
+                      <p>{card?.question}</p>
+                    </div>
+                    <div className="bg-foreground absolute inset-0 flex transform-[rotateY(180deg)] items-center p-6 text-[#fff7f0] shadow-xl backface-hidden">
+                      <p>{card?.answer}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+
+              <div className="mt-4 lg:mt-0">
+                <Button
+                  className="text-md h-12 w-full cursor-pointer lg:h-10 lg:w-40"
+                  onClick={() => setIsAnswer(!isAnswer)}
+                  size="lg"
+                >
+                  {isAnswer ? "Показать вопрос" : "Показать ответ"}
+                </Button>
+              </div>
+            </div>
+          </Card>
+        )}
+      </section>
+
+      <section className="bg-background mt-16 flex h-30 items-center justify-evenly text-2xl font-semibold shadow-sm">
+        <div className="flex flex-col items-center">
+          <BiLike />
+          {isLoading ? (
+            <Skeleton className="mx-auto h-6 w-full bg-gray-300" />
+          ) : (
+            <span>{card?.popularity}%</span>
+          )}
+        </div>
+        <div className="flex flex-col items-center">
+          <BiTimeFive />
+          {isLoading ? (
+            <Skeleton className="mx-auto h-6 w-full bg-gray-300" />
+          ) : (
+            <span>{card?.duration} мин.</span>
+          )}
+        </div>
+        <div className="flex flex-col items-center">
+          <HiArrowsUpDown />
+          {isLoading ? (
+            <Skeleton className="mx-auto h-6 w-full bg-gray-300" />
+          ) : (
+            <span>{card?.difficulty}/10</span>
+          )}
+        </div>
+      </section>
+
+      <section className="mt-16 flex flex-col gap-2">
+        <h2 className="text-center text-3xl font-semibold">Как вам данетка?</h2>
+        <div>
+          <YnFeedBackForm cardId={Number(id)} enteredAt={enteredAt} />
+        </div>
+      </section>
+    </main>
+  );
+}
