@@ -46,7 +46,7 @@ export function YnAdminMain() {
   }
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   return (
