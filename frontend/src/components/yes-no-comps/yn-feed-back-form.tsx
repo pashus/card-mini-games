@@ -28,7 +28,7 @@ export function YnFeedBackForm({
   cardId: number;
   enteredAt: string;
 }) {
-  const { mutate } = useCreateReview();
+  const { mutate, isPending } = useCreateReview();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -161,6 +161,7 @@ export function YnFeedBackForm({
           form="yn-feed-back-form"
           className="h-12 w-full cursor-pointer text-xl md:w-auto"
           size="lg"
+          disabled={isPending}
         >
           Отправить
         </Button>

@@ -47,7 +47,7 @@ export function YnAdminMain() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  }, [page]);
 
   return (
     <main className="bg-container-background relative container mx-auto flex min-h-[calc(100vh-64px)] flex-col justify-between px-4 py-12 md:px-12">
