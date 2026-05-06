@@ -45,10 +45,12 @@
   --color-footer-foreground: var(--footer-foreground);
   --color-header: var(--header);
   --color-container-background: var(--container-background);
+  --color-card-stats: var(--card-stats);
+  /* --color-hover-pagination-button-bg: var(--hover-pagination-button-bg); */
 }
 
 :root {
-  --background: #fef2e7;
+  --background: #ffe6cc;
   --container-background: #ffe6cc;
   --foreground: #4b3f3f;
 
@@ -56,6 +58,9 @@
   --footer: #6c4a26;
   --footer-foreground: #fff7f0;
   --search-input: #fff7f0;
+  --card-stats: #fef2e7;
+
+  /* --hover-pagination-button-bg: #6c4a2680; */
 
   --radius: 0.625rem;
   --card: #fff7f0;
@@ -133,5 +138,8 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  html {
+    /* scrollbar-gutter: stable; */
   }
 }

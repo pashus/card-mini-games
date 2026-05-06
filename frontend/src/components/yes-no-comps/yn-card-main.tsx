@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { useEffect, useState } from "react";
 import { useCard } from "@/hooks/use-card";
-import { YnCardSkeleton, YnFeedBackForm } from "@/components";
+import { TextArrow, YnCardSkeleton, YnFeedBackForm } from "@/components";
 import { motion } from "framer-motion";
 import { BiLike } from "react-icons/bi";
 import { BiTimeFive } from "react-icons/bi";
@@ -32,23 +32,17 @@ export function YnCardMain() {
   }, []);
 
   return (
-    <main className="bg-container-background relative container mx-auto min-h-screen px-4 py-12 md:px-12">
-      <Link
-        to="/yes-no-game"
-        className="absolute top-6 left-6 flex items-start gap-1 text-3xl font-bold transition hover:text-black"
-      >
-        <LuArrowBigLeft />
-        <span className="text-xl sm:inline">К списку</span>
-      </Link>
-      <Link
-        to={`/yes-no-game/card/${Number(id) + 1}`} // тут нужно потом изменить логику
-        className="absolute top-6 right-6 flex items-start gap-1 text-3xl font-bold transition hover:text-black"
-      >
-        <span className="text-xl sm:inline">Следующая</span>
-        <LuArrowBigRight />
-      </Link>
+    <main>
+      <section className="mx-auto flex h-8 w-full max-w-[1550px] items-center justify-between">
+        <TextArrow to="/yes-no-game" text="К списку" where="left" />
+        <TextArrow
+          to={`/yes-no-game/card/${Number(id) + 1}`}
+          text="Следующая"
+          where="right"
+        />
+      </section>
 
-      <section className="flex justify-center pt-7">
+      <section className="mx-auto flex justify-center pt-7">
         {isLoading ? (
           <YnCardSkeleton />
         ) : (
@@ -103,7 +97,7 @@ export function YnCardMain() {
         )}
       </section>
 
-      <section className="bg-background mt-16 flex h-30 items-center justify-evenly text-2xl font-semibold shadow-sm">
+      <section className="bg-card-stats mx-auto mt-16 flex h-30 max-w-7xl items-center justify-evenly text-2xl font-semibold shadow-sm">
         <div className="flex flex-col items-center">
           <BiLike />
           {isLoading ? (
@@ -130,7 +124,7 @@ export function YnCardMain() {
         </div>
       </section>
 
-      <section className="mt-16 flex flex-col gap-2">
+      <section className="mx-auto mt-16 flex max-w-7xl flex-col gap-2">
         <h2 className="text-center text-3xl font-semibold">Как вам данетка?</h2>
         <div>
           <YnFeedBackForm cardId={Number(id)} enteredAt={enteredAt} />

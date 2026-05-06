@@ -29,28 +29,27 @@ import {
 
 export function YnAdminMain() {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const limit = 100;
   const page = Number(searchParams.get("page")) || 1;
-  const limit = 8;
-  function setPage(nextPage: number) {
-    setSearchParams({ page: String(nextPage) });
-  }
 
   const { data: cards, isLoading } = useCards(page, limit);
 
   const totalPages = cards?.pagination.totalPages || 1;
   const hasNext = cards?.pagination.hasNext || false;
   const hasPrev = cards?.pagination.hasPrev || false;
-  const pages: number[] = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pages.push(i);
-  }
+  const pages: number[] = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [page]);
 
+  function setPage(nextPage: number) {
+    setSearchParams({ page: String(nextPage) });
+  }
+
   return (
-    <main className="bg-container-background relative container mx-auto flex min-h-[calc(100vh-64px)] flex-col justify-between px-4 py-12 md:px-12">
+    <main className="relative container mx-auto flex flex-col justify-between">
       <div>
         {/* <SearchInput
           onChange={handleSearch}

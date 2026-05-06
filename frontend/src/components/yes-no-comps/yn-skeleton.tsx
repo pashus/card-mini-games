@@ -3,7 +3,7 @@ import { Skeleton } from "../ui/skeleton";
 
 export function YnSkeletonGrid() {
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {Array.from({ length: 8 }).map((_, i) => (
         <YnSkeleton key={i} />
       ))}
@@ -13,7 +13,7 @@ export function YnSkeletonGrid() {
 
 export function YnSkeleton() {
   return (
-    <Card className="h-100 overflow-hidden py-0">
+    <Card className="h-100 w-full overflow-hidden py-0">
       <Skeleton className="h-48 w-full bg-gray-200" />
 
       <div className="space-y-3 p-4 pt-0">

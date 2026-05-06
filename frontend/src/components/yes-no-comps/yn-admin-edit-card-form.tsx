@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import { useEditCard } from "@/hooks/use-edit-card";
 import type { ICard } from "@/types";
 import { HexColorPicker } from "react-colorful";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Минимум 2 символа" }).max(100, {
@@ -52,9 +52,35 @@ export function YnAdminEditCardForm({
     number | null
   >(null);
 
+  const categoryPickerRef = useRef<HTMLDivElement | null>(null);
+  const cardPickerRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     onPendingChange(isPending);
   }, [isPending]);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      const target = e.target as Node;
+
+      if (
+        categoryPickerRef.current &&
+        !categoryPickerRef.current.contains(target)
+      ) {
+        setOpenCategoryColorIndex(null);
+      }
+
+      if (cardPickerRef.current && !cardPickerRef.current.contains(target)) {
+        setCardColorOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -194,7 +220,10 @@ export function YnAdminEditCardForm({
                           placeholder="#ffffff"
                         />
                         {openCategoryColorIndex === index && (
-                          <div className="bg-background absolute bottom-12 rounded-lg border p-3 shadow-xl">
+                          <div
+                            ref={categoryPickerRef}
+                            className="bg-background absolute bottom-12 rounded-lg border p-3 shadow-xl"
+                          >
                             <HexColorPicker
                               color={field.value}
                               onChange={field.onChange}
@@ -238,7 +267,10 @@ export function YnAdminEditCardForm({
                   <Input {...field} readOnly className="w-full lg:w-28" />
 
                   {cardColorOpen && (
-                    <div className="bg-background absolute top-12 rounded-lg border p-3 shadow-xl">
+                    <div
+                      ref={cardPickerRef}
+                      className="bg-background absolute top-12 rounded-lg border p-3 shadow-xl"
+                    >
                       <HexColorPicker
                         color={field.value}
                         onChange={field.onChange}

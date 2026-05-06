@@ -1,13 +1,9 @@
-import { Footer } from "@/components";
-import { Header } from "@/components/header";
-import { HomeMain } from "@/components/home-main";
+import { HomeMain } from "@/components/home/home-main";
 
 export function HomePage() {
   return (
-    <div className="bg-container-background lg:bg-background flex min-h-screen flex-col">
-      <Header />
+    <div className="flex flex-col">
       <HomeMain />
-      <Footer />
     </div>
   );
 }

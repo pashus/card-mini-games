@@ -1,11 +1,9 @@
-import { Footer, Header, YnAdminMain } from "@/components";
+import { YnAdminMain } from "@/components";
 
 export function YnAdminPage() {
   return (
-    <div className="bg-container-background lg:bg-background">
-      <Header />
+    <div>
       <YnAdminMain />
-      <Footer />
     </div>
   );
 }

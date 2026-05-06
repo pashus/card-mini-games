@@ -1,10 +1,10 @@
 export { YnMain } from "./yes-no-comps/yn-main";
 export { SearchInput } from "./search-input";
-export { Footer } from "./footer";
+export { Footer } from "./layout/footer";
 export { YnCardMain } from "./yes-no-comps/yn-card-main";
 export { YnCardSkeleton } from "./yes-no-comps/yn-card-skeleton";
-export { Header } from "./header";
-export { HomeMain } from "./home-main";
+export { Header } from "./layout/header";
+export { HomeMain } from "./home/home-main";
 export { YnSkeleton } from "./yes-no-comps/yn-skeleton";
 export { YnRulesModal } from "./yes-no-comps/yn-rules-modal";
 export { YnFeedBackForm } from "./yes-no-comps/yn-feed-back-form";
@@ -15,3 +15,4 @@ export { DeleteButton } from "./delete-button";
 export { EditButton } from "./edit-button";
 export { YnAdminEditCardForm } from "./yes-no-comps/yn-admin-edit-card-form";
 export { YnAdminEditCardModal } from "./yes-no-comps/yn-admin-edit-card-modal";
+export { TextArrow } from "./text-arrow";

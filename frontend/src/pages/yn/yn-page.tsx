@@ -1,12 +1,9 @@
-import { Footer, YnMain } from "@/components";
-import { Header } from "@/components/header";
+import { YnMain } from "@/components";
 
 export function YnPage() {
   return (
-    <div className="bg-container-background lg:bg-background">
-      <Header />
+    <div>
       <YnMain />
-      <Footer />
     </div>
   );
 }

@@ -59,6 +59,7 @@ function PaginationLink({
           size,
         }),
         className,
+        "text-base font-semibold",
       )}
       {...props}
     />
@@ -77,7 +78,9 @@ function PaginationPrevious({
       {...props}
     >
       <ChevronLeftIcon />
-      <span className="hidden sm:block">Предыдущая</span>
+      <span className="hidden text-base font-semibold sm:block">
+        Предыдущая
+      </span>
     </PaginationLink>
   );
 }
@@ -93,7 +96,7 @@ function PaginationNext({
       className={cn("gap-1 px-2.5 sm:pr-2.5", className)}
       {...props}
     >
-      <span className="hidden sm:block">Следующая</span>
+      <span className="hidden text-base font-semibold sm:block">Следующая</span>
       <ChevronRightIcon />
     </PaginationLink>
   );
