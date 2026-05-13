@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/card";
 import { useCards } from "@/hooks/use-cards";
 import { useEffect, useState } from "react";
-import type { ICard } from "@/types";
+import type { IYnCard } from "@/types";
 import { IoClose } from "react-icons/io5";
 import { SearchInput } from "../search-input";
 import { BiLike } from "react-icons/bi";
@@ -27,7 +27,7 @@ import {
   PaginationPrevious,
 } from "../ui/pagination";
 
-export function YnAdminMain() {
+export function YnAdmin() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const limit = 100;
@@ -49,7 +49,7 @@ export function YnAdminMain() {
   }
 
   return (
-    <main className="relative container mx-auto flex flex-col justify-between">
+    <div className="relative container mx-auto flex flex-col justify-between">
       <div>
         {/* <SearchInput
           onChange={handleSearch}
@@ -76,7 +76,7 @@ export function YnAdminMain() {
 
           {!isLoading && cards?.data && (
             <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {cards.data.map((card: ICard) => (
+              {cards.data.map((card: IYnCard) => (
                 <Card
                   key={card.id}
                   className="relative h-100 overflow-hidden py-0 transition hover:-translate-y-1 hover:shadow-lg"
@@ -172,6 +172,6 @@ export function YnAdminMain() {
           )}
         </section>
       </div>
-    </main>
+    </div>
   );
 }

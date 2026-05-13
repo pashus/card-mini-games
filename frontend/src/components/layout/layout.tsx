@@ -6,9 +6,9 @@ export function Layout() {
   return (
     <>
       <Header />
-      <div className="min-h-[calc(100vh-112px)] px-4 pt-6 pb-12 md:px-12">
+      <main className="flex min-h-[calc(100vh-112px)] flex-col px-4 pt-6 pb-12 md:px-12">
         <Outlet />
-      </div>
+      </main>
       <Footer />
     </>
   );

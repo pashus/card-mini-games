@@ -3,11 +3,11 @@ import daNetkiImg from "@/assets/1.png";
 import blackJackImg from "@/assets/2.png";
 import { useNavigate } from "react-router-dom";
 
-export function HomeMain() {
+export function Home() {
   const navigate = useNavigate();
 
   return (
-    <main className="mx-auto flex flex-1 flex-col">
+    <div className="mx-auto flex flex-1 flex-col">
       <h2 className="self-center text-2xl font-semibold">
         Во что сегодня поиграем?
       </h2>
@@ -39,6 +39,6 @@ export function HomeMain() {
           </div>
         </Card>
       </section>
-    </main>
+    </div>
   );
 }

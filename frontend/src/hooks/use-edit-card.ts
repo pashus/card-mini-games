@@ -1,5 +1,5 @@
 import { cardsQueries } from "@/api";
-import type { ICard } from "@/types";
+import type { IYnCard } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useEditCard(id: string) {
@@ -7,7 +7,7 @@ export function useEditCard(id: string) {
 
   return useMutation({
     mutationFn: (
-      data: Omit<ICard, "id" | "popularity" | "difficulty" | "duration">,
+      data: Omit<IYnCard, "id" | "popularity" | "difficulty" | "duration">,
     ) => cardsQueries.editCard(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cards"] });

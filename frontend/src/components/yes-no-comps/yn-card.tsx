@@ -11,10 +11,10 @@ import { BiTimeFive } from "react-icons/bi";
 import { HiArrowsUpDown } from "react-icons/hi2";
 import { Skeleton } from "../ui/skeleton";
 
-export function YnCardMain() {
+export function YnCard() {
   const id = useParams().id;
   const [isAnswer, setIsAnswer] = useState(false);
-  const { data: card, isLoading } = useCard(String(id));
+  const { data: card, isLoading } = useCard(id!);
   const [enteredAt, setEnteredAt] = useState("");
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export function YnCardMain() {
   }, []);
 
   return (
-    <main>
+    <div>
       <section className="mx-auto flex h-8 w-full max-w-[1550px] items-center justify-between">
         <TextArrow to="/yes-no-game" text="К списку" where="left" />
         <TextArrow
@@ -101,7 +101,7 @@ export function YnCardMain() {
         <div className="flex flex-col items-center">
           <BiLike />
           {isLoading ? (
-            <Skeleton className="mx-auto h-6 w-full bg-gray-300" />
+            <Skeleton className="mx-auto mt-1 h-7 w-13 bg-gray-300" />
           ) : (
             <span>{card?.popularity}%</span>
           )}
@@ -109,7 +109,7 @@ export function YnCardMain() {
         <div className="flex flex-col items-center">
           <BiTimeFive />
           {isLoading ? (
-            <Skeleton className="mx-auto h-6 w-full bg-gray-300" />
+            <Skeleton className="mx-auto mt-1 h-7 w-13 bg-gray-300" />
           ) : (
             <span>{card?.duration} мин.</span>
           )}
@@ -117,7 +117,7 @@ export function YnCardMain() {
         <div className="flex flex-col items-center">
           <HiArrowsUpDown />
           {isLoading ? (
-            <Skeleton className="mx-auto h-6 w-full bg-gray-300" />
+            <Skeleton className="mx-auto mt-1 h-7 w-13 bg-gray-300" />
           ) : (
             <span>{card?.difficulty}/10</span>
           )}
@@ -130,6 +130,6 @@ export function YnCardMain() {
           <YnFeedBackForm cardId={Number(id)} enteredAt={enteredAt} />
         </div>
       </section>
-    </main>
+    </div>
   );
 }

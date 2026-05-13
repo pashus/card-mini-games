@@ -5,7 +5,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useEditCard } from "@/hooks/use-edit-card";
-import type { ICard } from "@/types";
+import type { IYnCard } from "@/types";
 import { HexColorPicker } from "react-colorful";
 import { useEffect, useRef, useState } from "react";
 
@@ -42,7 +42,7 @@ export function YnAdminEditCardForm({
   onClose,
   onPendingChange,
 }: {
-  card: ICard;
+  card: IYnCard;
   onClose: () => void;
   onPendingChange: (isPending: boolean) => void;
 }) {

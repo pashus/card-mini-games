@@ -18,13 +18,13 @@ export function TextArrow({
     <Link
       {...props}
       className={cn(
-        "flex items-start gap-1 text-3xl font-bold transition hover:text-black",
+        "flex items-start gap-px text-3xl font-bold transition hover:text-black",
         className,
       )}
     >
-      {where === "left" && <LuArrowBigLeft className="ttranslate-y-0.5" />}
+      {where === "left" && <LuArrowBigLeft className="-translate-x-1" />}
       <span className="text-xl sm:inline">{text}</span>
-      {where === "right" && <LuArrowBigRight className="translate-y-0.5" />}
+      {where === "right" && <LuArrowBigRight className="translate-x-1" />}
     </Link>
   );
 }

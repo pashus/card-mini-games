@@ -1,23 +1,23 @@
-export interface ICategory {
+export interface IYnCategory {
   name: string;
   color: string;
 }
 
-export interface ICard {
+export interface IYnCard {
   id: string;
   title: string;
   image: string;
   cardColor: string;
   question: string;
   answer: string;
-  categories: ICategory[];
+  categories: IYnCategory[];
   popularity: number;
   difficulty: number;
   duration: number;
 }
 
 export interface ICardsResponse {
-  data: ICard[];
+  data: IYnCard[];
   pagination: {
     page: number;
     limit: number;
@@ -28,7 +28,7 @@ export interface ICardsResponse {
   };
 }
 
-export interface IReview {
+export interface IYnReview {
   id: number;
   cardId: number;
   liked: string;

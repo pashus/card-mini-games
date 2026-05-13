@@ -1,5 +1,5 @@
 import { api } from "@/api";
-import type { IReview } from "@/types";
+import type { IYnReview } from "@/types";
 
 export const reviewQueries = {
   getReview: async (id: string) => {
@@ -12,7 +12,7 @@ export const reviewQueries = {
     return res.data;
   },
 
-  createReview: async (data: Omit<IReview, "id">) => {
+  createReview: async (data: Omit<IYnReview, "id">) => {
     const res = await api.post(`/reviews`, data);
     return res.data;
   },

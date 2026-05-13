@@ -14,7 +14,7 @@ export function YnCardSkeleton() {
           <Skeleton className="h-7 w-48 bg-gray-200" />
         </div>
 
-        <div className="flex flex-1 items-center rounded-xl bg-white p-6 shadow-xl">
+        <div className="flex flex-1 items-center bg-white p-6 shadow-xl">
           <div className="w-full space-y-3">
             <Skeleton className="h-4 w-full bg-gray-200" />
             <Skeleton className="h-4 w-11/12 bg-gray-200" />
@@ -23,7 +23,7 @@ export function YnCardSkeleton() {
         </div>
 
         <div>
-          <Skeleton className="h-11 w-56 animate-pulse bg-gray-300" />
+          <Skeleton className="h-11 w-48 animate-pulse bg-gray-300" />
         </div>
       </div>
     </Card>

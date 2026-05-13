@@ -1,9 +1,9 @@
 import { api } from "@/api";
-import type { ICard, ICardsResponse } from "@/types";
+import type { IYnCard, ICardsResponse } from "@/types";
 
 export const cardsQueries = {
   getCard: async (id: string) => {
-    const res = await api.get<ICard>(`/yes-no-cards/${id}`);
+    const res = await api.get<IYnCard>(`/yes-no-cards/${id}`);
     return res.data;
   },
 
@@ -14,8 +14,8 @@ export const cardsQueries = {
     return res.data;
   },
 
-  createCard: async (data: Omit<ICard, "id">) => {
-    const res = await api.post<ICard>("/yes-no-cards", data);
+  createCard: async (data: Omit<IYnCard, "id">) => {
+    const res = await api.post<IYnCard>("/yes-no-cards", data);
     console.log(res.data);
     return res.data;
   },
@@ -27,9 +27,9 @@ export const cardsQueries = {
 
   editCard: async (
     id: string,
-    data: Omit<ICard, "id" | "popularity" | "difficulty" | "duration">,
+    data: Omit<IYnCard, "id" | "popularity" | "difficulty" | "duration">,
   ) => {
-    const res = await api.patch<ICard>(`/yes-no-cards/${id}`, data);
+    const res = await api.patch<IYnCard>(`/yes-no-cards/${id}`, data);
     return res.data;
   },
 };

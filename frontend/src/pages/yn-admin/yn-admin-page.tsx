@@ -1,9 +1,9 @@
-import { YnAdminMain } from "@/components";
+import { YnAdmin } from "@/components";
 
 export function YnAdminPage() {
   return (
-    <div>
-      <YnAdminMain />
-    </div>
+    <>
+      <YnAdmin />
+    </>
   );
 }

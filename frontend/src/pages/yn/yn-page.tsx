@@ -1,9 +1,9 @@
-import { YnMain } from "@/components";
+import { Yn } from "@/components";
 
 export function YnPage() {
   return (
-    <div>
-      <YnMain />
-    </div>
+    <>
+      <Yn />
+    </>
   );
 }
