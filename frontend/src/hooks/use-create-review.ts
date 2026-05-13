@@ -14,8 +14,8 @@ export function useCreateReview() {
         queryKey: ["cards", String(data.cardId)],
       });
     },
-    // onError: () => {
-    //   console.log("Ошибка");
-    // },
+    onError: () => {
+      console.log("Ошибка");
+    },
   });
 }

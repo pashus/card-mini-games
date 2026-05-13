@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { useCreateCard } from "@/hooks/use-create-card";
 import { HexColorPicker } from "react-colorful";
 import { useEffect, useRef, useState } from "react";
+import { ImageUpload, type ImageItem } from "../image-form";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Минимум 2 символа" }).max(100, {
@@ -31,19 +32,28 @@ const formSchema = z.object({
   cardColor: z.string().min(7, { message: "Минимум 7 символов" }).max(7, {
     message: "Максимум 7 символов",
   }),
-  image: z.string().min(2, { message: "Минимум 2 символа" }).max(300, {
-    message: "Максимум 300 символов",
-  }),
+  image: z
+    .array(
+      z.object({
+        id: z.string(),
+        url: z.string(),
+        file: z.instanceof(File),
+      }),
+    )
+    .min(1, { message: "Загрузите изображение" }),
 });
+
+interface YnAdminCreateCardFormProps {
+  onClose: () => void;
+  onPendingChange: (pending: boolean) => void;
+}
 
 export function YnAdminCreateCardForm({
   onClose,
   onPendingChange,
-}: {
-  onClose: () => void;
-  onPendingChange: (isPending: boolean) => void;
-}) {
+}: YnAdminCreateCardFormProps) {
   const { mutate, isPending } = useCreateCard();
+
   const [cardColorOpen, setCardColorOpen] = useState(false);
   const [openCategoryColorIndex, setOpenCategoryColorIndex] = useState<
     number | null
@@ -87,7 +97,7 @@ export function YnAdminCreateCardForm({
       answer: "",
       categories: [],
       cardColor: "#ffffff",
-      image: "",
+      image: [],
     },
     mode: "onSubmit",
   });
@@ -98,9 +108,19 @@ export function YnAdminCreateCardForm({
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    const fullData = { ...data, duration: 0, popularity: 0, difficulty: 0 };
+    const formData = new FormData();
 
-    mutate(fullData, {
+    formData.append("title", data.title);
+    formData.append("question", data.question);
+    formData.append("answer", data.answer);
+    formData.append("cardColor", data.cardColor);
+    formData.append("categories", JSON.stringify(data.categories));
+    formData.append("duration", "0");
+    formData.append("popularity", "0");
+    formData.append("difficulty", "0");
+    formData.append("image", data.image[0]?.file!);
+
+    mutate(formData, {
       onSuccess: () => {
         form.reset();
         onClose();
@@ -261,7 +281,7 @@ export function YnAdminCreateCardForm({
             render={({ field, fieldState }) => (
               <Field>
                 <FieldLabel>Цвет карточки</FieldLabel>
-                <div className="relative flex items-center gap-2">
+                <div className="relative z-10 flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => setCardColorOpen((open) => !open)}
@@ -296,13 +316,12 @@ export function YnAdminCreateCardForm({
             render={({ field, fieldState }) => {
               return (
                 <Field>
-                  <FieldLabel htmlFor={field.name}>
-                    Ссылка на обложку
-                  </FieldLabel>
-                  <Input
-                    id={field.name}
+                  <FieldLabel>Загрузите фотографию</FieldLabel>
+                  <ImageUpload
                     {...field}
-                    placeholder="Введите ссылку"
+                    images={field.value}
+                    onChange={field.onChange}
+                    maxImages={1}
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />

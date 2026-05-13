@@ -14,9 +14,10 @@ export const cardsQueries = {
     return res.data;
   },
 
-  createCard: async (data: Omit<IYnCard, "id">) => {
-    const res = await api.post<IYnCard>("/yes-no-cards", data);
-    console.log(res.data);
+  createCard: async (data: FormData) => {
+    const res = await api.post<IYnCard>("/yes-no-cards", data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
     return res.data;
   },
 
@@ -25,11 +26,10 @@ export const cardsQueries = {
     return res.data;
   },
 
-  editCard: async (
-    id: string,
-    data: Omit<IYnCard, "id" | "popularity" | "difficulty" | "duration">,
-  ) => {
-    const res = await api.patch<IYnCard>(`/yes-no-cards/${id}`, data);
+  editCard: async (id: string, data: FormData) => {
+    const res = await api.patch<IYnCard>(`/yes-no-cards/${id}`, data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
     return res.data;
   },
 };

@@ -1,18 +1,114 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
+const multer = require("multer");
 const { pool } = require("./db/pool");
 
 const app = express();
+const uploadsDir = path.join(__dirname, "..", "uploads");
+
+fs.mkdirSync(uploadsDir, { recursive: true });
+
+const storage = multer.diskStorage({
+  destination: (_req, _file, cb) => {
+    cb(null, uploadsDir);
+  },
+  filename: (_req, file, cb) => {
+    const extension = path.extname(file.originalname) || ".jpg";
+    const safeBaseName = path
+      .basename(file.originalname, extension)
+      .replace(/[^a-zA-Z0-9_-]/g, "-")
+      .slice(0, 50);
+    cb(null, `${Date.now()}-${safeBaseName}${extension}`);
+  },
+});
+
+const upload = multer({
+  storage,
+  limits: { files: 1, fileSize: 5 * 1024 * 1024 },
+  fileFilter: (_req, file, cb) => {
+    if (!file.mimetype.startsWith("image/")) {
+      cb(new Error("Only image uploads are allowed"));
+      return;
+    }
+
+    cb(null, true);
+  },
+});
+
+function removeUploadedFile(file) {
+  if (!file) {
+    return;
+  }
+
+  fs.rm(file.path, { force: true }, () => {});
+}
 
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static(uploadsDir));
 
-function mapCard(row) {
+function buildFileUrl(req, filePath) {
+  return `${req.protocol}://${req.get("host")}${filePath}`;
+}
+
+function getLocalUploadPathFromUrl(value) {
+  if (!value) {
+    return null;
+  }
+
+  if (value.startsWith("/uploads/")) {
+    return value;
+  }
+
+  if (!/^https?:\/\//i.test(value)) {
+    return null;
+  }
+
+  try {
+    const parsedUrl = new URL(value);
+    return parsedUrl.pathname.startsWith("/uploads/")
+      ? parsedUrl.pathname
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+function toStoredImagePath(image) {
+  return getLocalUploadPathFromUrl(image) ?? image;
+}
+
+function normalizeImageUrl(req, image) {
+  if (!image) {
+    return image;
+  }
+
+  const localUploadPath = getLocalUploadPathFromUrl(image);
+  if (localUploadPath) {
+    return buildFileUrl(req, localUploadPath);
+  }
+
+  return image;
+}
+
+function removeLocalUploadByPath(imagePath) {
+  const localUploadPath = getLocalUploadPathFromUrl(imagePath);
+  if (!localUploadPath) {
+    return;
+  }
+
+  const filePath = path.join(uploadsDir, path.basename(localUploadPath));
+  fs.rm(filePath, { force: true }, () => {});
+}
+
+function mapCard(req, row) {
   return {
     id: String(row.id),
     title: row.title,
-    image: row.image,
+    image: normalizeImageUrl(req, row.image),
     cardColor: row.card_color,
     question: row.question,
     answer: row.answer,
@@ -102,7 +198,7 @@ app.get("/api/v1/yes-no-cards", async (req, res) => {
   const totalPages = Math.max(1, Math.ceil(total / safeLimit));
 
   res.json({
-    data: cardsResult.rows.map(mapCard),
+    data: cardsResult.rows.map((row) => mapCard(req, row)),
     pagination: {
       page: safePage,
       limit: safeLimit,
@@ -123,20 +219,28 @@ app.get("/api/v1/yes-no-cards/:id", async (req, res) => {
     return res.status(404).json({ message: "Card not found" });
   }
 
-  return res.json(mapCard(result.rows[0]));
+  return res.json(mapCard(req, result.rows[0]));
 });
 
-app.post("/api/v1/yes-no-cards", async (req, res) => {
+app.post("/api/v1/yes-no-cards", upload.single("image"), async (req, res) => {
   const client = await pool.connect();
   try {
+    const categories =
+      typeof req.body.categories === "string" && req.body.categories.length > 0
+        ? JSON.parse(req.body.categories)
+        : [];
     const {
       title,
-      image,
       cardColor,
       question,
       answer,
-      categories = [],
     } = req.body;
+    const image = req.file ? `/uploads/${req.file.filename}` : req.body.image;
+
+    if (!image) {
+      return res.status(400).json({ message: "Image is required" });
+    }
+
     await client.query("BEGIN");
 
     const createCard = await client.query(
@@ -160,9 +264,10 @@ app.post("/api/v1/yes-no-cards", async (req, res) => {
 
     const result = await pool.query(`${cardSelect} WHERE c.id = $1`, [cardId]);
 
-    return res.status(201).json(mapCard(result.rows[0]));
+    return res.status(201).json(mapCard(req, result.rows[0]));
   } catch (error) {
     await client.query("ROLLBACK");
+    removeUploadedFile(req.file);
     return res
       .status(400)
       .json({ message: "Could not create card", error: error.message });
@@ -171,33 +276,52 @@ app.post("/api/v1/yes-no-cards", async (req, res) => {
   }
 });
 
-app.patch("/api/v1/yes-no-cards/:id", async (req, res) => {
+app.patch("/api/v1/yes-no-cards/:id", upload.single("image"), async (req, res) => {
   const id = Number(req.params.id);
   const client = await pool.connect();
 
   try {
+    const categories =
+      typeof req.body.categories === "string" && req.body.categories.length > 0
+        ? JSON.parse(req.body.categories)
+        : [];
     const {
       title,
-      image,
       cardColor,
       question,
       answer,
-      categories = [],
     } = req.body;
     await client.query("BEGIN");
+
+    const existingCardResult = await client.query(
+      "SELECT image FROM yes_no_cards WHERE id = $1",
+      [id],
+    );
+
+    if (existingCardResult.rows.length === 0) {
+      removeUploadedFile(req.file);
+      await client.query("ROLLBACK");
+      return res.status(404).json({ message: "Card not found" });
+    }
+
+    const previousImage = existingCardResult.rows[0].image;
+    const nextImage = req.file
+      ? `/uploads/${req.file.filename}`
+      : toStoredImagePath(req.body.image || previousImage);
+
+    if (!nextImage) {
+      removeUploadedFile(req.file);
+      await client.query("ROLLBACK");
+      return res.status(400).json({ message: "Image is required" });
+    }
 
     const updated = await client.query(
       `UPDATE yes_no_cards
         SET title = $1, image = $2, card_color = $3, question = $4, answer = $5, updated_at = NOW()
         WHERE id = $6
         RETURNING id`,
-      [title, image, cardColor, question, answer, id],
+      [title, nextImage, cardColor, question, answer, id],
     );
-
-    if (updated.rows.length === 0) {
-      await client.query("ROLLBACK");
-      return res.status(404).json({ message: "Card not found" });
-    }
 
     await client.query("DELETE FROM card_categories WHERE card_id = $1", [id]);
     for (const category of categories) {
@@ -210,11 +334,16 @@ app.patch("/api/v1/yes-no-cards/:id", async (req, res) => {
 
     await client.query("COMMIT");
 
+    if (req.file && previousImage !== nextImage) {
+      removeLocalUploadByPath(previousImage);
+    }
+
     const result = await pool.query(`${cardSelect} WHERE c.id = $1`, [id]);
 
-    return res.json(mapCard(result.rows[0]));
+    return res.json(mapCard(req, result.rows[0]));
   } catch (error) {
     await client.query("ROLLBACK");
+    removeUploadedFile(req.file);
     return res
       .status(400)
       .json({ message: "Could not update card", error: error.message });
@@ -225,13 +354,19 @@ app.patch("/api/v1/yes-no-cards/:id", async (req, res) => {
 
 app.delete("/api/v1/yes-no-cards/:id", async (req, res) => {
   const id = Number(req.params.id);
-  const result = await pool.query("DELETE FROM yes_no_cards WHERE id = $1", [
-    id,
-  ]);
+  const existingCardResult = await pool.query(
+    "SELECT image FROM yes_no_cards WHERE id = $1",
+    [id],
+  );
 
-  if (result.rowCount === 0) {
+  if (existingCardResult.rows.length === 0) {
     return res.status(404).json({ message: "Card not found" });
   }
+
+  const image = existingCardResult.rows[0].image;
+
+  await pool.query("DELETE FROM yes_no_cards WHERE id = $1", [id]);
+  removeLocalUploadByPath(image);
 
   return res.json({ message: "Card deleted" });
 });
@@ -276,6 +411,15 @@ app.get("/api/v1/health", (_req, res) => {
 
 app.use((error, _req, res, _next) => {
   console.error(error);
+
+  if (error instanceof multer.MulterError) {
+    return res.status(400).json({ message: error.message });
+  }
+
+  if (error.message === "Only image uploads are allowed") {
+    return res.status(400).json({ message: error.message });
+  }
+
   res.status(500).json({ message: "Internal server error" });
 });
 

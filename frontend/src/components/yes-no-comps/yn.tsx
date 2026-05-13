@@ -24,6 +24,7 @@ import {
   PaginationPrevious,
 } from "../ui/pagination";
 import { TextArrow } from "../text-arrow";
+import { ImageUpload, type ImageItem } from "../image-form";
 
 export function Yn() {
   const [searchParams, setSearchParams] = useSearchParams();

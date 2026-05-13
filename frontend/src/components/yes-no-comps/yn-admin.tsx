@@ -50,129 +50,127 @@ export function YnAdmin() {
   }
 
   return (
-    <div className="relative container mx-auto flex flex-col justify-between">
-      <div>
-        {/* <SearchInput
+    <div className="flex flex-1 flex-col">
+      {/* <SearchInput
           onChange={handleSearch}
           placeholderText="Найдите нужную данетку"
           className="absolute top-6 right-6 max-w-xl"
         /> */}
 
-        <section className="pt-7 text-center">
-          <div className="flex items-center justify-center gap-2">
-            <h1 className="text-center text-4xl font-bold">Данетки</h1>
-          </div>
-        </section>
+      <section className="mx-auto max-w-7xl pt-7 text-center">
+        <div className="flex items-center justify-center gap-2">
+          <h1 className="text-center text-4xl font-bold">Данетки</h1>
+        </div>
+      </section>
 
-        <section className="mt-12">
-          <div className="flex lg:justify-end">
-            <YnAdminCreateCardModal />
-          </div>
+      <section className="mx-auto mt-16 w-full max-w-7xl">
+        <div className="flex lg:justify-end">
+          <YnAdminCreateCardModal />
+        </div>
 
-          {isLoading && <YnSkeletonGrid />}
+        {isLoading && <YnSkeletonGrid />}
 
-          {!isLoading && !cards?.data && (
-            <p className="text-start text-lg opacity-70">Карточек нет</p>
-          )}
+        {!isLoading && !cards?.data && (
+          <p className="text-start text-lg opacity-70">Карточек нет</p>
+        )}
 
-          {!isLoading && cards?.data && (
-            <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {cards.data.map((card: IYnCard) => (
-                <Card
-                  key={card.id}
-                  className="relative h-100 overflow-hidden py-0 transition hover:shadow-lg"
-                  style={{ backgroundColor: card.cardColor }}
-                >
-                  <div className="absolute top-3 left-3 text-3xl">
-                    <YnAdminEditCardModal card={card} />
-                  </div>
-                  <div className="absolute top-3 right-3 text-3xl">
-                    <YnAdminDeleteCardModal cardId={card.id} />
-                  </div>
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    className="h-48 w-full object-cover"
-                  />
-                  <CardContent className="p-4 pt-0">
-                    <CardTitle className="text-center text-xl">
-                      {card.title}
-                    </CardTitle>
-                    <CardDescription className="line-clamp-3">
-                      {card.question}
-                    </CardDescription>
-                    <CardContent className="mt-2 flex justify-between px-0">
-                      <div className="text-md flex items-center gap-1">
-                        <BiLike />
-                        {card.popularity + "%"}
-                      </div>
-                      <div className="text-md flex items-center gap-1">
-                        <BiTimeFive />
-                        {card.duration + " мин."}
-                      </div>
-                      <div className="text-md flex items-center gap-1">
-                        <HiArrowsUpDown />
-                        {card.difficulty + "/10"}
-                      </div>
-                    </CardContent>
-                    <div className="flex flex-row gap-2">
-                      {card.categories.map((category) => (
-                        <div
-                          key={category.name}
-                          className="mt-1 flex items-center rounded-xl px-2 py-1 text-center text-sm font-semibold shadow-sm select-none"
-                          style={{ backgroundColor: category.color }}
-                        >
-                          {category.name}
-                        </div>
-                      ))}
+        {!isLoading && cards?.data && (
+          <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {cards.data.map((card: IYnCard) => (
+              <Card
+                key={card.id}
+                className="relative h-100 overflow-hidden py-0 transition hover:shadow-lg"
+                style={{ backgroundColor: card.cardColor }}
+              >
+                <div className="absolute top-3 left-3 text-3xl">
+                  <YnAdminEditCardModal card={card} />
+                </div>
+                <div className="absolute top-3 right-3 text-3xl">
+                  <YnAdminDeleteCardModal cardId={card.id} />
+                </div>
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  className="h-48 w-full object-cover"
+                />
+                <CardContent className="p-4 pt-0">
+                  <CardTitle className="text-center text-xl">
+                    {card.title}
+                  </CardTitle>
+                  <CardDescription className="line-clamp-3">
+                    {card.question}
+                  </CardDescription>
+                  <CardContent className="mt-2 flex justify-between px-0">
+                    <div className="text-md flex items-center gap-1">
+                      <BiLike />
+                      {card.popularity + "%"}
+                    </div>
+                    <div className="text-md flex items-center gap-1">
+                      <BiTimeFive />
+                      {card.duration + " мин."}
+                    </div>
+                    <div className="text-md flex items-center gap-1">
+                      <HiArrowsUpDown />
+                      {card.difficulty + "/10"}
                     </div>
                   </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
-
-          {totalPages > 1 && (
-            <div className="mt-8 flex justify-center">
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious
-                      onClick={() => page > 1 && setPage(page - 1)}
-                      className={
-                        hasPrev
-                          ? "cursor-pointer"
-                          : "pointer-events-none opacity-50"
-                      }
-                    />
-                  </PaginationItem>
-                  {pages.map((pageNum) => (
-                    <PaginationItem key={pageNum}>
-                      <PaginationLink
-                        onClick={() => setPage(pageNum)}
-                        isActive={page === pageNum}
-                        className="cursor-pointer"
+                  <div className="flex flex-row gap-2">
+                    {card.categories.map((category) => (
+                      <div
+                        key={category.name}
+                        className="mt-1 flex items-center rounded-xl px-2 py-1 text-center text-sm font-semibold shadow-sm select-none"
+                        style={{ backgroundColor: category.color }}
                       >
-                        {pageNum}
-                      </PaginationLink>
-                    </PaginationItem>
-                  ))}
-                  <PaginationItem>
-                    <PaginationNext
-                      onClick={() => page < totalPages && setPage(page + 1)}
-                      className={
-                        hasNext
-                          ? "cursor-pointer"
-                          : "pointer-events-none opacity-50"
-                      }
-                    />
+                        {category.name}
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {totalPages > 1 && (
+          <div className="mt-8 flex justify-center">
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={() => page > 1 && setPage(page - 1)}
+                    className={
+                      hasPrev
+                        ? "cursor-pointer"
+                        : "pointer-events-none opacity-50"
+                    }
+                  />
+                </PaginationItem>
+                {pages.map((pageNum) => (
+                  <PaginationItem key={pageNum}>
+                    <PaginationLink
+                      onClick={() => setPage(pageNum)}
+                      isActive={page === pageNum}
+                      className="cursor-pointer"
+                    >
+                      {pageNum}
+                    </PaginationLink>
                   </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            </div>
-          )}
-        </section>
-      </div>
+                ))}
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={() => page < totalPages && setPage(page + 1)}
+                    className={
+                      hasNext
+                        ? "cursor-pointer"
+                        : "pointer-events-none opacity-50"
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
+        )}
+      </section>
     </div>
   );
 }
