@@ -47,6 +47,7 @@
   --color-container-background: var(--container-background);
   --color-card-stats: var(--card-stats);
   /* --color-hover-pagination-button-bg: var(--hover-pagination-button-bg); */
+  --color-card-review-buttons: var(--card-review-buttons);
 }
 
 :root {
@@ -59,6 +60,7 @@
   --footer-foreground: #fff7f0;
   --search-input: #fff7f0;
   --card-stats: #fef2e7;
+  --card-review-buttons: #fef2e7;
 
   /* --hover-pagination-button-bg: #6c4a2680; */
 
@@ -71,19 +73,20 @@
   --primary-foreground: #4b3f3f;
   --secondary: #ffe6cc;
   --secondary-foreground: #4b3f3f;
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted: #efd8bf;
+  --muted-foreground: #7a624d;
+
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --destructive: #e8603b;
+  --border: #ffe6cc;
+  --input: #6c4a2633;
+  --ring: #ffb86c;
+  --chart-1: #ffb86c;
+  --chart-2: #ffe6cc;
+  --chart-3: #4b3f3f;
+  --chart-4: #6c4a26;
+  --chart-5: #ffb86c;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);

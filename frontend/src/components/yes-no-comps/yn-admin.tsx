@@ -26,6 +26,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../ui/pagination";
+import { YnAdminDeleteCardModal } from "./yn-admin-delete-card-modal";
 
 export function YnAdmin() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -79,14 +80,14 @@ export function YnAdmin() {
               {cards.data.map((card: IYnCard) => (
                 <Card
                   key={card.id}
-                  className="relative h-100 overflow-hidden py-0 transition hover:-translate-y-1 hover:shadow-lg"
+                  className="relative h-100 overflow-hidden py-0 transition hover:shadow-lg"
                   style={{ backgroundColor: card.cardColor }}
                 >
                   <div className="absolute top-3 left-3 text-3xl">
                     <YnAdminEditCardModal card={card} />
                   </div>
                   <div className="absolute top-3 right-3 text-3xl">
-                    <DeleteButton cardId={card.id} />
+                    <YnAdminDeleteCardModal cardId={card.id} />
                   </div>
                   <img
                     src={card.image}

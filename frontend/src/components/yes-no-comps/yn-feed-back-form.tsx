@@ -74,7 +74,7 @@ export function YnFeedBackForm({
                     <Label
                       key={item.value}
                       htmlFor={`liked-${item.value}`}
-                      className="hover:bg-muted has-checked:bg-primary has-checked:text-primary-foreground has-checked:border-primary h-12 flex-1 cursor-pointer items-center justify-center rounded-sm border bg-[#fef2e7] px-4 py-2 text-xl transition"
+                      className="hover:bg-muted has-checked:bg-primary has-checked:text-primary-foreground has-checked:border-primary bg-card-review-buttons h-12 flex-1 cursor-pointer items-center justify-center rounded-sm border px-4 py-2 text-xl transition"
                     >
                       <RadioGroupItem
                         id={`liked-${item.value}`}
@@ -106,7 +106,7 @@ export function YnFeedBackForm({
                     <Label
                       key={item.value}
                       htmlFor={`difficulty-${item.value}`}
-                      className="hover:bg-muted has-checked:bg-primary has-checked:text-primary-foreground has-checked:border-primary h-12 flex-1 cursor-pointer items-center justify-center rounded-sm border bg-[#fef2e7] px-4 py-2 text-xl transition"
+                      className="hover:bg-muted has-checked:bg-primary has-checked:text-primary-foreground has-checked:border-primary bg-card-review-buttons h-12 flex-1 cursor-pointer items-center justify-center rounded-sm border px-4 py-2 text-xl transition"
                     >
                       <RadioGroupItem
                         id={`difficulty-${item.value}`}
@@ -129,7 +129,7 @@ export function YnFeedBackForm({
             render={({ field, fieldState }) => (
               <Field className="gap-1">
                 <FieldGroup className="flex-row justify-between gap-1">
-                  <FieldLabel className="text-md">
+                  <FieldLabel htmlFor="minutesInput" className="text-md">
                     Сколько минут решали?
                   </FieldLabel>
                   <FieldLabel className="text-md text-end">
@@ -137,6 +137,7 @@ export function YnFeedBackForm({
                   </FieldLabel>
                 </FieldGroup>
                 <Input
+                  id="minutesInput"
                   type="number"
                   min={1}
                   max={60}
@@ -145,7 +146,7 @@ export function YnFeedBackForm({
                   onChange={(e) => {
                     field.onChange(Number(e.target.value));
                   }}
-                  className="hover:bg-muted h-12 rounded-sm border bg-[#fef2e7] px-4 py-2 text-xl! transition"
+                  className="bg-card-review-buttons h-12 rounded-sm border-0 px-4 py-2 text-xl! transition"
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />

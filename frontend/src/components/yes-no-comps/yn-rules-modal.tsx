@@ -28,7 +28,7 @@ export function YnRulesModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <GiHelp className="relative top-0.5 cursor-pointer text-3xl duration-200 hover:text-[#665a5a]" />
+        <GiHelp className="hover:text-muted-foreground relative top-0.5 cursor-pointer text-3xl duration-200" />
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

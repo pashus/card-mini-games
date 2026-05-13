@@ -8,15 +8,15 @@ export function Header() {
         КАРТОЧНЫЕ ИГРУШКИ
       </Link>
       <div className="flex gap-4">
-        <a className="text-2xl" href="#">
+        <Link className="text-2xl" to="#">
           <LuAngry />
-        </a>
-        <a className="text-2xl" href="#">
+        </Link>
+        <Link className="text-2xl" to="/yes-no-game">
           <LuAnnoyed />
-        </a>
-        <a className="text-2xl" href="#">
+        </Link>
+        <Link className="text-2xl" to="/yes-no-game/admin">
           <LuSmile />
-        </a>
+        </Link>
       </div>
     </header>
   );
