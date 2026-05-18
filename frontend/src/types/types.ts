@@ -5,6 +5,7 @@ export interface IYnCategory {
 
 export interface IYnCard {
   id: string;
+  nextYnCardId: string | null;
   title: string;
   image: string;
   cardColor: string;

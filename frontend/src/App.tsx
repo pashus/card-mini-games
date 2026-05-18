@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import { HomePage, YnAdminPage, YnCardPage, YnPage } from "@/pages";
 import { Layout } from "@/components/layout";
 
@@ -24,8 +28,12 @@ function App() {
           element: <YnAdminPage />,
         },
         {
-          path: "*",
+          path: "/not-found",
           element: <h1>404: Страница не найдена</h1>,
+        },
+        {
+          path: "*",
+          element: <Navigate to="/not-found" replace />,
         },
       ],
     },

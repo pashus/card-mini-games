@@ -24,12 +24,11 @@ import {
   PaginationPrevious,
 } from "../ui/pagination";
 import { TextArrow } from "../text-arrow";
-import { ImageUpload, type ImageItem } from "../image-form";
 
 export function Yn() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const limit = 8;
+  const limit = 12;
   const page = Number(searchParams.get("page")) || 1;
 
   const { data: cards, isLoading } = useCards(page, limit);
@@ -81,7 +80,7 @@ export function Yn() {
           )}
 
           {!isLoading && cards?.data && (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="xs:grid-cols-2 grid grid-cols-1 gap-6 lg:grid-cols-3 xl:grid-cols-4">
               {cards.data.map((card: IYnCard) => (
                 <Link key={card.id} to={`/yes-no-game/card/${card.id}`}>
                   <Card

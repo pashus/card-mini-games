@@ -1,5 +1,4 @@
-import { LuArrowBigLeft, LuArrowBigRight } from "react-icons/lu";
-import { Link, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { useEffect, useState } from "react";
@@ -10,12 +9,14 @@ import { BiLike } from "react-icons/bi";
 import { BiTimeFive } from "react-icons/bi";
 import { HiArrowsUpDown } from "react-icons/hi2";
 import { Skeleton } from "../ui/skeleton";
+import { isAxiosError } from "axios";
 
 export function YnCard() {
   const id = useParams().id;
   const [isAnswer, setIsAnswer] = useState(false);
-  const { data: card, isLoading } = useCard(id!);
   const [enteredAt, setEnteredAt] = useState("");
+
+  const { data: card, isLoading, error } = useCard(id!);
 
   useEffect(() => {
     const now = new Date();
@@ -31,14 +32,19 @@ export function YnCard() {
     window.scrollTo(0, 0);
   }, []);
 
+  if (isAxiosError(error) && error.response?.status === 404) {
+    return <Navigate to="/not-found" replace />;
+  }
+
   return (
     <div>
       <section className="mx-auto flex h-8 w-full max-w-[1550px] items-center justify-between">
         <TextArrow to="/yes-no-game" text="К списку" where="left" />
         <TextArrow
-          to={`/yes-no-game/card/${Number(id) + 1}`}
+          to={`/yes-no-game/card/${card?.nextYnCardId}`}
           text="Следующая"
           where="right"
+          disabled={isLoading || !card || card?.nextYnCardId === null}
         />
       </section>
 

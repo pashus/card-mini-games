@@ -6,12 +6,14 @@ interface TextArrowProps extends LinkProps {
   text?: string;
   where?: "left" | "right";
   className?: string;
+  disabled?: boolean;
 }
 
 export function TextArrow({
   text,
   where,
   className,
+  disabled,
   ...props
 }: TextArrowProps) {
   return (
@@ -20,6 +22,7 @@ export function TextArrow({
       className={cn(
         "flex items-start gap-px text-3xl font-bold transition hover:text-black",
         className,
+        disabled && "pointer-events-none opacity-50 select-none",
       )}
     >
       {where === "left" && <LuArrowBigLeft className="-translate-x-1" />}

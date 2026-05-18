@@ -107,6 +107,7 @@ function removeLocalUploadByPath(imagePath) {
 function mapCard(req, row) {
   return {
     id: String(row.id),
+    nextYnCardId: row.next_yn_card_id ? String(row.next_yn_card_id) : null,
     title: row.title,
     image: normalizeImageUrl(req, row.image),
     cardColor: row.card_color,
@@ -122,6 +123,7 @@ function mapCard(req, row) {
 const cardSelect = `
   SELECT
     c.id,
+    next_card_data.next_yn_card_id,
     c.title,
     c.image,
     c.card_color,
@@ -132,6 +134,13 @@ const cardSelect = `
     reviews_data.difficulty,
     reviews_data.duration
   FROM yes_no_cards c
+  LEFT JOIN LATERAL (
+    SELECT next_card.id AS next_yn_card_id
+    FROM yes_no_cards next_card
+    WHERE next_card.id > c.id
+    ORDER BY next_card.id ASC
+    LIMIT 1
+  ) AS next_card_data ON TRUE
   LEFT JOIN LATERAL (
     SELECT COALESCE(
       json_agg(
@@ -229,12 +238,7 @@ app.post("/api/v1/yes-no-cards", upload.single("image"), async (req, res) => {
       typeof req.body.categories === "string" && req.body.categories.length > 0
         ? JSON.parse(req.body.categories)
         : [];
-    const {
-      title,
-      cardColor,
-      question,
-      answer,
-    } = req.body;
+    const { title, cardColor, question, answer } = req.body;
     const image = req.file ? `/uploads/${req.file.filename}` : req.body.image;
 
     if (!image) {
@@ -276,81 +280,83 @@ app.post("/api/v1/yes-no-cards", upload.single("image"), async (req, res) => {
   }
 });
 
-app.patch("/api/v1/yes-no-cards/:id", upload.single("image"), async (req, res) => {
-  const id = Number(req.params.id);
-  const client = await pool.connect();
+app.patch(
+  "/api/v1/yes-no-cards/:id",
+  upload.single("image"),
+  async (req, res) => {
+    const id = Number(req.params.id);
+    const client = await pool.connect();
 
-  try {
-    const categories =
-      typeof req.body.categories === "string" && req.body.categories.length > 0
-        ? JSON.parse(req.body.categories)
-        : [];
-    const {
-      title,
-      cardColor,
-      question,
-      answer,
-    } = req.body;
-    await client.query("BEGIN");
+    try {
+      const categories =
+        typeof req.body.categories === "string" &&
+        req.body.categories.length > 0
+          ? JSON.parse(req.body.categories)
+          : [];
+      const { title, cardColor, question, answer } = req.body;
+      await client.query("BEGIN");
 
-    const existingCardResult = await client.query(
-      "SELECT image FROM yes_no_cards WHERE id = $1",
-      [id],
-    );
+      const existingCardResult = await client.query(
+        "SELECT image FROM yes_no_cards WHERE id = $1",
+        [id],
+      );
 
-    if (existingCardResult.rows.length === 0) {
-      removeUploadedFile(req.file);
-      await client.query("ROLLBACK");
-      return res.status(404).json({ message: "Card not found" });
-    }
+      if (existingCardResult.rows.length === 0) {
+        removeUploadedFile(req.file);
+        await client.query("ROLLBACK");
+        return res.status(404).json({ message: "Card not found" });
+      }
 
-    const previousImage = existingCardResult.rows[0].image;
-    const nextImage = req.file
-      ? `/uploads/${req.file.filename}`
-      : toStoredImagePath(req.body.image || previousImage);
+      const previousImage = existingCardResult.rows[0].image;
+      const nextImage = req.file
+        ? `/uploads/${req.file.filename}`
+        : toStoredImagePath(req.body.image || previousImage);
 
-    if (!nextImage) {
-      removeUploadedFile(req.file);
-      await client.query("ROLLBACK");
-      return res.status(400).json({ message: "Image is required" });
-    }
+      if (!nextImage) {
+        removeUploadedFile(req.file);
+        await client.query("ROLLBACK");
+        return res.status(400).json({ message: "Image is required" });
+      }
 
-    const updated = await client.query(
-      `UPDATE yes_no_cards
+      const updated = await client.query(
+        `UPDATE yes_no_cards
         SET title = $1, image = $2, card_color = $3, question = $4, answer = $5, updated_at = NOW()
         WHERE id = $6
         RETURNING id`,
-      [title, nextImage, cardColor, question, answer, id],
-    );
-
-    await client.query("DELETE FROM card_categories WHERE card_id = $1", [id]);
-    for (const category of categories) {
-      await client.query(
-        `INSERT INTO card_categories (card_id, name, color)
-          VALUES ($1, $2, $3)`,
-        [id, category.name, category.color],
+        [title, nextImage, cardColor, question, answer, id],
       );
+
+      await client.query("DELETE FROM card_categories WHERE card_id = $1", [
+        id,
+      ]);
+      for (const category of categories) {
+        await client.query(
+          `INSERT INTO card_categories (card_id, name, color)
+          VALUES ($1, $2, $3)`,
+          [id, category.name, category.color],
+        );
+      }
+
+      await client.query("COMMIT");
+
+      if (req.file && previousImage !== nextImage) {
+        removeLocalUploadByPath(previousImage);
+      }
+
+      const result = await pool.query(`${cardSelect} WHERE c.id = $1`, [id]);
+
+      return res.json(mapCard(req, result.rows[0]));
+    } catch (error) {
+      await client.query("ROLLBACK");
+      removeUploadedFile(req.file);
+      return res
+        .status(400)
+        .json({ message: "Could not update card", error: error.message });
+    } finally {
+      client.release();
     }
-
-    await client.query("COMMIT");
-
-    if (req.file && previousImage !== nextImage) {
-      removeLocalUploadByPath(previousImage);
-    }
-
-    const result = await pool.query(`${cardSelect} WHERE c.id = $1`, [id]);
-
-    return res.json(mapCard(req, result.rows[0]));
-  } catch (error) {
-    await client.query("ROLLBACK");
-    removeUploadedFile(req.file);
-    return res
-      .status(400)
-      .json({ message: "Could not update card", error: error.message });
-  } finally {
-    client.release();
-  }
-});
+  },
+);
 
 app.delete("/api/v1/yes-no-cards/:id", async (req, res) => {
   const id = Number(req.params.id);
@@ -423,7 +429,7 @@ app.use((error, _req, res, _next) => {
   res.status(500).json({ message: "Internal server error" });
 });
 
-const port = Number(process.env.PORT || 4000);
+const port = Number(process.env.SERVER_PORT);
 app.listen(port, () => {
   console.log(`Сервер запущен на http://localhost:${port}`);
 });
