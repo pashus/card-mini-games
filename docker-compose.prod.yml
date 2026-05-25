@@ -25,6 +25,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  # watchtower:
+  #   image: containrrr/watchtower
+  #   container_name: watchtower
+  #   restart: unless-stopped
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   command: --interval 30 backend frontend
+
 volumes:
   postgres_data:
   backend_uploads:
