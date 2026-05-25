@@ -1,7 +1,7 @@
 services:
   frontend:
     build: ./frontend
-    image: card-mini-games-frontend:prod
+    image: ghcr.io/pashus/card-mini-games-frontend:latest
     restart: unless-stopped
     ports:
       - "80:80"
@@ -14,7 +14,7 @@ services:
 
   backend:
     build: ./backend
-    image: card-mini-games-backend:prod
+    image: ghcr.io/pashus/card-mini-games-backend:latest
     restart: unless-stopped
     env_file:
       - .env
