@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import { useCreateCard } from "@/hooks/use-create-card";
 import { HexColorPicker } from "react-colorful";
 import { useEffect, useRef, useState } from "react";
-import { ImageUpload, type ImageItem } from "../image-form";
+import { ImageUpload } from "../image-form";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Минимум 2 символа" }).max(100, {
@@ -208,7 +208,7 @@ export function YnAdminCreateCardForm({
                 <Controller
                   name={`categories.${index}.name`}
                   control={form.control}
-                  render={({ field, fieldState }) => (
+                  render={({ field }) => (
                     <Field>
                       <Input
                         id="categories"
@@ -224,7 +224,7 @@ export function YnAdminCreateCardForm({
                 <Controller
                   name={`categories.${index}.color`}
                   control={form.control}
-                  render={({ field, fieldState }) => (
+                  render={({ field }) => (
                     <Field>
                       <div className="relative flex items-center gap-2">
                         <button

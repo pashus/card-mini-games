@@ -1,4 +1,3 @@
-import { LuArrowBigLeft } from "react-icons/lu";
 import {
   Card,
   CardContent,
@@ -6,7 +5,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useCards } from "@/hooks/use-cards";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import type { IYnCard } from "@/types";
 import { Link, useSearchParams } from "react-router-dom";
 import { HiOutlineLightBulb } from "react-icons/hi";

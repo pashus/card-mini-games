@@ -5,17 +5,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useCards } from "@/hooks/use-cards";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import type { IYnCard } from "@/types";
-import { IoClose } from "react-icons/io5";
-import { SearchInput } from "../search-input";
 import { BiLike } from "react-icons/bi";
 import { BiTimeFive } from "react-icons/bi";
 import { HiArrowsUpDown } from "react-icons/hi2";
 import { YnSkeletonGrid } from "./yn-skeleton";
 import { YnAdminCreateCardModal } from "./yn-admin-create-card-modal";
-import { DeleteButton } from "../delete-button";
-import { EditButton } from "../edit-button";
 import { YnAdminEditCardModal } from "./yn-admin-edit-card-modal";
 import { useSearchParams } from "react-router-dom";
 import {

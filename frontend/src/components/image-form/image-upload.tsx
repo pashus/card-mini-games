@@ -1,14 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
-import {
-  X,
-  Upload,
-  Loader2,
-  ImageIcon,
-  GripVertical,
-  Star,
-} from "lucide-react";
+import { Upload, Loader2, GripVertical, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 // import { useToast } from "@/hooks/use-toast";
@@ -98,14 +91,14 @@ export function ImageUpload({
   maxImages = 10,
   allowedTypes = DEFAULT_ALLOWED_TYPES,
   maxFileSize = DEFAULT_MAX_FILE_SIZE,
-  aspectRatio = 4 / 3,
-  enableCrop = false,
-  enablePreview = false,
+  // aspectRatio = 4 / 3,
+  // enableCrop = false,
+  // enablePreview = false,
   enableReorder = false,
   showCoverBadge = false,
   coverBadgeLabel = "Cover",
   onUpload,
-  onCropComplete,
+  // onCropComplete,
 }: ImageUploadProps) {
   // const { toast } = useToast();
   const [uploading, setUploading] = useState(false);
@@ -213,8 +206,8 @@ export function ImageUpload({
           //   description: `${newImages.length} image(s) added`,
           // });
         } catch (error: unknown) {
-          const message =
-            error instanceof Error ? error.message : "Failed to process images";
+          // const message =
+          //   error instanceof Error ? error.message : "Failed to process images";
           // toast({
           //   title: "Error",
           //   description: message,
@@ -277,33 +270,33 @@ export function ImageUpload({
   };
 
   // Handle crop complete
-  const handleCropComplete = async (
-    index: number,
-    croppedImage: Blob | string,
-  ) => {
-    const image = images[index];
+  // const handleCropComplete = async (
+  //   index: number,
+  //   croppedImage: Blob | string,
+  // ) => {
+  //   const image = images[index];
 
-    let newUrl: string;
+  //   let newUrl: string;
 
-    if (typeof croppedImage === "string") {
-      // It's already a data URL
-      newUrl = croppedImage;
-    } else if (onCropComplete) {
-      // Use custom handler to upload cropped image
-      newUrl = await onCropComplete(image.id, croppedImage);
-    } else {
-      // Convert blob to data URL
-      newUrl = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result as string);
-        reader.readAsDataURL(croppedImage);
-      });
-    }
+  //   if (typeof croppedImage === "string") {
+  //     // It's already a data URL
+  //     newUrl = croppedImage;
+  //   } else if (onCropComplete) {
+  //     // Use custom handler to upload cropped image
+  //     newUrl = await onCropComplete(image.id, croppedImage);
+  //   } else {
+  //     // Convert blob to data URL
+  //     newUrl = await new Promise((resolve) => {
+  //       const reader = new FileReader();
+  //       reader.onload = () => resolve(reader.result as string);
+  //       reader.readAsDataURL(croppedImage);
+  //     });
+  //   }
 
-    const newImages = [...images];
-    newImages[index] = { ...image, url: newUrl };
-    onChange(newImages);
-  };
+  //   const newImages = [...images];
+  //   newImages[index] = { ...image, url: newUrl };
+  //   onChange(newImages);
+  // };
 
   // Drag handlers for reordering
   const handleDragStart = (e: React.DragEvent, index: number) => {
