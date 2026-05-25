@@ -10,6 +10,7 @@ const app = express();
 const uploadsDir = path.join(__dirname, "..", "uploads");
 
 fs.mkdirSync(uploadsDir, { recursive: true });
+app.set("trust proxy", true);
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {

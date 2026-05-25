@@ -1,6 +1,9 @@
-:80 {
+cardminigames.fun, www.cardminigames.fun {
   encode zstd gzip
   root * /site
+
+  @www host www.cardminigames.fun
+  redir @www https://cardminigames.fun{uri} 308
 
   route {
     reverse_proxy /api/v1/* backend:4000
