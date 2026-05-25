@@ -74,7 +74,7 @@ export function Yn() {
 
           {isLoading && <YnSkeletonGrid />}
 
-          {!isLoading && !cards?.data && (
+          {!isLoading && cards?.data.length === 0 && (
             <p className="text-start text-lg opacity-70">Карточек нет</p>
           )}
 
