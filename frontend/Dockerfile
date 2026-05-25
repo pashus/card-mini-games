@@ -8,9 +8,9 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM caddy:2.9-alpine AS runtime
+FROM caddy:2.9-alpine
 
 COPY Caddyfile /etc/caddy/Caddyfile
-COPY --from=build /app/dist /srv
+COPY --from=build /app/dist /site
 
 EXPOSE 80

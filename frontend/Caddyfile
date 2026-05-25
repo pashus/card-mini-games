@@ -1,6 +1,6 @@
-:8080 {
+:80 {
   encode zstd gzip
-  root * /srv
+  root * /site
 
   route {
     reverse_proxy /api/v1/* backend:4000
