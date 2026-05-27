@@ -20,7 +20,7 @@ export function TextArrow({
     <Link
       {...props}
       className={cn(
-        "flex items-start gap-px text-3xl font-bold transition hover:text-black",
+        "flex items-start gap-px text-3xl font-bold tracking-wider transition hover:text-black",
         className,
         disabled && "pointer-events-none opacity-50 select-none",
       )}

@@ -21,7 +21,10 @@ export function YnAdminEditCardModal({ card }: { card: any }) {
           setOpen(true);
         }}
       />
-      <DialogContent className="max-h-[90svh] overflow-y-auto">
+      <DialogContent
+        className="max-h-[90svh] overflow-y-auto"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+      >
         <DialogHeader>
           <DialogTitle className="text-center">
             Редактирование данетки

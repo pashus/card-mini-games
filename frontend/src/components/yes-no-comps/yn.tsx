@@ -59,7 +59,9 @@ export function Yn() {
 
       <section className="mx-auto max-w-7xl pt-7 text-center">
         <div className="flex items-center justify-center gap-2">
-          <h1 className="text-center text-4xl font-bold">Данетки</h1>
+          <h1 className="text-center text-4xl font-bold tracking-wider">
+            Данетки
+          </h1>
           <YnRulesModal />
         </div>
         <p className="mt-4 text-lg opacity-80">
@@ -70,7 +72,9 @@ export function Yn() {
 
       <div className="flex flex-1 flex-col justify-between">
         <section className="mx-auto mt-16 w-full max-w-7xl">
-          <h2 className="mb-6 text-2xl font-semibold">Выберите данетку</h2>
+          <h2 className="mb-6 text-2xl font-semibold tracking-wider">
+            Выберите данетку
+          </h2>
 
           {isLoading && <YnSkeletonGrid />}
 

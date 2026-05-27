@@ -55,7 +55,9 @@ export function YnAdmin() {
 
       <section className="mx-auto max-w-7xl pt-7 text-center">
         <div className="flex items-center justify-center gap-2">
-          <h1 className="text-center text-4xl font-bold">Данетки</h1>
+          <h1 className="text-center text-4xl font-bold tracking-wider">
+            Данетки
+          </h1>
         </div>
       </section>
 
