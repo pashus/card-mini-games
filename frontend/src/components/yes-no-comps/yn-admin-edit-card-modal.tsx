@@ -21,7 +21,7 @@ export function YnAdminEditCardModal({ card }: { card: any }) {
           setOpen(true);
         }}
       />
-      <DialogContent>
+      <DialogContent className="max-h-[90svh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-center">
             Редактирование данетки

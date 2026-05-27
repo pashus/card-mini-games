@@ -22,7 +22,7 @@ export function YnAdminCreateCardModal() {
       >
         Добавить данетку
       </Button>
-      <DialogContent>
+      <DialogContent className="max-h-[90svh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-center">Создание данетки</DialogTitle>
           <YnAdminCreateCardForm

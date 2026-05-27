@@ -74,7 +74,7 @@ export function YnFeedBackForm({
                     <Label
                       key={item.value}
                       htmlFor={`liked-${item.value}`}
-                      className="hover:bg-muted has-checked:bg-primary has-checked:text-primary-foreground has-checked:border-primary bg-card-review-buttons h-12 flex-1 cursor-pointer items-center justify-center rounded-sm border px-4 py-2 text-xl transition"
+                      className="hover:bg-muted has-checked:bg-primary has-checked:text-primary-foreground has-checked:border-primary bg-card-review-buttons xs:text-xl h-12 flex-1 cursor-pointer items-center justify-center rounded-sm border px-4 py-2 text-center text-lg transition"
                     >
                       <RadioGroupItem
                         id={`liked-${item.value}`}
@@ -106,7 +106,7 @@ export function YnFeedBackForm({
                     <Label
                       key={item.value}
                       htmlFor={`difficulty-${item.value}`}
-                      className="hover:bg-muted has-checked:bg-primary has-checked:text-primary-foreground has-checked:border-primary bg-card-review-buttons h-12 flex-1 cursor-pointer items-center justify-center rounded-sm border px-4 py-2 text-xl transition"
+                      className="hover:bg-muted has-checked:bg-primary has-checked:text-primary-foreground has-checked:border-primary bg-card-review-buttons xs:text-xl h-12 flex-1 cursor-pointer items-center justify-center rounded-sm border px-4 py-2 text-center text-lg transition"
                     >
                       <RadioGroupItem
                         id={`difficulty-${item.value}`}

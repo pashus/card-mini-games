@@ -103,7 +103,7 @@ export function YnCard() {
         )}
       </section>
 
-      <section className="bg-card-stats mx-auto mt-16 flex h-30 max-w-7xl items-center justify-evenly text-2xl font-semibold shadow-sm">
+      <section className="bg-card-stats xs:text-2xl mx-auto mt-16 flex h-30 max-w-7xl items-center justify-evenly text-xl font-semibold shadow-sm">
         <div className="flex flex-col items-center">
           <BiLike />
           {isLoading ? (

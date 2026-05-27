@@ -423,8 +423,8 @@ export function ImageUpload({
                   className="h-full w-full object-cover"
                 />
 
-                {/* Overlay with actions */}
-                <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+                {/* Quick actions */}
+                <div className="absolute top-2 right-2 flex items-center gap-2">
                   {/* Set as Cover Button */}
                   {showCoverBadge && index !== 0 && (
                     <Button
@@ -455,7 +455,7 @@ export function ImageUpload({
 
                 {/* Drag Handle */}
                 {enableReorder && (
-                  <div className="bg-background/80 absolute top-2 right-2 rounded p-1 opacity-0 transition-opacity group-hover:opacity-100">
+                  <div className="bg-background/80 absolute right-2 bottom-2 rounded p-1">
                     <GripVertical className="text-muted-foreground h-4 w-4" />
                   </div>
                 )}
