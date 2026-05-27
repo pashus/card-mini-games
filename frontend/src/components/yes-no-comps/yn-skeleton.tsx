@@ -3,7 +3,7 @@ import { Skeleton } from "../ui/skeleton";
 
 export function YnSkeletonGrid() {
   return (
-    <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="mt-4 grid w-full grid-cols-1 gap-6 rounded-lg bg-[#fff7f09e] p-6 shadow sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {Array.from({ length: 8 }).map((_, i) => (
         <YnSkeleton key={i} />
       ))}

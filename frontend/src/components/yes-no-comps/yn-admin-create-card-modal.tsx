@@ -18,7 +18,7 @@ export function YnAdminCreateCardModal() {
       <Button
         onClick={() => setOpen(true)}
         size="lg"
-        className="w-full cursor-pointer text-lg lg:w-auto"
+        className="mb-4 w-full cursor-pointer text-lg lg:mb-0 lg:w-auto"
       >
         Добавить данетку
       </Button>

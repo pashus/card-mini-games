@@ -3,27 +3,27 @@ import { Skeleton } from "../ui/skeleton";
 
 export function YnCardSkeleton() {
   return (
-    <Card className="grid h-[420px] w-full max-w-5xl grid-cols-3 overflow-hidden shadow-2xl">
-      <div className="flex items-center justify-center pl-8">
-        <Skeleton className="h-64 w-64 bg-gray-200" />
+    <Card className="flex w-full max-w-5xl flex-col overflow-hidden shadow-2xl lg:grid lg:h-[420px] lg:grid-cols-3">
+      <div className="flex items-center justify-center px-8 lg:px-0 lg:pl-8">
+        <Skeleton className="h-72 w-128 bg-gray-200 lg:h-64 lg:w-64" />
       </div>
 
-      <div className="col-span-2 flex flex-col gap-6 p-8">
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-24 bg-gray-200" />
-          <Skeleton className="h-7 w-48 bg-gray-200" />
+      <div className="flex flex-1 flex-col items-center gap-6 p-8 lg:col-span-2 lg:items-stretch">
+        <div className="flex flex-col items-center space-y-2 lg:block">
+          <Skeleton className="h-4.5 w-24 bg-gray-200" />
+          <Skeleton className="h-8 w-48 bg-gray-200" />
         </div>
 
-        <div className="flex flex-1 items-center bg-white p-6 shadow-xl">
+        <div className="flex h-60 w-full items-center bg-white p-6 shadow-xl lg:h-auto lg:flex-1">
           <div className="w-full space-y-3">
-            <Skeleton className="h-4 w-full bg-gray-200" />
-            <Skeleton className="h-4 w-11/12 bg-gray-200" />
-            <Skeleton className="h-4 w-4/5 bg-gray-200" />
+            <Skeleton className="h-4 w-full bg-gray-200 lg:w-full" />
+            <Skeleton className="h-4 w-full bg-gray-200 lg:w-11/12" />
+            <Skeleton className="h-4 w-full bg-gray-200 lg:w-4/5" />
           </div>
         </div>
 
-        <div>
-          <Skeleton className="h-11 w-48 animate-pulse bg-gray-300" />
+        <div className="w-full lg:w-auto">
+          <Skeleton className="h-11 bg-gray-300 lg:w-48" />
         </div>
       </div>
     </Card>

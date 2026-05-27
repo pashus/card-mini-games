@@ -30,7 +30,7 @@ export function YnAdmin() {
   const limit = 100;
   const page = Number(searchParams.get("page")) || 1;
 
-  const { data: cards, isLoading } = useCards(page, limit);
+  const { data: cards, isLoading, isError } = useCards(page, limit);
 
   const totalPages = cards?.pagination.totalPages || 1;
   const hasNext = cards?.pagination.hasNext || false;
@@ -70,8 +70,14 @@ export function YnAdmin() {
           <p className="text-start text-lg opacity-70">Карточек нет</p>
         )}
 
+        {isError && (
+          <p className="text-start text-lg opacity-70">
+            Произошла ошибка при загрузке карточек
+          </p>
+        )}
+
         {!isLoading && cards?.data && (
-          <div className="xs:grid-cols-2 mt-4 grid grid-cols-1 gap-6 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="mt-4 grid grid-cols-1 gap-6 rounded-lg bg-[#fff7f09e] p-6 shadow sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {cards.data.map((card: IYnCard) => (
               <Card
                 key={card.id}

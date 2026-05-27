@@ -56,11 +56,11 @@ export function YnCard() {
             style={{ backgroundColor: card?.cardColor }}
             className="flex h-auto w-full max-w-5xl flex-col overflow-hidden shadow-xl lg:grid lg:h-[420px] lg:grid-cols-3"
           >
-            <div className="flex items-center justify-center overflow-hidden lg:pl-8">
+            <div className="flex max-h-80 items-center justify-center overflow-hidden lg:max-h-full lg:pl-8">
               <img
                 src={card?.image}
                 alt={card?.title}
-                className="w-1/2 lg:w-auto"
+                className="w-2/3 lg:w-auto"
               />
             </div>
 

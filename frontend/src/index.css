@@ -48,6 +48,9 @@
   --color-card-stats: var(--card-stats);
   /* --color-hover-pagination-button-bg: var(--hover-pagination-button-bg); */
   --color-card-review-buttons: var(--card-review-buttons);
+  --color-edit-button: var(--edit-button);
+  --color-edit-button-hover: var(--edit-button-hover);
+  --color-emodzi-hover: var(--emodzi-hover);
 }
 
 :root {
@@ -61,6 +64,11 @@
   --search-input: #fff7f0;
   --card-stats: #fef2e7;
   --card-review-buttons: #fef2e7;
+
+  --edit-button: #faa850;
+  --edit-button-hover: #eaa55b;
+
+  --emodzi-hover: #2b2323;
 
   /* --hover-pagination-button-bg: #6c4a2680; */
 
@@ -95,10 +103,6 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-
-  button {
-    cursor: pointer;
-  }
 }
 
 .dark {
@@ -141,8 +145,12 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* overflow-y: scroll; */
+    /* scrollbar-gutter: stable; */
   }
   html {
-    /* scrollbar-gutter: stable; */
+  }
+  button {
+    cursor: pointer;
   }
 }

@@ -7,17 +7,21 @@ export function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="mx-auto flex flex-1 flex-col">
-      <h2 className="self-center text-2xl font-semibold">
-        Во что сегодня поиграем?
-      </h2>
+    <div className="flex flex-1 flex-col items-center justify-center">
+      <div className="flex flex-col items-center">
+        <h2 className="text-center text-3xl font-semibold tracking-widest">
+          Во что сегодня поиграем?
+        </h2>
 
-      <section className="mx-auto grid w-full max-w-7xl gap-6 pt-8 lg:grid-cols-2">
+        <div className="via-foreground/90 mt-2 h-0.5 w-full bg-linear-to-r from-transparent to-transparent" />
+      </div>
+
+      <section className="mt-6 flex w-full max-w-5xl flex-col items-center gap-4 sm:gap-2 lg:grid lg:grid-cols-2 lg:gap-6">
         <Card
           onClick={() => navigate("/yes-no-game")}
-          className="cursor-pointer overflow-hidden p-0 shadow-xl transition-transform duration-200 hover:scale-105"
+          className="w-full max-w-xs cursor-pointer overflow-hidden border-0 bg-transparent p-0 shadow-none transition-transform duration-200 hover:scale-105 sm:max-w-sm lg:max-w-lg"
         >
-          <div className="aspect-4/4 h-150 w-full sm:h-160 md:h-170 lg:aspect-4/3 lg:h-180">
+          <div className="h-34 sm:h-48 lg:h-56">
             <img
               src={daNetkiImg}
               alt="Данетки"
@@ -28,9 +32,9 @@ export function Home() {
 
         <Card
           onClick={() => navigate("/dark-jack-game")}
-          className="cursor-pointer overflow-hidden p-0 shadow-xl transition-transform duration-200 hover:scale-105"
+          className="w-full max-w-xs cursor-pointer overflow-hidden border-0 bg-transparent p-0 shadow-none transition-transform duration-200 hover:scale-105 sm:max-w-sm lg:max-w-lg"
         >
-          <div className="aspect-4/4 h-150 w-full sm:h-160 md:h-170 lg:aspect-4/3 lg:h-180">
+          <div className="h-34 sm:h-48 lg:h-56">
             <img
               src={blackJackImg}
               alt="Темный Джек"
