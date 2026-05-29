@@ -47,7 +47,7 @@ export function Yn() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <section className="mx-auto flex h-8 w-full max-w-[1550px] items-center justify-start">
+      <section className="mx-auto flex h-8 w-full max-w-[1550px] items-center justify-start px-6 lg:px-0">
         <TextArrow to="/" text="На главную" where="left" />
       </section>
 
@@ -57,7 +57,7 @@ export function Yn() {
           className="absolute top-6 right-6 max-w-xl"
         /> */}
 
-      <section className="mx-auto max-w-7xl pt-7 text-center">
+      <section className="mx-auto max-w-7xl px-6 pt-7 text-center lg:px-0">
         <div className="flex items-center justify-center gap-2">
           <h1 className="text-center text-4xl font-bold tracking-wider">
             Данетки
@@ -72,7 +72,7 @@ export function Yn() {
 
       <div className="flex flex-1 flex-col justify-between">
         <section className="mx-auto mt-16 w-full max-w-7xl">
-          <h2 className="mb-6 text-2xl font-semibold tracking-wider">
+          <h2 className="mb-6 px-6 text-2xl font-semibold tracking-wider lg:px-0">
             Выберите данетку
           </h2>
 
@@ -181,7 +181,7 @@ export function Yn() {
           )}
         </section>
 
-        <section className="mx-auto mt-20 flex max-w-7xl flex-col items-center text-lg opacity-70">
+        <section className="mx-auto mt-20 flex max-w-7xl flex-col items-center px-6 text-lg opacity-70 lg:px-0">
           <HiOutlineLightBulb className="text-3xl" />
           <span className="text-center">
             Совет: начинайте с общих вопросов и постепенно сужайте круг - так вы

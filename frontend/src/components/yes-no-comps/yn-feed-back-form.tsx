@@ -21,13 +21,12 @@ const formSchema = z.object({
   }),
 });
 
-export function YnFeedBackForm({
-  cardId,
-  enteredAt,
-}: {
+interface IYnFeedBackFormProps {
   cardId: number;
   enteredAt: string;
-}) {
+}
+
+export function YnFeedBackForm({ cardId, enteredAt }: IYnFeedBackFormProps) {
   const { mutate, isPending } = useCreateReview();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -129,7 +128,10 @@ export function YnFeedBackForm({
             render={({ field, fieldState }) => (
               <Field className="gap-1">
                 <FieldGroup className="flex-row justify-between gap-1">
-                  <FieldLabel htmlFor="minutesInput" className="text-md">
+                  <FieldLabel
+                    htmlFor="minutesInput"
+                    className="text-md text-start"
+                  >
                     Сколько минут решали?
                   </FieldLabel>
                   <FieldLabel className="text-md text-end">
@@ -160,7 +162,7 @@ export function YnFeedBackForm({
         <Button
           type="submit"
           form="yn-feed-back-form"
-          className="h-12 w-full cursor-pointer text-xl md:w-auto"
+          className="h-12 w-full cursor-pointer text-xl lg:w-auto"
           size="lg"
           disabled={isPending}
         >

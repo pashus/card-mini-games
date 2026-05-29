@@ -8,8 +8,15 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { YnAdminCreateCardForm } from "./yn-admin-create-card-form";
+import { cn } from "@/lib/utils";
 
-export function YnAdminCreateCardModal() {
+interface YnAdminCreateCardModalProps {
+  className?: string;
+}
+
+export function YnAdminCreateCardModal({
+  className,
+}: YnAdminCreateCardModalProps) {
   const [open, setOpen] = useState(false);
   const [isPending, setIsPending] = useState(false);
 
@@ -18,7 +25,10 @@ export function YnAdminCreateCardModal() {
       <Button
         onClick={() => setOpen(true)}
         size="lg"
-        className="mb-4 w-full cursor-pointer text-lg lg:mb-0 lg:w-auto"
+        className={cn(
+          "mb-4 w-full cursor-pointer text-lg lg:mb-0 lg:w-auto",
+          className,
+        )}
       >
         Добавить данетку
       </Button>

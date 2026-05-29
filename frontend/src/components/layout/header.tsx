@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export function Header() {
   return (
-    <header className="bg-header flex min-h-20 flex-col items-center gap-1 px-4 py-2 text-center sm:flex-row sm:justify-between sm:gap-0 md:px-12">
+    <header className="bg-header flex min-h-20 flex-col items-center gap-1 px-6 py-2 text-center sm:flex-row sm:justify-between sm:gap-0 lg:px-12">
       <Link
         to="/"
         className="cursor-pointer text-2xl font-extrabold uppercase select-none sm:text-3xl"

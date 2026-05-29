@@ -38,7 +38,7 @@ export function YnCard() {
 
   return (
     <div>
-      <section className="mx-auto flex h-8 w-full max-w-[1550px] items-center justify-between">
+      <section className="mx-auto flex h-8 w-full max-w-[1550px] items-center justify-between px-6 lg:px-0">
         <TextArrow to="/yes-no-game" text="К списку" where="left" />
         <TextArrow
           to={`/yes-no-game/card/${card?.nextYnCardId}`}
@@ -48,13 +48,13 @@ export function YnCard() {
         />
       </section>
 
-      <section className="mx-auto flex justify-center pt-7">
+      <section className="mx-auto flex justify-center pt-7 lg:px-0">
         {isLoading ? (
           <YnCardSkeleton />
         ) : (
           <Card
             style={{ backgroundColor: card?.cardColor }}
-            className="flex h-auto w-full max-w-5xl flex-col overflow-hidden shadow-xl lg:grid lg:h-[420px] lg:grid-cols-3"
+            className="flex h-auto w-full max-w-5xl flex-col overflow-hidden border-0 shadow-xl lg:grid lg:h-[420px] lg:grid-cols-3"
           >
             <div className="flex max-h-80 items-center justify-center overflow-hidden lg:max-h-full lg:pl-8">
               <img
@@ -130,7 +130,7 @@ export function YnCard() {
         </div>
       </section>
 
-      <section className="mx-auto mt-16 flex max-w-7xl flex-col gap-2">
+      <section className="mx-auto mt-16 flex max-w-7xl flex-col gap-2 px-6 lg:px-0">
         <h2 className="text-center text-3xl font-semibold">Как вам данетка?</h2>
         <div>
           <YnFeedBackForm cardId={Number(id)} enteredAt={enteredAt} />

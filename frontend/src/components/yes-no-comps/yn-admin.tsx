@@ -53,7 +53,7 @@ export function YnAdmin() {
           className="absolute top-6 right-6 max-w-xl"
         /> */}
 
-      <section className="mx-auto max-w-7xl pt-7 text-center">
+      <section className="mx-auto max-w-7xl px-6 pt-7 text-center lg:px-0">
         <div className="flex items-center justify-center gap-2">
           <h1 className="text-center text-4xl font-bold tracking-wider">
             Данетки
@@ -63,7 +63,7 @@ export function YnAdmin() {
 
       <section className="mx-auto mt-16 w-full max-w-7xl">
         <div className="flex lg:justify-end">
-          <YnAdminCreateCardModal />
+          <YnAdminCreateCardModal className="mx-auto max-w-4/5 lg:mx-0 lg:max-w-none" />
         </div>
 
         {isLoading && <YnSkeletonGrid />}

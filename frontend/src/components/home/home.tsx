@@ -8,7 +8,7 @@ export function Home() {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center px-6 lg:px-0">
         <h2 className="text-center text-3xl font-semibold tracking-widest">
           Во что сегодня поиграем?
         </h2>
@@ -16,7 +16,7 @@ export function Home() {
         <div className="via-foreground/90 mt-2 h-0.5 w-full bg-linear-to-r from-transparent to-transparent" />
       </div>
 
-      <section className="mt-6 flex w-full max-w-5xl flex-col items-center gap-4 sm:gap-2 lg:grid lg:grid-cols-2 lg:gap-6">
+      <section className="mt-6 flex w-full max-w-5xl flex-col items-center gap-4 px-6 sm:gap-2 lg:grid lg:grid-cols-2 lg:gap-6 lg:px-0">
         <Card
           onClick={() => navigate("/yes-no-game")}
           className="w-full max-w-xs cursor-pointer overflow-hidden border-0 bg-transparent p-0 shadow-none transition-transform duration-200 hover:scale-105 sm:max-w-sm lg:max-w-lg"
