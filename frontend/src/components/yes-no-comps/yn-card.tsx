@@ -38,7 +38,7 @@ export function YnCard() {
 
   return (
     <div>
-      <section className="mx-auto flex h-8 w-full max-w-[1550px] items-center justify-between px-6 lg:px-0">
+      <section className="mx-auto hidden h-8 w-full max-w-[1550px] items-center justify-between px-6 lg:flex lg:px-0">
         <TextArrow to="/yes-no-game" text="К списку" where="left" />
         <TextArrow
           to={`/yes-no-game/card/${card?.nextYnCardId}`}
@@ -48,13 +48,13 @@ export function YnCard() {
         />
       </section>
 
-      <section className="mx-auto flex justify-center pt-7 lg:px-0">
+      <section className="mx-auto flex justify-center pt-0 lg:px-0 lg:pt-7">
         {isLoading ? (
           <YnCardSkeleton />
         ) : (
           <Card
             style={{ backgroundColor: card?.cardColor }}
-            className="flex h-auto w-full max-w-5xl flex-col overflow-hidden border-0 shadow-xl lg:grid lg:h-[420px] lg:grid-cols-3"
+            className="flex h-[calc(100svh-128px)] w-full max-w-5xl flex-col overflow-hidden border-0 shadow-xl lg:grid lg:h-[420px] lg:grid-cols-3"
           >
             <div className="flex max-h-80 items-center justify-center overflow-hidden lg:max-h-full lg:pl-8">
               <img
@@ -64,7 +64,7 @@ export function YnCard() {
               />
             </div>
 
-            <div className="col-span-1 grid gap-4 p-8 py-4 text-center lg:col-span-2 lg:gap-6 lg:text-start">
+            <div className="col-span-1 grid flex-1 gap-4 p-8 py-4 text-center lg:col-span-2 lg:gap-6 lg:text-start">
               <div>
                 <span className="text-muted-foreground text-sm uppercase">
                   Данетка
@@ -101,6 +101,16 @@ export function YnCard() {
             </div>
           </Card>
         )}
+      </section>
+
+      <section className="mx-auto mt-6 flex h-8 w-full max-w-[1550px] items-center justify-between px-6 lg:hidden lg:px-0">
+        <TextArrow to="/yes-no-game" text="К списку" where="left" />
+        <TextArrow
+          to={`/yes-no-game/card/${card?.nextYnCardId}`}
+          text="Следующая"
+          where="right"
+          disabled={isLoading || !card || card?.nextYnCardId === null}
+        />
       </section>
 
       <section className="bg-card-stats xs:text-2xl mx-auto mt-16 flex h-30 max-w-7xl items-center justify-evenly text-xl font-semibold shadow-sm">
