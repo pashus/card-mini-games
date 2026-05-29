@@ -78,9 +78,9 @@ export function YnAdmin() {
           </p>
         )}
 
-        {!isLoading && cards?.data && (
+        {!isLoading && cards!.data.length > 0 && (
           <div className="mt-4 grid grid-cols-1 gap-6 rounded-lg bg-[#fff7f09e] p-6 shadow sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {cards.data.map((card: IYnCard) => (
+            {cards?.data.map((card: IYnCard) => (
               <Card
                 key={card.id}
                 className="relative h-100 overflow-hidden py-0 transition hover:shadow-lg"

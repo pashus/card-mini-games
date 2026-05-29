@@ -18,7 +18,7 @@ export interface IYnCard {
 }
 
 export interface ICardsResponse {
-  data: IYnCard[];
+  data: IYnCard[] | [];
   pagination: {
     page: number;
     limit: number;

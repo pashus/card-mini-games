@@ -88,9 +88,9 @@ export function Yn() {
             </p>
           )}
 
-          {!isLoading && cards?.data && (
+          {!isLoading && cards!.data.length > 0 && (
             <div className="grid grid-cols-1 gap-6 rounded-lg bg-[#fff7f09e] p-6 shadow sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {cards.data.map((card: IYnCard) => (
+              {cards?.data.map((card: IYnCard) => (
                 <Link key={card.id} to={`/yes-no-game/card/${card.id}`}>
                   <Card
                     className="h-100 overflow-hidden py-0 transition hover:-translate-y-1 hover:shadow-lg"
