@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./fonts.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -142,6 +143,7 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    font-family: "Rubik", sans-serif;
   }
   body {
     @apply bg-background text-foreground;

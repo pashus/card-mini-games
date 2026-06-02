@@ -6,7 +6,7 @@ export function Header() {
     <header className="bg-header flex min-h-20 flex-col items-center gap-1 px-6 py-2 text-center sm:flex-row sm:justify-between sm:gap-0 lg:px-12">
       <Link
         to="/"
-        className="cursor-pointer text-2xl font-extrabold uppercase select-none sm:text-3xl"
+        className="cursor-pointer text-2xl font-black uppercase select-none sm:text-3xl"
       >
         Карточные игрушки
       </Link>
