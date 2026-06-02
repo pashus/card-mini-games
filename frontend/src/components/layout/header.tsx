@@ -12,13 +12,16 @@ export function Header() {
       </Link>
       <div className="flex gap-4">
         <Link className="text-2xl" to="#">
-          <LuAngry className="hover:text-emodzi-hover transition" />
+          <LuAngry strokeWidth={2.5} className="transition hover:text-black" />
         </Link>
         <Link className="text-2xl" to="/yes-no-game">
-          <LuAnnoyed className="hover:text-emodzi-hover transition" />
+          <LuAnnoyed
+            strokeWidth={2.5}
+            className="transition hover:text-black"
+          />
         </Link>
         <Link className="text-2xl" to="/yes-no-game/admin">
-          <LuSmile className="hover:text-emodzi-hover transition" />
+          <LuSmile strokeWidth={2.5} className="transition hover:text-black" />
         </Link>
       </div>
     </header>

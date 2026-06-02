@@ -110,15 +110,15 @@ export function Yn() {
                       </CardDescription>
                       <CardContent className="mt-2 flex justify-between px-0">
                         <div className="text-md flex items-center gap-1">
-                          <BiLike />
+                          <BiLike strokeWidth={0.5} />
                           {card.popularity + "%"}
                         </div>
                         <div className="text-md flex items-center gap-1">
-                          <BiTimeFive />
+                          <BiTimeFive strokeWidth={0.5} />
                           {card.duration + " мин."}
                         </div>
                         <div className="text-md flex items-center gap-1">
-                          <HiArrowsUpDown />
+                          <HiArrowsUpDown strokeWidth={0.5} />
                           {card.difficulty + "/10"}
                         </div>
                       </CardContent>
@@ -126,7 +126,7 @@ export function Yn() {
                         {card.categories.map((category) => (
                           <div
                             key={category.name}
-                            className="mt-1 flex items-center rounded-xl px-2 py-1 text-center text-sm font-semibold shadow-sm select-none"
+                            className="mt-1 flex items-center rounded-xl px-2 py-1 text-center text-sm font-medium shadow-sm select-none"
                             style={{ backgroundColor: category.color }}
                           >
                             {category.name}

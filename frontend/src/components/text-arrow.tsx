@@ -25,9 +25,13 @@ export function TextArrow({
         disabled && "pointer-events-none opacity-50 select-none",
       )}
     >
-      {where === "left" && <LuArrowBigLeft className="-translate-x-1" />}
+      {where === "left" && (
+        <LuArrowBigLeft strokeWidth={2.5} className="-translate-x-[2px]" />
+      )}
       <span className="text-xl sm:inline">{text}</span>
-      {where === "right" && <LuArrowBigRight className="translate-x-1" />}
+      {where === "right" && (
+        <LuArrowBigRight strokeWidth={2.5} className="translate-x-[2px]" />
+      )}
     </Link>
   );
 }

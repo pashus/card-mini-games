@@ -29,7 +29,7 @@ export function YnAdminDeleteCardModal({ cardId }: { cardId: string }) {
           </AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="hover:bg-muted border-0">
+          <AlertDialogCancel variant="ghost" className="hover:bg-muted">
             Отмена
           </AlertDialogCancel>
           <AlertDialogAction

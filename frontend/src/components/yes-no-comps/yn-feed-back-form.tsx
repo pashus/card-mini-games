@@ -63,7 +63,9 @@ export function YnFeedBackForm({ cardId, enteredAt }: IYnFeedBackFormProps) {
             control={form.control}
             render={({ field, fieldState }) => (
               <Field className="gap-1">
-                <FieldLabel className="text-md">Понравилась?</FieldLabel>
+                <FieldLabel className="text-md font-normal">
+                  Понравилась?
+                </FieldLabel>
                 <RadioGroup
                   value={field.value}
                   onValueChange={field.onChange}
@@ -95,7 +97,9 @@ export function YnFeedBackForm({ cardId, enteredAt }: IYnFeedBackFormProps) {
             control={form.control}
             render={({ field, fieldState }) => (
               <Field className="gap-1">
-                <FieldLabel className="text-md">Насколько сложно?</FieldLabel>
+                <FieldLabel className="text-md font-normal">
+                  Насколько сложно?
+                </FieldLabel>
                 <RadioGroup
                   value={field.value}
                   onValueChange={field.onChange}
@@ -130,11 +134,11 @@ export function YnFeedBackForm({ cardId, enteredAt }: IYnFeedBackFormProps) {
                 <FieldGroup className="flex-row justify-between gap-1">
                   <FieldLabel
                     htmlFor="minutesInput"
-                    className="text-md text-start"
+                    className="text-md text-start font-normal"
                   >
                     Сколько минут решали?
                   </FieldLabel>
-                  <FieldLabel className="text-md text-end">
+                  <FieldLabel className="text-md text-end font-normal">
                     Вы зашли на страницу в {enteredAt}
                   </FieldLabel>
                 </FieldGroup>

@@ -115,7 +115,7 @@ export function YnCard() {
 
       <section className="bg-card-stats xs:text-2xl mx-auto mt-16 flex h-30 max-w-7xl items-center justify-evenly text-xl font-semibold shadow-sm">
         <div className="flex flex-col items-center">
-          <BiLike />
+          <BiLike strokeWidth={1} />
           {isLoading ? (
             <Skeleton className="mx-auto mt-1 h-7 w-13 bg-gray-300" />
           ) : (
@@ -123,7 +123,7 @@ export function YnCard() {
           )}
         </div>
         <div className="flex flex-col items-center">
-          <BiTimeFive />
+          <BiTimeFive strokeWidth={1} />
           {isLoading ? (
             <Skeleton className="mx-auto mt-1 h-7 w-13 bg-gray-300" />
           ) : (
@@ -131,7 +131,7 @@ export function YnCard() {
           )}
         </div>
         <div className="flex flex-col items-center">
-          <HiArrowsUpDown />
+          <HiArrowsUpDown strokeWidth={1} />
           {isLoading ? (
             <Skeleton className="mx-auto mt-1 h-7 w-13 bg-gray-300" />
           ) : (

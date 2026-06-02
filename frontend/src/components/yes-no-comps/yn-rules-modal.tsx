@@ -28,7 +28,10 @@ export function YnRulesModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <GiHelp className="hover:text-muted-foreground relative top-0.5 cursor-pointer text-3xl duration-200" />
+        <GiHelp
+          strokeWidth={10}
+          className="hover:text-muted-foreground relative top-0.5 cursor-pointer text-3xl duration-200"
+        />
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
