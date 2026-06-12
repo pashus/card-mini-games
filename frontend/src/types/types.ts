@@ -11,13 +11,15 @@ export interface IYnCard {
   cardColor: string;
   question: string;
   answer: string;
-  categories: IYnCategory[];
-  popularity: number;
+  categories: IYnCategory[] | [];
+  liked: number;
   difficulty: number;
   duration: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface ICardsResponse {
+export interface IYnCardsResponse {
   data: IYnCard[] | [];
   pagination: {
     page: number;
@@ -29,10 +31,32 @@ export interface ICardsResponse {
   };
 }
 
+export interface IYnCardsParams {
+  page: number;
+  limit: number;
+  sort: string;
+}
+
 export interface IYnReview {
   id: number;
   cardId: number;
-  liked: string;
-  difficulty: string;
+  liked: number;
+  difficulty: number;
   duration: number;
+  createdAt: string;
+}
+
+export interface IYnReviewResponse {
+  id: number;
+  cardId: number;
+  liked: number;
+  difficulty: number;
+  duration: number;
+  createdAt: string;
+}
+
+export interface IYnCategory {
+  id: number;
+  name: string;
+  color: string;
 }

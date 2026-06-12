@@ -1,5 +1,5 @@
 import { api } from "@/api";
-import type { IYnCard, ICardsResponse } from "@/types";
+import type { IYnCard, IYnCardsParams, IYnCardsResponse } from "@/types";
 
 export const cardsQueries = {
   getCard: async (id: string) => {
@@ -7,9 +7,9 @@ export const cardsQueries = {
     return res.data;
   },
 
-  getCards: async (page: number, limit: number) => {
-    const res = await api.get<ICardsResponse>("/yes-no-cards", {
-      params: { page, limit },
+  getCards: async ({ page, limit, sort = "asc" }: IYnCardsParams) => {
+    const res = await api.get<IYnCardsResponse>("/yes-no-cards", {
+      params: { page, limit, sort },
     });
     return res.data;
   },

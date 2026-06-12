@@ -1,7 +1,8 @@
-FROM node:22-alpine
+FROM oven/bun:1
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+COPY package*.json bun.lock ./
+RUN bun install --frozen-lockfile
 COPY . .
+
 EXPOSE 4000
-CMD ["sh", "-c", "npm run migrate && npm start"]
+CMD ["sh", "-c", "bun start"]

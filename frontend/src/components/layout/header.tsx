@@ -11,17 +11,17 @@ export function Header() {
         Карточные игрушки
       </Link>
       <div className="flex gap-4">
-        <Link className="text-2xl" to="#">
-          <LuAngry strokeWidth={2.5} className="transition hover:text-black" />
-        </Link>
         <Link className="text-2xl" to="/yes-no-game">
+          <LuSmile strokeWidth={2.5} className="transition hover:text-black" />
+        </Link>
+        <Link className="text-2xl" to="/admin/login">
           <LuAnnoyed
             strokeWidth={2.5}
             className="transition hover:text-black"
           />
         </Link>
-        <Link className="text-2xl" to="/yes-no-game/admin">
-          <LuSmile strokeWidth={2.5} className="transition hover:text-black" />
+        <Link className="text-2xl" to="/admin/yes-no-game">
+          <LuAngry strokeWidth={2.5} className="transition hover:text-black" />
         </Link>
       </div>
     </header>

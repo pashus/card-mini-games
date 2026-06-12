@@ -9,6 +9,8 @@ export function useDeleteCard() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cards"] });
     },
-    // onError: () => {},
+    onError: () => {
+      console.log("Ошибка при удалении карточки");
+    },
   });
 }

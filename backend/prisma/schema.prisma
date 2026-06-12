@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model yes_no_cards {
+  id              Int               @id @default(autoincrement())
+  title           String
+  image           String
+  cardColor       String            @db.VarChar(7)
+  question        String
+  answer          String
+  createdAt       DateTime          @default(now()) @db.Timestamptz(6)
+  updatedAt       DateTime          @default(now()) @db.Timestamptz(6)
+  
+  reviews         reviews[]
+  categories card_to_categories[]
+}
+
+model categories {
+  id           Int          @id @default(autoincrement())
+  name         String       @db.VarChar(20)
+  color        String       @db.VarChar(7)
+
+  cards        card_to_categories[]
+}
+
+model card_to_categories {
+  cardId     Int
+  categoryId Int
+
+  card        yes_no_cards  @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  category    categories    @relation(fields: [categoryId], references: [id], onDelete: Cascade) 
+
+  @@unique([cardId, categoryId])
+  @@index([cardId])
+  @@index([categoryId]) 
+}
+
+model reviews {
+  id            Int          @id @default(autoincrement())
+  cardId        Int
+  liked         Int       
+  difficulty    Int       
+  duration      Int
+  createdAt     DateTime     @default(now()) @db.Timestamptz(6)
+  
+  yes_no_cards yes_no_cards @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@index([cardId], map: "idx_reviews_card_id")
+}
+
+model admins {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  passwordHash  String
+  createdAt     DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt     DateTime @default(now()) @db.Timestamptz(6)
+}

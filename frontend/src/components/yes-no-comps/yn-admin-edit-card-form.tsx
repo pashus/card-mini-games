@@ -5,10 +5,13 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useEditCard } from "@/hooks/use-edit-card";
-import type { IYnCard } from "@/types";
+import type { IYnCard, IYnCategory } from "@/types";
 import { HexColorPicker } from "react-colorful";
 import { useEffect, useRef, useState } from "react";
 import { ImageUpload } from "../image-form";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Checkbox } from "../ui/checkbox";
+import { useCategories } from "@/hooks/use-categories";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Минимум 2 символа" }).max(100, {
@@ -20,16 +23,7 @@ const formSchema = z.object({
   answer: z.string().min(2, { message: "Минимум 2 символа" }).max(250, {
     message: "Максимум 250 символов",
   }),
-  categories: z.array(
-    z.object({
-      name: z.string().min(1, { message: "Минимум 1 символ" }).max(20, {
-        message: "Максимум 20 символов",
-      }),
-      color: z.string().min(7, { message: "Минимум 7 символов" }).max(7, {
-        message: "Максимум 7 символов",
-      }),
-    }),
-  ),
+  categories: z.array(z.number()).min(1, { message: "Минимум 1 категория" }),
   cardColor: z.string().min(7, { message: "Минимум 7 символов" }).max(7, {
     message: "Максимум 7 символов",
   }),
@@ -56,13 +50,19 @@ export function YnAdminEditCardForm({
   onPendingChange,
 }: YnAdminEditCardFormProps) {
   const { mutate, isPending } = useEditCard(card.id);
+  const {
+    data: categories,
+    isLoading: isCategoriesLoading,
+    isError: isCategoriesError,
+  } = useCategories();
 
   const [cardColorOpen, setCardColorOpen] = useState(false);
-  const [openCategoryColorIndex, setOpenCategoryColorIndex] = useState<
-    number | null
-  >(null);
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
+  // const [openCategoryColorIndex, setOpenCategoryColorIndex] = useState<
+  //   number | null
+  // >(null);
 
-  const categoryPickerRef = useRef<HTMLDivElement | null>(null);
+  // const categoryPickerRef = useRef<HTMLDivElement | null>(null);
   const cardPickerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -73,12 +73,12 @@ export function YnAdminEditCardForm({
     function handleClickOutside(e: MouseEvent) {
       const target = e.target as Node;
 
-      if (
-        categoryPickerRef.current &&
-        !categoryPickerRef.current.contains(target)
-      ) {
-        setOpenCategoryColorIndex(null);
-      }
+      // if (
+      //   categoryPickerRef.current &&
+      //   !categoryPickerRef.current.contains(target)
+      // ) {
+      //   setOpenCategoryColorIndex(null);
+      // }
 
       if (cardPickerRef.current && !cardPickerRef.current.contains(target)) {
         setCardColorOpen(false);
@@ -98,7 +98,7 @@ export function YnAdminEditCardForm({
       title: card?.title,
       question: card?.question,
       answer: card?.answer,
-      categories: card?.categories,
+      categories: card?.categories.map((category) => category.id),
       cardColor: card?.cardColor,
       image: [
         {
@@ -110,10 +110,10 @@ export function YnAdminEditCardForm({
     mode: "onSubmit",
   });
 
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: "categories",
-  });
+  // const { fields, append, remove } = useFieldArray({
+  //   control: form.control,
+  //   name: "categories",
+  // });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     const formData = new FormData();
@@ -207,7 +207,98 @@ export function YnAdminEditCardForm({
             }}
           />
 
-          <Field>
+          <Controller
+            name="categories"
+            control={form.control}
+            render={({ field, fieldState }) => {
+              return (
+                <Field>
+                  <FieldLabel>Категории</FieldLabel>
+                  <Popover
+                    open={categoriesOpen}
+                    onOpenChange={setCategoriesOpen}
+                  >
+                    <PopoverTrigger asChild>
+                      <Button
+                        type="button"
+                        className="flex-1 whitespace-normal"
+                      >
+                        {field.value.length > 0
+                          ? categories
+                              ?.filter((category: IYnCategory) =>
+                                field.value.includes(category.id),
+                              )
+                              .map((category: IYnCategory) => category.name)
+                              .join(", ")
+                          : "Выберите категории"}
+                      </Button>
+                    </PopoverTrigger>
+
+                    <PopoverContent align="center">
+                      {isCategoriesLoading && (
+                        <div className="text-sm opacity-70">Загрузка...</div>
+                      )}
+
+                      {!isCategoriesLoading && categories?.length === 0 && (
+                        <div className="text-sm opacity-70">Категорий нет</div>
+                      )}
+
+                      {isCategoriesError && (
+                        <div className="text-sm opacity-70">
+                          Произошла ошибка при загрузке категорий
+                        </div>
+                      )}
+
+                      {categories?.length === 0 && (
+                        <div className="text-sm opacity-70">Категорий нет</div>
+                      )}
+
+                      {!isCategoriesLoading &&
+                        (categories?.length ?? 0) > 0 && (
+                          <div
+                            className="max-h-60 space-y-2 overflow-y-auto"
+                            onWheel={(e) => e.stopPropagation()}
+                          >
+                            {categories?.map((category) => (
+                              <Field key={category.id} orientation="horizontal">
+                                <Checkbox
+                                  id={`category-${category.id}`}
+                                  checked={field.value.includes(category.id)}
+                                  onCheckedChange={(checked) => {
+                                    if (checked) {
+                                      field.onChange([
+                                        ...field.value,
+                                        category.id,
+                                      ]);
+                                    } else {
+                                      field.onChange(
+                                        field.value.filter(
+                                          (id) => id !== category.id,
+                                        ),
+                                      );
+                                    }
+                                  }}
+                                />
+
+                                <FieldLabel htmlFor={`category-${category.id}`}>
+                                  {category.name}
+                                </FieldLabel>
+                              </Field>
+                            ))}
+                          </div>
+                        )}
+                    </PopoverContent>
+                  </Popover>
+
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              );
+            }}
+          />
+
+          {/* <Field>
             <FieldLabel htmlFor="categories">Категории</FieldLabel>
             {fields.map((item, index) => (
               <div key={item.id} className="flex items-end gap-2">
@@ -221,9 +312,9 @@ export function YnAdminEditCardForm({
                         {...field}
                         placeholder="Название категории"
                       />
-                      {/* {fieldState.invalid && (
+                      {fieldState.invalid && (
                         <FieldError errors={[fieldState.error]} />
-                      )} */}
+                      )}
                     </Field>
                   )}
                 />
@@ -261,9 +352,9 @@ export function YnAdminEditCardForm({
                           </div>
                         )}
                       </div>
-                      {/* {fieldState.invalid && (
+                      {fieldState.invalid && (
                         <FieldError errors={[fieldState.error]} />
-                      )} */}
+                      )}
                     </Field>
                   )}
                 />
@@ -278,7 +369,7 @@ export function YnAdminEditCardForm({
             >
               Добавить категорию
             </Button>
-          </Field>
+          </Field> */}
 
           <Controller
             name="cardColor"

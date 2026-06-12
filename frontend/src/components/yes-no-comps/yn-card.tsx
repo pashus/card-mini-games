@@ -119,7 +119,7 @@ export function YnCard() {
           {isLoading ? (
             <Skeleton className="mx-auto mt-1 h-7 w-13 bg-gray-300" />
           ) : (
-            <span>{card?.popularity}%</span>
+            <span>{card?.liked}%</span>
           )}
         </div>
         <div className="flex flex-col items-center">

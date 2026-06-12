@@ -29,8 +29,9 @@ export function Yn() {
 
   const limit = 12;
   const page = Number(searchParams.get("page")) || 1;
+  const sort = "desc";
 
-  const { data: cards, isLoading, isError } = useCards(page, limit);
+  const { data: cards, isLoading, isError } = useCards({ page, limit, sort });
 
   const totalPages = cards?.pagination.totalPages || 1;
   const hasNext = cards?.pagination.hasNext || false;
@@ -88,7 +89,7 @@ export function Yn() {
             </p>
           )}
 
-          {!isLoading && cards!.data.length > 0 && (
+          {!isLoading && (cards?.data.length ?? 0) > 0 && (
             <div className="grid grid-cols-1 gap-6 rounded-lg bg-[#fff7f09e] p-6 shadow sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {cards?.data.map((card: IYnCard) => (
                 <Link key={card.id} to={`/yes-no-game/card/${card.id}`}>
@@ -111,7 +112,7 @@ export function Yn() {
                       <CardContent className="mt-2 flex justify-between px-0">
                         <div className="text-md flex items-center gap-1">
                           <BiLike strokeWidth={0.5} />
-                          {card.popularity + "%"}
+                          {card.liked + "%"}
                         </div>
                         <div className="text-md flex items-center gap-1">
                           <BiTimeFive strokeWidth={0.5} />
@@ -122,10 +123,10 @@ export function Yn() {
                           {card.difficulty + "/10"}
                         </div>
                       </CardContent>
-                      <div className="flex flex-row gap-2">
+                      <div className="scrollbar-hide flex flex-row gap-2 overflow-x-auto whitespace-nowrap">
                         {card.categories.map((category) => (
                           <div
-                            key={category.name}
+                            key={category.id}
                             className="mt-1 flex items-center rounded-xl px-2 py-1 text-center text-sm font-medium shadow-sm select-none"
                             style={{ backgroundColor: category.color }}
                           >

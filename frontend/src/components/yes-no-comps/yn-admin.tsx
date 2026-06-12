@@ -29,8 +29,9 @@ export function YnAdmin() {
 
   const limit = 100;
   const page = Number(searchParams.get("page")) || 1;
+  const sort = "desc";
 
-  const { data: cards, isLoading, isError } = useCards(page, limit);
+  const { data: cards, isLoading, isError } = useCards({ page, limit, sort });
 
   const totalPages = cards?.pagination.totalPages || 1;
   const hasNext = cards?.pagination.hasNext || false;
@@ -48,10 +49,10 @@ export function YnAdmin() {
   return (
     <div className="flex flex-1 flex-col">
       {/* <SearchInput
-          onChange={handleSearch}
-          placeholderText="Найдите нужную данетку"
-          className="absolute top-6 right-6 max-w-xl"
-        /> */}
+        onChange={handleSearch}
+        placeholderText="Найдите нужную данетку"
+        className="absolute top-6 right-6 max-w-xl"
+      /> */}
 
       <section className="mx-auto max-w-7xl px-6 pt-7 text-center lg:px-0">
         <div className="flex items-center justify-center gap-2">
@@ -78,7 +79,7 @@ export function YnAdmin() {
           </p>
         )}
 
-        {!isLoading && cards!.data.length > 0 && (
+        {!isLoading && (cards?.data.length ?? 0) > 0 && (
           <div className="mt-4 grid grid-cols-1 gap-6 rounded-lg bg-[#fff7f09e] p-6 shadow sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {cards?.data.map((card: IYnCard) => (
               <Card
@@ -107,7 +108,7 @@ export function YnAdmin() {
                   <CardContent className="mt-2 flex justify-between px-0">
                     <div className="text-md flex items-center gap-1">
                       <BiLike />
-                      {card.popularity + "%"}
+                      {card.liked + "%"}
                     </div>
                     <div className="text-md flex items-center gap-1">
                       <BiTimeFive />
@@ -118,10 +119,10 @@ export function YnAdmin() {
                       {card.difficulty + "/10"}
                     </div>
                   </CardContent>
-                  <div className="flex flex-row gap-2">
+                  <div className="scrollbar-hide flex flex-row gap-2 overflow-x-auto whitespace-nowrap">
                     {card.categories.map((category) => (
                       <div
-                        key={category.name}
+                        key={category.id}
                         className="mt-1 flex items-center rounded-xl px-2 py-1 text-center text-sm font-semibold shadow-sm select-none"
                         style={{ backgroundColor: category.color }}
                       >

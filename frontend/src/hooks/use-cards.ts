@@ -1,10 +1,11 @@
 import { cardsQueries } from "@/api";
+import type { IYnCardsParams } from "@/types";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-export function useCards(page: number, limit: number) {
+export function useCards({ page, limit, sort }: IYnCardsParams) {
   return useQuery({
-    queryKey: ["cards", page],
-    queryFn: () => cardsQueries.getCards(page, limit),
+    queryKey: ["cards", { page, limit, sort }],
+    queryFn: () => cardsQueries.getCards({ page, limit, sort }),
     placeholderData: keepPreviousData,
   });
 }

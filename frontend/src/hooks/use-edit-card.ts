@@ -9,6 +9,8 @@ export function useEditCard(id: string) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cards"] });
     },
-    // onError: () => {},
+    onError: () => {
+      console.log("Ошибка при редактировании карточки");
+    },
   });
 }

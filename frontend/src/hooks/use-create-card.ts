@@ -9,6 +9,8 @@ export function useCreateCard() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cards"] });
     },
-    // onError: () => {},
+    onError: () => {
+      console.log("Ошибка при создании карточки");
+    },
   });
 }

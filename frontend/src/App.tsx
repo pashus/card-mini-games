@@ -3,7 +3,14 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import { HomePage, YnAdminPage, YnCardPage, YnPage } from "@/pages";
+import {
+  AdminLoginPage,
+  HomePage,
+  YnAdminPage,
+  YnCardPage,
+  YnNotFoundPage,
+  YnPage,
+} from "@/pages";
 import { Layout } from "@/components/layout";
 
 function App() {
@@ -11,6 +18,7 @@ function App() {
     {
       Component: Layout,
       children: [
+        // Основные роуты данеток и тёмного джека
         {
           path: "/",
           element: <HomePage />,
@@ -23,13 +31,26 @@ function App() {
           path: "/yes-no-game/card/:id",
           element: <YnCardPage />,
         },
+
         {
-          path: "/yes-no-game/admin",
-          element: <YnAdminPage />,
+          path: "/dark-jack-game",
+          element: <div>Тёмный Джек</div>,
+        },
+
+        // Админ роуты
+        {
+          path: "/admin/login",
+          element: <AdminLoginPage />,
         },
         {
+          path: "/admin/yes-no-game",
+          element: <YnAdminPage />,
+        },
+
+        // Разные роуты
+        {
           path: "/not-found",
-          element: <h1>404: Страница не найдена</h1>,
+          element: <YnNotFoundPage />,
         },
         {
           path: "*",

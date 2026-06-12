@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "./fonts.css";
+@import "tailwind-scrollbar-hide/v4";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -44,8 +45,8 @@
   --color-search-input: var(--search-input);
   --color-footer: var(--footer);
   --color-footer-foreground: var(--footer-foreground);
+  --color-not-found-foreground: var(--not-found-foreground);
   --color-header: var(--header);
-  --color-container-background: var(--container-background);
   --color-card-stats: var(--card-stats);
   /* --color-hover-pagination-button-bg: var(--hover-pagination-button-bg); */
   --color-card-review-buttons: var(--card-review-buttons);
@@ -56,12 +57,12 @@
 
 :root {
   --background: #ffe6cc;
-  --container-background: #ffe6cc;
   --foreground: #4b3f3f;
 
   --header: #ffb86c;
   --footer: #6c4a26;
   --footer-foreground: #fff7f0;
+  --not-found-foreground: #fff7f0;
   --search-input: #fff7f0;
   --card-stats: #fef2e7;
   --card-review-buttons: #fef2e7;
@@ -147,7 +148,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    /* overflow-y: scroll; */
+    overflow-y: scroll;
     /* scrollbar-gutter: stable; */
   }
   html {
