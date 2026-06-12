@@ -80,11 +80,13 @@ export function Yn() {
           {isLoading && <YnSkeletonGrid />}
 
           {!isLoading && cards?.data.length === 0 && (
-            <p className="text-start text-lg opacity-70">Карточек нет</p>
+            <p className="px-6 text-center text-lg opacity-70 lg:text-start">
+              Карточек нет
+            </p>
           )}
 
           {isError && (
-            <p className="text-start text-lg opacity-70">
+            <p className="px-6 text-center text-lg opacity-70 lg:text-start">
               Произошла ошибка при загрузке карточек
             </p>
           )}

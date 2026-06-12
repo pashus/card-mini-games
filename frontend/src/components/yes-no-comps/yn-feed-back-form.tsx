@@ -145,7 +145,7 @@ export function YnFeedBackForm({ cardId, enteredAt }: IYnFeedBackFormProps) {
                     Сколько минут решали?
                   </FieldLabel>
                   <FieldLabel className="text-md text-end font-normal">
-                    Вы зашли на страницу в {enteredAt}
+                    Вы&nbsp;зашли на&nbsp;страницу&nbsp;в {enteredAt}
                   </FieldLabel>
                 </FieldGroup>
                 <Input

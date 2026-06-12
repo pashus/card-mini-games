@@ -62,7 +62,7 @@ export function YnAdmin() {
         </div>
       </section>
 
-      <section className="mx-auto mt-16 w-full max-w-7xl">
+      <section className="mx-auto mt-12 w-full max-w-7xl">
         <div className="flex lg:justify-end">
           <YnAdminCreateCardModal className="mx-auto max-w-4/5 lg:mx-0 lg:max-w-none" />
         </div>
@@ -70,11 +70,13 @@ export function YnAdmin() {
         {isLoading && <YnSkeletonGrid />}
 
         {!isLoading && cards?.data.length === 0 && (
-          <p className="text-start text-lg opacity-70">Карточек нет</p>
+          <p className="px-6 text-center text-lg opacity-70 lg:text-start">
+            Карточек нет
+          </p>
         )}
 
         {isError && (
-          <p className="text-start text-lg opacity-70">
+          <p className="px-6 text-center text-lg opacity-70 lg:text-start">
             Произошла ошибка при загрузке карточек
           </p>
         )}
