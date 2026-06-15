@@ -10,10 +10,22 @@ export function Layout() {
 
   return (
     <div className="flex min-h-svh flex-col">
-      <Header />
+      <div className="flex min-h-svh flex-1 flex-col sm:hidden">
+        <Header />
+        <main
+          className={cn(
+            `flex flex-1 flex-col px-0`,
+            isNotFoundPage || isRipPage ? "" : "pt-6 pb-12 lg:px-12",
+          )}
+        >
+          <Outlet />
+        </main>
+      </div>
+
+      <Header className="hidden sm:flex" />
       <main
         className={cn(
-          `flex flex-1 flex-col px-0`,
+          `hidden flex-1 flex-col px-0 sm:flex`,
           isNotFoundPage || isRipPage ? "" : "pt-6 pb-12 lg:px-12",
         )}
       >

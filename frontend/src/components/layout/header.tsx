@@ -1,9 +1,16 @@
+import { cn } from "@/lib/utils";
 import { LuAngry, LuAnnoyed, LuFrown, LuSmile } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
-export function Header() {
+interface HeaderProps {
+  className?: string;
+}
+
+export function Header({ className }: HeaderProps) {
   return (
-    <header className="header bg-header flex min-h-20 px-6 py-2">
+    <header
+      className={cn(`header bg-header flex min-h-20 px-6 py-2`, className)}
+    >
       <div className="mx-auto flex w-full max-w-[1920px] flex-col items-center gap-1 text-center sm:flex-row sm:justify-between sm:gap-0 lg:px-12">
         <Link
           to="/"
