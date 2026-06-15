@@ -18,3 +18,4 @@ export { YnAdminEditCardForm } from "./yes-no-comps/yn-admin-edit-card-form";
 export { YnAdminEditCardModal } from "./yes-no-comps/yn-admin-edit-card-modal";
 export { TextArrow } from "./text-arrow";
 export { ImageUpload, type ImageItem } from "./image-form/image-upload";
+export * from "./rest-in-peace";

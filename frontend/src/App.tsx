@@ -12,6 +12,7 @@ import {
   YnPage,
 } from "@/pages";
 import { Layout } from "@/components/layout";
+import { RestInPeacePage } from "./pages/rest-in-peace/rest-in-peace-page";
 
 function App() {
   const router = createBrowserRouter([
@@ -55,6 +56,10 @@ function App() {
         {
           path: "*",
           element: <Navigate to="/not-found" replace />,
+        },
+        {
+          path: "/rip",
+          element: <RestInPeacePage />,
         },
       ],
     },

@@ -54,7 +54,7 @@ export function YnAdmin() {
         className="absolute top-6 right-6 max-w-xl"
       /> */}
 
-      <section className="mx-auto max-w-7xl px-6 pt-7 text-center lg:px-0">
+      <section className="mx-auto max-w-7xl px-6 pt-15 text-center lg:px-0">
         <div className="flex items-center justify-center gap-2">
           <h1 className="text-center text-4xl font-bold tracking-wider">
             Данетки
