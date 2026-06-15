@@ -6,7 +6,7 @@ import { FieldGroup, Field, FieldLabel, FieldError } from "../ui/field";
 import { Input } from "../ui/input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
-import { useCreateReview } from "@/hooks/use-create-review";
+import { useCreateReview } from "@/hooks";
 import { difficultyLabels, likeLabels } from "@/constants";
 
 const formSchema = z.object({

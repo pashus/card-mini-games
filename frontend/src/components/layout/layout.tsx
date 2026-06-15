@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 export function Layout() {
   const location = useLocation();
   const isNotFoundPage = location.pathname === "/not-found";
+  const isRipPage = location.pathname === "/rip";
 
   return (
     <div className="flex min-h-svh flex-col">
@@ -13,7 +14,7 @@ export function Layout() {
       <main
         className={cn(
           `flex flex-1 flex-col px-0`,
-          isNotFoundPage ? "" : "pt-6 pb-12 lg:px-12",
+          isNotFoundPage || isRipPage ? "" : "pt-6 pb-12 lg:px-12",
         )}
       >
         <Outlet />

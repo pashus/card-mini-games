@@ -4,14 +4,14 @@ import z from "zod";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useEditCard } from "@/hooks/use-edit-card";
+import { useEditCard } from "@/hooks";
 import type { IYnCard, IYnCategory } from "@/types";
 import { HexColorPicker } from "react-colorful";
 import { useEffect, useRef, useState } from "react";
 import { ImageUpload } from "../image-form";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Checkbox } from "../ui/checkbox";
-import { useCategories } from "@/hooks/use-categories";
+import { useCategories } from "@/hooks";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Минимум 2 символа" }).max(100, {

@@ -2,7 +2,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { useEffect, useState } from "react";
-import { useCard } from "@/hooks/use-card";
+import { useCard } from "@/hooks";
 import { TextArrow, YnCardSkeleton, YnFeedBackForm } from "@/components";
 import { motion } from "framer-motion";
 import { BiLike } from "react-icons/bi";

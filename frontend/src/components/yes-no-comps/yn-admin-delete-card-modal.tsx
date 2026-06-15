@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDeleteCard } from "@/hooks/use-delete-card";
+import { useDeleteCard } from "@/hooks";
 import {
   AlertDialog,
   AlertDialogAction,

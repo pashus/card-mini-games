@@ -4,7 +4,7 @@ import {
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
-import { useCards } from "@/hooks/use-cards";
+import { useCards } from "@/hooks";
 import { useEffect } from "react";
 import type { IYnCard } from "@/types";
 import { Link, useSearchParams } from "react-router-dom";

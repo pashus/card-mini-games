@@ -1,6 +1,4 @@
 import { Card } from "@/components/ui/card";
-import daNetkiImg from "@/assets/1.png";
-import darkJackImg from "@/assets/2.png";
 import { useNavigate } from "react-router-dom";
 
 export function Home() {
@@ -23,7 +21,7 @@ export function Home() {
         >
           <div className="h-34 sm:h-48 lg:h-56">
             <img
-              src={daNetkiImg}
+              src="/1.webp"
               alt="Данетки"
               className="h-full w-full object-cover"
             />
@@ -36,7 +34,7 @@ export function Home() {
         >
           <div className="h-34 sm:h-48 lg:h-56">
             <img
-              src={darkJackImg}
+              src="/2.webp"
               alt="Темный Джек"
               className="h-full w-full object-cover"
             />

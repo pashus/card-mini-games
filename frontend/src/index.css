@@ -46,6 +46,7 @@
   --color-footer: var(--footer);
   --color-footer-foreground: var(--footer-foreground);
   --color-not-found-foreground: var(--not-found-foreground);
+  --color-rip-foreground: var(--rip-foreground);
   --color-header: var(--header);
   --color-card-stats: var(--card-stats);
   /* --color-hover-pagination-button-bg: var(--hover-pagination-button-bg); */
@@ -63,6 +64,7 @@
   --footer: #6c4a26;
   --footer-foreground: #fff7f0;
   --not-found-foreground: #fff7f0;
+  --rip-foreground: #fff7f0;
   --search-input: #fff7f0;
   --card-stats: #fef2e7;
   --card-review-buttons: #fef2e7;

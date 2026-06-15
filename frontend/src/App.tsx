@@ -8,7 +8,7 @@ import {
   HomePage,
   YnAdminPage,
   YnCardPage,
-  YnNotFoundPage,
+  NotFoundPage,
   YnPage,
 } from "@/pages";
 import { Layout } from "@/components/layout";
@@ -51,7 +51,7 @@ function App() {
         // Разные роуты
         {
           path: "/not-found",
-          element: <YnNotFoundPage />,
+          element: <NotFoundPage />,
         },
         {
           path: "*",
