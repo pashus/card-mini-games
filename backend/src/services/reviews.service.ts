@@ -8,10 +8,10 @@ export async function createReviewService(
 ) {
   return await prisma.reviews.create({
     data: {
-      cardId: cardId,
-      liked: liked,
-      difficulty: difficulty,
-      duration: duration,
+      cardId,
+      liked,
+      difficulty,
+      duration,
     },
   });
 }

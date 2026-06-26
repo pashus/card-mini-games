@@ -51,7 +51,7 @@ model reviews {
   
   yes_no_cards yes_no_cards @relation(fields: [cardId], references: [id], onDelete: Cascade)
 
-  @@index([cardId], map: "idx_reviews_card_id")
+  @@index([cardId])
 }
 
 model admins {

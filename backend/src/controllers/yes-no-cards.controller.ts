@@ -57,7 +57,7 @@ export async function getCards(req: any, res: any) {
     return res.status(200).json({
       data: cards,
       pagination: {
-        page: page,
+        page,
         limit,
         total,
         totalPages,

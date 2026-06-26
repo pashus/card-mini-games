@@ -19,3 +19,5 @@ export { TextArrow } from "./text-arrow";
 export { ImageUpload, type ImageItem } from "./image-form/image-upload";
 export * from "./rest-in-peace";
 export * from "./not-found";
+export * from "./admin";
+export * from "./routes";

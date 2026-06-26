@@ -1,3 +1,9 @@
+import { AdminLogin } from "@/components";
+
 export function AdminLoginPage() {
-  return 1;
+  return (
+    <>
+      <AdminLogin />
+    </>
+  );
 }

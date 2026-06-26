@@ -12,7 +12,7 @@ export async function createCardService(
   const card = await prisma.yes_no_cards.create({
     data: {
       title,
-      cardColor: cardColor,
+      cardColor,
       question,
       answer,
       image,

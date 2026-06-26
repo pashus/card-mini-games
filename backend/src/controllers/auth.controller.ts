@@ -10,7 +10,7 @@ export async function login(req: any, res: any) {
     const admin = await loginService(email);
 
     if (!admin) {
-      return res.status(401).json({
+      return res.status(400).json({
         message: "Такого пользователя не существует или неверный пароль",
       });
     }
@@ -18,7 +18,7 @@ export async function login(req: any, res: any) {
     const isValidPassword = await bcrypt.compare(password, admin.passwordHash);
 
     if (!isValidPassword) {
-      return res.status(401).json({
+      return res.status(400).json({
         message: "Такого пользователя не существует или неверный пароль",
       });
     }
@@ -64,8 +64,8 @@ export async function refresh(req: any, res: any) {
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {
-    return res.status(401).json({
-      message: "Unauthorized",
+    return res.status(400).json({
+      message: "Рефреш токен невалиден или его нет",
     });
   }
 
