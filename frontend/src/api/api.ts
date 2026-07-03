@@ -11,8 +11,7 @@ const processQueue = () => {
 };
 
 function forceLogout() {
-  queryClient.removeQueries({ queryKey: ["auth", "me"] });
-  window.location.href = "/admin/login";
+  queryClient.setQueryData(["me"], null);
 }
 
 export const api = axios.create({

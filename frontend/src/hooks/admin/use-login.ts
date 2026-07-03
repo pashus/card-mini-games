@@ -1,11 +1,15 @@
 import { adminQueries } from "@/api";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useLogin() {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (data: { email: string; password: string }) =>
       adminQueries.login(data.email, data.password),
-    onSuccess: () => {},
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["me"] });
+    },
     onError: () => {},
   });
 }

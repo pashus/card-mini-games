@@ -1,3 +1,4 @@
+import { useMe } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { LuAngry, LuAnnoyed, LuFrown, LuSmile } from "react-icons/lu";
 import { Link } from "react-router-dom";
@@ -7,6 +8,8 @@ interface HeaderProps {
 }
 
 export function Header({ className }: HeaderProps) {
+  const { data: isAuth, isLoading, isError } = useMe();
+
   return (
     <header
       className={cn(`header bg-header flex min-h-20 px-6 py-2`, className)}
@@ -25,12 +28,14 @@ export function Header({ className }: HeaderProps) {
               className="transition hover:text-black"
             />
           </Link>
-          <Link className="text-2xl" to="/admin/login">
-            <LuAnnoyed
-              strokeWidth={2.5}
-              className="transition hover:text-black"
-            />
-          </Link>
+          {!isAuth && (
+            <Link className="text-2xl" to="/admin/login">
+              <LuAnnoyed
+                strokeWidth={2.5}
+                className="transition hover:text-black"
+              />
+            </Link>
+          )}
           <Link className="text-2xl" to="/admin/yes-no-game">
             <LuAngry
               strokeWidth={2.5}

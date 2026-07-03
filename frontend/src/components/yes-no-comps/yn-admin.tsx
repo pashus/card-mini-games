@@ -23,6 +23,7 @@ import {
   PaginationPrevious,
 } from "../ui/pagination";
 import { YnAdminDeleteCardModal } from "./yn-admin-delete-card-modal";
+import { YnAdminLogoutModal } from "./yn-admin-logout-modal";
 
 export function YnAdmin() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -63,8 +64,9 @@ export function YnAdmin() {
       </section>
 
       <section className="mx-auto mt-12 w-full max-w-7xl">
-        <div className="flex lg:justify-end">
-          <YnAdminCreateCardModal className="mx-auto max-w-4/5 lg:mx-0 lg:max-w-none" />
+        <div className="flex gap-4 px-6 lg:justify-end lg:px-0">
+          <YnAdminCreateCardModal className="mx-auto max-w-4/5 shrink lg:mx-0 lg:max-w-none" />
+          <YnAdminLogoutModal className="mx-auto max-w-4/5 shrink lg:mx-0 lg:max-w-none" />
         </div>
 
         {isLoading && <YnSkeletonGrid />}

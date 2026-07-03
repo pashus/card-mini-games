@@ -1,10 +1,12 @@
-import { queryClient } from "@/main";
+import { useMe } from "@/hooks";
 import { Navigate, Outlet } from "react-router-dom";
 
 export const PublicRoute = () => {
-  const user = queryClient.getQueryData(["auth", "me"]);
+  const { data: isAuth, isError } = useMe();
 
-  if (user) {
+  // const isAuth = queryClient.getQueryData(["me"]);
+
+  if (isAuth && !isError) {
     return <Navigate to="/admin/yes-no-game" replace />;
   }
 

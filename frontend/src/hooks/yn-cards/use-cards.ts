@@ -7,5 +7,6 @@ export function useCards({ page, limit, sort }: IYnCardsParams) {
     queryKey: ["cards", { page, limit, sort }],
     queryFn: () => cardsQueries.getCards({ page, limit, sort }),
     placeholderData: keepPreviousData,
+    staleTime: 5 * 60 * 1000,
   });
 }

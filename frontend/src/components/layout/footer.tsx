@@ -1,10 +1,20 @@
+import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
-export function Footer() {
+interface FooterProps {
+  className?: string;
+}
+
+export function Footer({ className }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-footer text-footer-foreground flex min-h-10 px-6">
+    <footer
+      className={cn(
+        "bg-footer text-footer-foreground flex min-h-10 px-6",
+        className,
+      )}
+    >
       <div className="mx-auto flex w-full max-w-[1920px] flex-col items-center justify-between gap-4 py-4 text-center text-lg sm:flex-row sm:gap-0 sm:py-0 lg:px-12">
         <span>Мартынов Павел Максимович</span>
         <span className="block sm:hidden">

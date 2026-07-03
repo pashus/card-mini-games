@@ -14,8 +14,17 @@ import {
 import { Layout } from "@/components/layout";
 import { RestInPeacePage } from "./pages/rest-in-peace/rest-in-peace-page";
 import { ProtectedRoute, PublicRoute } from "./components";
+import { useMe } from "@/hooks";
 
 function App() {
+  const { data } = useMe();
+
+  if (data) {
+    console.log(
+      `Данные авторизованного пользователя: id: ${data.user.id}, email: ${data.user.email}`,
+    );
+  }
+
   const router = createBrowserRouter([
     {
       Component: Layout,
