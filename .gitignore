@@ -13,6 +13,7 @@ dist-ssr
 *.local
 
 st.txt
+cloud-init.txt
 .env
 backend/uploads/
 
