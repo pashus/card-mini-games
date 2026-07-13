@@ -1,3 +1,10 @@
-export * from "./store";
-export * from "./select-dispatch";
+export * from "@/store";
 export * from "./auth-slice";
+import { useDispatch, useSelector } from "react-redux";
+import type { store } from "./store";
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
+export const useAppSelector = useSelector.withTypes<RootState>();

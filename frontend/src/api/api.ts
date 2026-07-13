@@ -1,5 +1,5 @@
 import axios from "axios";
-import { adminQueries } from "./admin-queries";
+import { adminQueries } from "./queries/admin-queries";
 import { queryClient } from "@/main";
 
 let isRefreshing = false;
@@ -43,20 +43,20 @@ api.interceptors.response.use(
     isRefreshing = true;
 
     try {
-      console.log(1);
+      console.log("трай рефреша");
       await adminQueries.refresh();
 
       processQueue();
 
       return api(originalRequest);
     } catch (err) {
-      console.log(2);
+      console.log("ошибка при рефреше");
       console.log(err);
       queue = [];
       forceLogout();
       return Promise.reject(err);
     } finally {
-      console.log(3);
+      console.log("рефреш завершен");
       isRefreshing = false;
     }
   },

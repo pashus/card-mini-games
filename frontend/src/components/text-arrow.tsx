@@ -26,11 +26,11 @@ export function TextArrow({
       )}
     >
       {where === "left" && (
-        <LuArrowBigLeft strokeWidth={2.5} className="-translate-x-[2px]" />
+        <LuArrowBigLeft strokeWidth={2.5} className="-translate-x-0.5" />
       )}
       <span className="text-xl sm:inline">{text}</span>
       {where === "right" && (
-        <LuArrowBigRight strokeWidth={2.5} className="translate-x-[2px]" />
+        <LuArrowBigRight strokeWidth={2.5} className="translate-x-0.5" />
       )}
     </Link>
   );

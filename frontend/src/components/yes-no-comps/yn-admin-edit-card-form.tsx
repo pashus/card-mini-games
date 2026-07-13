@@ -221,9 +221,9 @@ export function YnAdminEditCardForm({
                     <PopoverTrigger asChild>
                       <Button
                         type="button"
-                        className="flex-1 whitespace-normal"
+                        className="h-9 flex-1 whitespace-normal"
                       >
-                        {field.value.length > 0
+                        {field.value.length > 0 && !isCategoriesLoading
                           ? categories
                               ?.filter((category: IYnCategory) =>
                                 field.value.includes(category.id),

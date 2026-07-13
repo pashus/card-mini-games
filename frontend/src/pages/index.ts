@@ -1,6 +1,7 @@
-export { YnPage } from "./yn/yn-page";
-export { HomePage } from "./home/home-page";
-export { YnCardPage } from "./yn-card/yn-card-page";
-export { YnAdminPage } from "./yn-admin/yn-admin-page";
-export { AdminLoginPage } from "./admin-login/admin-login-page";
-export { NotFoundPage } from "./not-found/not-found-page";
+export * from "./yn/yn-page";
+export * from "./home/home-page";
+export * from "./yn-card/yn-card-page";
+export * from "./yn-admin/yn-admin-page";
+export * from "./admin-login/admin-login-page";
+export * from "./not-found/not-found-page";
+export * from "./rest-in-peace/rest-in-peace-page";

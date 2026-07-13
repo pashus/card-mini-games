@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "Rubik";
+  src:
+    local("Rubik Bold"),
+    local("Rubik-Bold"),
+    url("./rubik/Rubik-Bold.woff2") format("woff2"),
+    url("./rubik/Rubik-Bold.woff") format("woff"),
+    url("./rubik/Rubik-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src:
+    local("Rubik Medium"),
+    local("Rubik-Medium"),
+    url("./rubik/Rubik-Medium.woff2") format("woff2"),
+    url("./rubik/Rubik-Medium.woff") format("woff"),
+    url("./rubik/Rubik-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src:
+    local("Rubik SemiBold"),
+    local("Rubik-SemiBold"),
+    url("./rubik/Rubik SemiBold.woff2") format("woff2"),
+    url("./rubik/Rubik SemiBold.woff") format("woff"),
+    url("./rubik/Rubik SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src:
+    local("Rubik Regular"),
+    local("Rubik-Regular"),
+    url("./rubik/Rubik-Regular.woff2") format("woff2"),
+    url("./rubik/Rubik-Regular.woff") format("woff"),
+    url("./rubik/Rubik-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src:
+    local("Rubik Black"),
+    local("Rubik-Black"),
+    url("./rubik/Rubik-Black.woff2") format("woff2"),
+    url("./rubik/Rubik-Black.woff") format("woff"),
+    url("./rubik/Rubik-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src:
+    local("Rubik Light"),
+    local("Rubik-Light"),
+    url("./rubik/Rubik-Light.woff2") format("woff2"),
+    url("./rubik/Rubik-Light.woff") format("woff"),
+    url("./rubik/Rubik-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}

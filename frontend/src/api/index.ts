@@ -1,5 +1,5 @@
-export { cardsQueries } from "./cards-queries";
+export { cardsQueries } from "./queries/cards-queries";
 export { api } from "./api";
-export { reviewQueries } from "./review-queries";
-export { categoriesQueries } from "./categories-queries";
-export { adminQueries } from "./admin-queries";
+export { reviewQueries } from "./queries/review-queries";
+export { categoriesQueries } from "./queries/categories-queries";
+export { adminQueries } from "./queries/admin-queries";
