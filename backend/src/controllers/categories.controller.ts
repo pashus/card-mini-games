@@ -1,11 +1,12 @@
-import { createCategoryService, getCategoriesService } from "../services";
+import { createCategoriesService, getCategoriesService } from "../services";
 
-export async function createCategory(req: any, res: any) {
+export async function createCategories(req: any, res: any) {
   try {
-    const { name, color } = req.body;
-    const category = await createCategoryService(name, color);
+    const categories = req.body;
+    console.log(categories);
+    await createCategoriesService(categories);
 
-    return res.status(201).json(category);
+    return res.status(201).json({ message: "Категории созданы" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: "Ошибка сервера" });

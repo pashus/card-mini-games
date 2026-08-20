@@ -1,4 +1,5 @@
 export interface IYnCategory {
+  id: number;
   name: string;
   color: string;
 }
@@ -53,10 +54,4 @@ export interface IYnReviewResponse {
   difficulty: number;
   duration: number;
   createdAt: string;
-}
-
-export interface IYnCategory {
-  id: number;
-  name: string;
-  color: string;
 }

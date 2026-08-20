@@ -55,28 +55,17 @@ export function YnAdminCreateCardForm({
   } = useCategories();
 
   const [cardColorOpen, setCardColorOpen] = useState(false);
-  // const [openCategoryColorIndex, setOpenCategoryColorIndex] = useState<
-  //   number | null
-  // >(null);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
 
-  // const categoryPickerRef = useRef<HTMLDivElement | null>(null);
   const cardPickerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     onPendingChange(isPending);
-  }, [isPending]);
+  }, [isPending, onPendingChange]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       const target = e.target as Node;
-
-      // if (
-      //   categoryPickerRef.current &&
-      //   !categoryPickerRef.current.contains(target)
-      // ) {
-      //   setOpenCategoryColorIndex(null);
-      // }
 
       if (cardPickerRef.current && !cardPickerRef.current.contains(target)) {
         setCardColorOpen(false);
@@ -103,11 +92,6 @@ export function YnAdminCreateCardForm({
     mode: "onSubmit",
   });
 
-  // const { fields, append, remove } = useFieldArray({
-  //   control: form.control,
-  //   name: "categories",
-  // });
-
   function onSubmit(data: z.infer<typeof formSchema>) {
     const formData = new FormData();
 
@@ -119,14 +103,14 @@ export function YnAdminCreateCardForm({
     formData.append("duration", "0");
     formData.append("liked", "0");
     formData.append("difficulty", "0");
-    formData.append("image", data.image[0]?.file!);
+    formData.append("image", data.image[0]?.file);
 
     mutate(formData, {
       onSuccess: () => {
         form.reset();
         onClose();
       },
-      onError: (error: any) => {
+      onError: (error: unknown) => {
         console.log(error);
       },
     });
@@ -288,79 +272,6 @@ export function YnAdminCreateCardForm({
               );
             }}
           />
-
-          {/* <Field>
-            <FieldLabel htmlFor="categories">Категории</FieldLabel>
-            {fields.map((item, index) => (
-              <div key={item.id} className="flex items-end gap-2">
-                <Controller
-                  name={`categories.${index}.name`}
-                  control={form.control}
-                  render={({ field }) => (
-                    <Field>
-                      <Input
-                        id="categories"
-                        {...field}
-                        placeholder="Название категории"
-                      />
-                      {fieldState.invalid && (
-                        <FieldError errors={[fieldState.error]} />
-                      )}
-                    </Field>
-                  )}
-                />
-                <Controller
-                  name={`categories.${index}.color`}
-                  control={form.control}
-                  render={({ field }) => (
-                    <Field>
-                      <div className="relative flex items-center gap-2">
-                        <button
-                          type="button"
-                          className="h-8 w-8 rounded border"
-                          style={{ backgroundColor: field.value }}
-                          onClick={() =>
-                            setOpenCategoryColorIndex(
-                              openCategoryColorIndex === index ? null : index,
-                            )
-                          }
-                        />
-                        <Input
-                          {...field}
-                          readOnly
-                          className="flex-1"
-                          placeholder="#ffffff"
-                        />
-                        {openCategoryColorIndex === index && (
-                          <div
-                            ref={categoryPickerRef}
-                            className="bg-background absolute bottom-12 rounded-lg border p-3 shadow-xl"
-                          >
-                            <HexColorPicker
-                              color={field.value}
-                              onChange={field.onChange}
-                            />
-                          </div>
-                        )}
-                      </div>
-                      {fieldState.invalid && (
-                        <FieldError errors={[fieldState.error]} />
-                      )}
-                    </Field>
-                  )}
-                />
-                <Button type="button" onClick={() => remove(index)}>
-                  Удалить
-                </Button>
-              </div>
-            ))}
-            <Button
-              type="button"
-              onClick={() => append({ name: "", color: "#ffffff" })}
-            >
-              Добавить категорию
-            </Button>
-          </Field> */}
 
           <Controller
             name="cardColor"

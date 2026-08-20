@@ -9,15 +9,16 @@ import {
 } from "../ui/dialog";
 import { YnAdminCreateCardForm } from "./yn-admin-create-card-form";
 import { cn } from "@/lib/utils";
-import { FilePlus } from "lucide-react";
+import { YnAdminCreateCategoriesForm } from "./yn-admin-create-categories-form";
+import { Tag } from "lucide-react";
 
-interface YnAdminCreateCardModalProps {
+interface YnAdminCreateCategoriesModalProps {
   className?: string;
 }
 
-export function YnAdminCreateCardModal({
+export function YnAdminCreateCategoriesModal({
   className,
-}: YnAdminCreateCardModalProps) {
+}: YnAdminCreateCategoriesModalProps) {
   const [open, setOpen] = useState(false);
   const [isPending, setIsPending] = useState(false);
 
@@ -31,13 +32,13 @@ export function YnAdminCreateCardModal({
           className,
         )}
       >
-        <FilePlus />
-        <span>Добавить данетку</span>
+        <Tag />
+        Создать категорию
       </Button>
       <DialogContent className="max-h-[90svh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-center">Создание данетки</DialogTitle>
-          <YnAdminCreateCardForm
+          <DialogTitle className="text-center">Создание категории</DialogTitle>
+          <YnAdminCreateCategoriesForm
             onClose={() => setOpen(false)}
             onPendingChange={setIsPending}
           />
@@ -45,7 +46,7 @@ export function YnAdminCreateCardModal({
         <DialogFooter>
           <Button
             type="submit"
-            form="yn-create-form"
+            form="yn-create-categories-form"
             size="lg"
             className="cursor-pointer"
             disabled={isPending}

@@ -22,3 +22,4 @@ export * from "./not-found";
 export * from "./admin";
 export * from "./routes";
 export { YnAdminDeleteCardModal } from "./yes-no-comps/yn-admin-delete-card-modal";
+export * from "./yes-no-comps/yn-admin-create-categories-modal";

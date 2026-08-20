@@ -54,6 +54,10 @@ function App() {
               path: "/admin/yes-no-game",
               element: <YnAdminPage />,
             },
+            {
+              path: "/admin/yes-no-game/categories",
+              element: <div>Тут будет создание категорий</div>,
+            },
           ],
         },
       ],
