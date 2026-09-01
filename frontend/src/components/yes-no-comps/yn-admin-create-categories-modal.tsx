@@ -7,7 +7,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
-import { YnAdminCreateCardForm } from "./yn-admin-create-card-form";
 import { cn } from "@/lib/utils";
 import { YnAdminCreateCategoriesForm } from "./yn-admin-create-categories-form";
 import { Tag } from "lucide-react";
@@ -35,7 +34,7 @@ export function YnAdminCreateCategoriesModal({
         <Tag />
         Создать категорию
       </Button>
-      <DialogContent className="max-h-[90svh] overflow-y-auto">
+      <DialogContent className="max-h-[90svh] overflow-y-visible">
         <DialogHeader>
           <DialogTitle className="text-center">Создание категории</DialogTitle>
           <YnAdminCreateCategoriesForm

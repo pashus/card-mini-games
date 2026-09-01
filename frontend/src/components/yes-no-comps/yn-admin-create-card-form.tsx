@@ -255,7 +255,13 @@ export function YnAdminCreateCardForm({
                                   }}
                                 />
 
-                                <FieldLabel htmlFor={`category-${category.id}`}>
+                                <FieldLabel
+                                  htmlFor={`category-${category.id}`}
+                                  style={{
+                                    backgroundColor: `${category.color}BF`,
+                                  }}
+                                  className="cursor-pointer rounded px-1.5 py-0.5"
+                                >
                                   {category.name}
                                 </FieldLabel>
                               </Field>
@@ -280,7 +286,10 @@ export function YnAdminCreateCardForm({
             render={({ field, fieldState }) => (
               <Field>
                 <FieldLabel>Цвет карточки</FieldLabel>
-                <div className="relative z-10 flex items-center gap-2">
+                <div
+                  ref={cardColorOpen ? cardPickerRef : undefined}
+                  className="relative z-10 flex items-center gap-2 lg:max-w-38"
+                >
                   <button
                     type="button"
                     onClick={() => setCardColorOpen((open) => !open)}
@@ -290,10 +299,7 @@ export function YnAdminCreateCardForm({
                   <Input {...field} readOnly className="w-full lg:w-28" />
 
                   {cardColorOpen && (
-                    <div
-                      ref={cardPickerRef}
-                      className="bg-background absolute top-12 rounded-lg border p-3 shadow-xl"
-                    >
+                    <div className="bg-background absolute top-12 rounded-lg border p-3 shadow-xl">
                       <HexColorPicker
                         color={field.value}
                         onChange={field.onChange}

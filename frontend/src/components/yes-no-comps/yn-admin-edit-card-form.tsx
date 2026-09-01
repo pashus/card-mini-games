@@ -58,11 +58,7 @@ export function YnAdminEditCardForm({
 
   const [cardColorOpen, setCardColorOpen] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
-  // const [openCategoryColorIndex, setOpenCategoryColorIndex] = useState<
-  //   number | null
-  // >(null);
 
-  // const categoryPickerRef = useRef<HTMLDivElement | null>(null);
   const cardPickerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -72,13 +68,6 @@ export function YnAdminEditCardForm({
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       const target = e.target as Node;
-
-      // if (
-      //   categoryPickerRef.current &&
-      //   !categoryPickerRef.current.contains(target)
-      // ) {
-      //   setOpenCategoryColorIndex(null);
-      // }
 
       if (cardPickerRef.current && !cardPickerRef.current.contains(target)) {
         setCardColorOpen(false);
@@ -109,11 +98,6 @@ export function YnAdminEditCardForm({
     },
     mode: "onSubmit",
   });
-
-  // const { fields, append, remove } = useFieldArray({
-  //   control: form.control,
-  //   name: "categories",
-  // });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     const formData = new FormData();
@@ -280,7 +264,13 @@ export function YnAdminEditCardForm({
                                   }}
                                 />
 
-                                <FieldLabel htmlFor={`category-${category.id}`}>
+                                <FieldLabel
+                                  htmlFor={`category-${category.id}`}
+                                  style={{
+                                    backgroundColor: `${category.color}BF`,
+                                  }}
+                                  className="cursor-pointer rounded px-1.5 py-0.5"
+                                >
                                   {category.name}
                                 </FieldLabel>
                               </Field>
@@ -298,79 +288,6 @@ export function YnAdminEditCardForm({
             }}
           />
 
-          {/* <Field>
-            <FieldLabel htmlFor="categories">Категории</FieldLabel>
-            {fields.map((item, index) => (
-              <div key={item.id} className="flex items-end gap-2">
-                <Controller
-                  name={`categories.${index}.name`}
-                  control={form.control}
-                  render={({ field }) => (
-                    <Field>
-                      <Input
-                        id="categories"
-                        {...field}
-                        placeholder="Название категории"
-                      />
-                      {fieldState.invalid && (
-                        <FieldError errors={[fieldState.error]} />
-                      )}
-                    </Field>
-                  )}
-                />
-                <Controller
-                  name={`categories.${index}.color`}
-                  control={form.control}
-                  render={({ field }) => (
-                    <Field>
-                      <div className="relative flex items-center gap-2">
-                        <button
-                          type="button"
-                          className="h-8 w-8 rounded border"
-                          style={{ backgroundColor: field.value }}
-                          onClick={() =>
-                            setOpenCategoryColorIndex(
-                              openCategoryColorIndex === index ? null : index,
-                            )
-                          }
-                        />
-                        <Input
-                          {...field}
-                          readOnly
-                          className="flex-1"
-                          placeholder="#ffffff"
-                        />
-                        {openCategoryColorIndex === index && (
-                          <div
-                            ref={categoryPickerRef}
-                            className="bg-background absolute bottom-12 rounded-lg border p-3 shadow-xl"
-                          >
-                            <HexColorPicker
-                              color={field.value}
-                              onChange={field.onChange}
-                            />
-                          </div>
-                        )}
-                      </div>
-                      {fieldState.invalid && (
-                        <FieldError errors={[fieldState.error]} />
-                      )}
-                    </Field>
-                  )}
-                />
-                <Button type="button" onClick={() => remove(index)}>
-                  Удалить
-                </Button>
-              </div>
-            ))}
-            <Button
-              type="button"
-              onClick={() => append({ name: "", color: "#ffffff" })}
-            >
-              Добавить категорию
-            </Button>
-          </Field> */}
-
           <Controller
             name="cardColor"
             control={form.control}
@@ -378,7 +295,10 @@ export function YnAdminEditCardForm({
             render={({ field, fieldState }) => (
               <Field>
                 <FieldLabel>Цвет карточки</FieldLabel>
-                <div className="relative z-10 flex items-center gap-2">
+                <div
+                  ref={cardColorOpen ? cardPickerRef : undefined}
+                  className="relative z-10 flex items-center gap-2 lg:max-w-38"
+                >
                   <button
                     type="button"
                     onClick={() => setCardColorOpen((open) => !open)}
@@ -388,10 +308,7 @@ export function YnAdminEditCardForm({
                   <Input {...field} readOnly className="w-full lg:w-28" />
 
                   {cardColorOpen && (
-                    <div
-                      ref={cardPickerRef}
-                      className="bg-background absolute top-12 rounded-lg border p-3 shadow-xl"
-                    >
+                    <div className="bg-background absolute top-12 rounded-lg border p-3 shadow-xl">
                       <HexColorPicker
                         color={field.value}
                         onChange={field.onChange}

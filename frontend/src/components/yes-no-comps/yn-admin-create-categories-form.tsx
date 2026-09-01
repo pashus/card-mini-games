@@ -9,12 +9,14 @@ import { useCreateCategories } from "@/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const formSchema = z.object({
-  categories: z.array(
-    z.object({
-      color: z.string(),
-      name: z.string().min(2, { message: "Минимум 2 символа" }),
-    }),
-  ),
+  categories: z
+    .array(
+      z.object({
+        color: z.string(),
+        name: z.string().min(2, { message: "Минимум 2 символа" }),
+      }),
+    )
+    .min(1),
 });
 
 interface YnAdminCreateCategoriesFormProps {
@@ -93,20 +95,18 @@ export function YnAdminCreateCategoriesForm({
           <Field>
             <FieldLabel htmlFor="categories">Категории</FieldLabel>
             {fields.map((item, index) => (
-              <div key={item.id} className="flex items-end gap-2">
+              <div key={item.id} className="flex items-start gap-2">
                 <Controller
                   name={`categories.${index}.name`}
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field>
                       <Input
-                        id="categories"
+                        id={`categories`}
                         {...field}
                         placeholder="Название категории"
                       />
-                      {fieldState.invalid && (
-                        <FieldError errors={[fieldState.error]} />
-                      )}
+                      <FieldError errors={[fieldState.error]} />
                     </Field>
                   )}
                 />
@@ -116,7 +116,14 @@ export function YnAdminCreateCategoriesForm({
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field>
-                      <div className="relative flex items-center gap-2">
+                      <div
+                        ref={
+                          openCategoryColorIndex === index
+                            ? categoryPickerRef
+                            : undefined
+                        }
+                        className="relative flex items-center gap-2"
+                      >
                         <button
                           type="button"
                           className="h-8 w-8 rounded border"
@@ -134,10 +141,7 @@ export function YnAdminCreateCategoriesForm({
                           placeholder="#ffffff"
                         />
                         {openCategoryColorIndex === index && (
-                          <div
-                            ref={categoryPickerRef}
-                            className="bg-background absolute bottom-12 rounded-lg border p-3 shadow-xl"
-                          >
+                          <div className="bg-background absolute bottom-12 rounded-lg border p-3 shadow-xl">
                             <HexColorPicker
                               color={field.value}
                               onChange={field.onChange}
@@ -155,11 +159,13 @@ export function YnAdminCreateCategoriesForm({
                   variant="destructive"
                   type="button"
                   onClick={() => remove(index)}
+                  disabled={fields.length <= 1}
                 >
                   Удалить
                 </Button>
               </div>
             ))}
+
             <Button
               type="button"
               onClick={() => append({ name: "", color: "#ffffff" })}
