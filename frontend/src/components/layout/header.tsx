@@ -1,7 +1,7 @@
 import { useMe } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { LuAngry, LuAnnoyed, LuFrown, LuSmile } from "react-icons/lu";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface HeaderProps {
   className?: string;
@@ -9,6 +9,9 @@ interface HeaderProps {
 
 export function Header({ className }: HeaderProps) {
   const { data: isAuth, isLoading, isError } = useMe();
+  const location = useLocation();
+
+  const isAdminRoute = location.pathname.includes("admin/");
 
   return (
     <header
@@ -16,10 +19,10 @@ export function Header({ className }: HeaderProps) {
     >
       <div className="mx-auto flex w-full max-w-[1920px] flex-col items-center gap-1 text-center sm:flex-row sm:justify-between sm:gap-0 lg:px-12">
         <Link
-          to="/"
+          to={`${isAdminRoute ? "/admin/login" : "/"}`} // потом сделать просто страницу /admin с выбором админки данеток и темного джека
           className="cursor-pointer text-2xl font-black uppercase select-none sm:text-3xl"
         >
-          Карточные игрушки
+          {isAdminRoute ? "Админка" : "Карточные игрушки"}
         </Link>
         <div className="flex gap-4">
           <Link className="text-2xl" to="/yes-no-game">

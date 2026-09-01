@@ -29,20 +29,20 @@ function App() {
     {
       Component: Layout,
       children: [
-        { path: "/", element: <HomePage /> },
-        { path: "/yes-no-game", element: <YnPage /> },
-        { path: "/yes-no-game/card/:id", element: <YnCardPage /> },
+        { path: "/", Component: HomePage },
+        { path: "/yes-no-game", Component: YnPage },
+        { path: "/yes-no-game/card/:id", Component: YnCardPage },
         { path: "/dark-jack-game", element: <div>Тёмный Джек</div> },
-        { path: "/not-found", element: <NotFoundPage /> },
+        { path: "/not-found", Component: NotFoundPage },
         { path: "*", element: <Navigate to="/not-found" replace /> },
-        { path: "/rip", element: <RestInPeacePage /> },
+        { path: "/rip", Component: RestInPeacePage },
 
         {
           element: <PublicRoute />,
           children: [
             {
               path: "/admin/login",
-              element: <AdminLoginPage />,
+              Component: AdminLoginPage,
             },
           ],
         },
@@ -51,12 +51,20 @@ function App() {
           element: <ProtectedRoute />,
           children: [
             {
+              path: "/admin",
+              element: <div>Тут будет выбор между админками</div>,
+            },
+            {
               path: "/admin/yes-no-game",
-              element: <YnAdminPage />,
+              Component: YnAdminPage,
             },
             {
               path: "/admin/yes-no-game/categories",
               element: <div>Тут будет создание категорий</div>,
+            },
+            {
+              path: "/admin/dark-jack-game",
+              element: <div>Тут будет админка для Тёмного Джека</div>,
             },
           ],
         },

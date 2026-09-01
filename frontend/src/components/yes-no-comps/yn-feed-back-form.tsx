@@ -152,14 +152,11 @@ export function YnFeedBackForm({ cardId, enteredAt }: IYnFeedBackFormProps) {
                 <Input
                   id="minutesInput"
                   type="number"
-                  min={1}
-                  max={60}
-                  maxLength={2}
                   value={field.value}
                   onChange={(e) => {
                     field.onChange(Number(e.target.value));
                   }}
-                  className="bg-card-review-buttons h-12 rounded-sm border-0 px-4 py-2 text-xl! transition"
+                  className="bg-card-review-buttons mb-1 h-12 rounded-sm border-0 px-4 py-2 text-xl! transition"
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
