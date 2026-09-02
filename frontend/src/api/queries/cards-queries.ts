@@ -7,9 +7,14 @@ export const cardsQueries = {
     return res.data;
   },
 
-  getCards: async ({ page, limit, sort = "asc" }: IYnCardsParams) => {
+  getCards: async ({
+    page,
+    limit,
+    idSort = "asc",
+    nameSort = null,
+  }: IYnCardsParams) => {
     const res = await api.get<IYnCardsResponse>("/yes-no-cards", {
-      params: { page, limit, sort },
+      params: { page, limit, idSort, nameSort },
     });
     return res.data;
   },

@@ -1,5 +1,6 @@
 import { Card } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 
 export function YnSkeletonGrid() {
   return (
@@ -35,5 +36,33 @@ export function YnSkeleton() {
         </div>
       </div>
     </Card>
+  );
+}
+
+export function YnSkeletonTable() {
+  return (
+    <div className="mt-4 rounded-lg bg-[#fff7f09e] p-4 shadow sm:p-6">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {Array.from({ length: 8 }).map((_, index) => <TableHead key={index}><Skeleton className="h-4 w-16 bg-gray-300" /></TableHead>)}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {Array.from({ length: 8 }).map((_, index) => (
+            <TableRow key={index}>
+              <TableCell><Skeleton className="size-12 bg-gray-200" /></TableCell>
+              <TableCell><Skeleton className="h-4 w-32 bg-gray-200" /></TableCell>
+              <TableCell><Skeleton className="h-4 w-56 bg-gray-200" /></TableCell>
+              <TableCell><Skeleton className="h-6 w-24 bg-gray-200" /></TableCell>
+              <TableCell><Skeleton className="h-4 w-10 bg-gray-200" /></TableCell>
+              <TableCell><Skeleton className="h-4 w-10 bg-gray-200" /></TableCell>
+              <TableCell><Skeleton className="h-4 w-10 bg-gray-200" /></TableCell>
+              <TableCell><Skeleton className="h-8 w-16 bg-gray-200" /></TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 }

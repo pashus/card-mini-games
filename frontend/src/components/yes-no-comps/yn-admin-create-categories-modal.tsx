@@ -27,7 +27,7 @@ export function YnAdminCreateCategoriesModal({
         onClick={() => setOpen(true)}
         size="lg"
         className={cn(
-          "mb-4 w-full cursor-pointer text-lg lg:mb-0 lg:w-auto",
+          "bg-footer text-footer-foreground hover:bg-footer/90 mb-4 w-full cursor-pointer text-lg lg:mb-0 lg:w-auto",
           className,
         )}
       >

@@ -1,45 +1,49 @@
 import { useState } from "react";
 import { useDeleteCard } from "@/hooks";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "../ui/alert-dialog";
 import { DeleteButton } from "../delete-button";
+import { Button } from "../ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
 
-export function YnAdminDeleteCardModal({ cardId }: { cardId: string }) {
+interface YnAdminDeleteCardModalProps {
+  cardId: string;
+}
+
+export function YnAdminDeleteCardModal({
+  cardId,
+}: YnAdminDeleteCardModalProps) {
   const [open, setOpen] = useState(false);
   const { mutate } = useDeleteCard();
 
+  function handleDelete() {
+    setOpen(false);
+    mutate(cardId);
+  }
+
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      <DeleteButton
-        onClick={() => {
-          setOpen(true);
-        }}
-      />
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle className="text-center">
-            Вы уверены?
-          </AlertDialogTitle>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel variant="ghost" className="hover:bg-muted">
-            Отмена
-          </AlertDialogCancel>
-          <AlertDialogAction
-            variant="destructive"
-            onClick={() => mutate(cardId)}
-          >
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DeleteButton onClick={() => setOpen(true)} />
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="text-start">Вы уверены?</DialogTitle>
+        </DialogHeader>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="ghost" className="hover:bg-muted">
+              Отмена
+            </Button>
+          </DialogClose>
+          <Button variant="destructive" onClick={handleDelete}>
             Удалить
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

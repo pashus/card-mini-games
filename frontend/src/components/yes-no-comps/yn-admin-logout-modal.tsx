@@ -1,16 +1,15 @@
 import { useState } from "react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "../ui/alert-dialog";
 import { useLogout } from "@/hooks";
-import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
 
 interface YnAdminLogoutModalProps {
   className?: string;
@@ -20,34 +19,37 @@ export function YnAdminLogoutModal({ className }: YnAdminLogoutModalProps) {
   const [open, setOpen] = useState(false);
   const { mutate } = useLogout();
 
+  function handleLogout() {
+    setOpen(false);
+    mutate();
+  }
+
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <Button
         variant="destructive"
         className={cn("w-full cursor-pointer text-lg lg:w-auto", className)}
         size="lg"
         type="button"
-        onClick={() => {
-          setOpen(true);
-        }}
+        onClick={() => setOpen(true)}
       >
         Выйти
       </Button>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle className="text-center">
-            Вы уверены?
-          </AlertDialogTitle>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel variant="ghost" className="hover:bg-muted">
-            Отмена
-          </AlertDialogCancel>
-          <AlertDialogAction variant="destructive" onClick={() => mutate()}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="text-start">Вы уверены?</DialogTitle>
+        </DialogHeader>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="ghost" className="hover:bg-muted">
+              Отмена
+            </Button>
+          </DialogClose>
+          <Button variant="destructive" onClick={handleLogout}>
             Выйти
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -61,7 +61,8 @@ export async function getCardService(id: number) {
 export async function getCardsService(
   page: number,
   limit: number,
-  sort: "asc" | "desc",
+  idSort: "asc" | "desc",
+  nameSort: "asc" | "desc" | undefined = undefined,
 ) {
   const cards = await prisma.yes_no_cards.findMany({
     skip: (page - 1) * limit,
@@ -73,9 +74,7 @@ export async function getCardsService(
         },
       },
     },
-    orderBy: {
-      id: sort,
-    },
+    orderBy: [{ title: nameSort }, { id: idSort }],
   });
 
   const total = await prisma.yes_no_cards.count();

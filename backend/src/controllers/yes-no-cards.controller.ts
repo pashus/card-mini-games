@@ -48,10 +48,16 @@ export async function getCard(req: any, res: any) {
 export async function getCards(req: any, res: any) {
   const page = Number(req.query.page ?? 1);
   const limit = Number(req.query.limit ?? 12);
-  const sort = req.query.sort ?? "desc";
+  const idSort = req.query.idSort ?? "desc";
+  const nameSort = req.query.nameSort ?? undefined;
 
   try {
-    const { cards, total } = await getCardsService(page, limit, sort);
+    const { cards, total } = await getCardsService(
+      page,
+      limit,
+      idSort,
+      nameSort,
+    );
     const totalPages = Math.ceil(total / limit);
 
     return res.status(200).json({

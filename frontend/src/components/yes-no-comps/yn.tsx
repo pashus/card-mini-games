@@ -22,15 +22,20 @@ import {
   PaginationPrevious,
 } from "../ui/pagination";
 import { TextArrow } from "../text-arrow";
+import { useEffect } from "react";
 
 export function Yn() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const limit = 1;
+  const limit = 4;
   const page = Number(searchParams.get("page")) || 1;
-  const sort = "desc";
+  const idSort = "desc";
 
-  const { data: cards, isLoading, isError } = useCards({ page, limit, sort });
+  const { data: cards, isLoading, isError } = useCards({ page, limit, idSort });
+
+  useEffect(() => {
+    window.scrollTo({ behavior: "smooth", top: 0 });
+  }, [page]);
 
   const totalPages = cards?.pagination.totalPages || 1;
   const hasNext = cards?.pagination.hasNext || false;
@@ -38,7 +43,10 @@ export function Yn() {
   const pages: number[] = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   function setPage(nextPage: number) {
-    setSearchParams({ page: String(nextPage) });
+    setSearchParams((prev) => {
+      prev.set("page", String(nextPage));
+      return prev;
+    });
   }
 
   return (
@@ -87,7 +95,7 @@ export function Yn() {
           )}
 
           {!isLoading && (cards?.data.length ?? 0) > 0 && (
-            <div className="grid grid-cols-1 gap-6 rounded-lg bg-[#fff7f09e] p-6 shadow sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="bg-cards-list grid grid-cols-1 gap-6 rounded-lg p-6 shadow sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {cards?.data.map((card: IYnCard) => (
                 <Link key={card.id} to={`/yes-no-game/card/${card.id}`}>
                   <Card

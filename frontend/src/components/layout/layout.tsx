@@ -11,7 +11,7 @@ export function Layout() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [location.pathname, location.search]);
+  }, [location.pathname]); //мб + search
 
   return (
     <div className="flex min-h-svh flex-col">

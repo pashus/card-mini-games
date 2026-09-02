@@ -35,7 +35,8 @@ export interface IYnCardsResponse {
 export interface IYnCardsParams {
   page: number;
   limit: number;
-  sort: string;
+  idSort: string | null;
+  nameSort?: string | null;
 }
 
 export interface IYnReview {
@@ -73,6 +74,8 @@ export interface IAdminRefreshResponse {
 }
 
 export interface IAdminMeResponse {
-  id: number;
-  email: string;
+  user: {
+    id: number;
+    email: string;
+  };
 }
