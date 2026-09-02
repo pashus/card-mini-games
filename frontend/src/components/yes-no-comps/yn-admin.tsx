@@ -1,15 +1,6 @@
-import { useCards } from "@/hooks";
-import type { IYnCard } from "@/types";
-import { BiLike, BiTimeFive } from "react-icons/bi";
-import { HiArrowsUpDown } from "react-icons/hi2";
+import { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import { YnAdminCreateCardModal } from "./yn-admin-create-card-modal";
-import { YnAdminEditCardModal } from "./yn-admin-edit-card-modal";
-import { YnAdminDeleteCardModal } from "./yn-admin-delete-card-modal";
-import { YnAdminLogoutModal } from "./yn-admin-logout-modal";
-import { YnAdminCreateCategoriesModal } from "./yn-admin-create-categories-modal";
-import { YnAdminImagePreviewModal } from "./yn-admin-image-preview-modal";
-import { YnSkeletonTable } from "./yn-skeleton";
+import { useCards } from "@/hooks";
 import {
   Pagination,
   PaginationContent,
@@ -18,24 +9,16 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../ui/pagination";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../ui/table";
-import { ArrowUpDown, ChevronsDown, ChevronsUp } from "lucide-react";
-import { useEffect, useRef } from "react";
-import { LimitInput } from "../limit-input";
+import { YnAdminCreateCardModal } from "./yn-admin-create-card-modal";
+import { YnAdminCreateCategoriesModal } from "./yn-admin-create-categories-modal";
+import { YnAdminLogoutModal } from "./yn-admin-logout-modal";
+import { YnSkeletonTable } from "./yn-skeleton";
+import { YnAdminTable } from "./yn-admin-table";
 
 export function YnAdmin() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const tableRef = useRef<HTMLDivElement>(null);
-
   const limit = Number(searchParams.get("limit")) || 10;
   const page = Number(searchParams.get("page")) || 1;
   const nameSort = searchParams.get("nameSort") || null;
@@ -45,29 +28,16 @@ export function YnAdmin() {
     data: cards,
     isLoading,
     isError,
-  } = useCards({
-    page,
-    limit,
-    idSort,
-    nameSort,
-  });
+  } = useCards({ page, limit, idSort, nameSort });
 
   useEffect(() => {
-    if (window.innerWidth < 768) {
-      tableRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
+    if (window.innerWidth < 768)
+      tableRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [limit, page]);
 
   useEffect(() => {
-    if (window.innerWidth >= 768) {
-      window.scrollTo({
-        behavior: "smooth",
-        top: 0,
-      });
-    }
+    if (window.innerWidth >= 768)
+      window.scrollTo({ behavior: "smooth", top: 0 });
   }, [page]);
 
   const totalPages = cards?.pagination.totalPages || 1;
@@ -75,45 +45,38 @@ export function YnAdmin() {
   const hasPrev = cards?.pagination.hasPrev || false;
   const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 
-  function setPage(nextPage: number) {
+  const setPage = (nextPage: number) =>
     setSearchParams((prev) => {
       prev.set("page", String(nextPage));
       return prev;
     });
-  }
 
-  function setNameSort(nameSort: string | null) {
+  const setNameSort = (nextNameSort: string | null) =>
     setSearchParams((prev) => {
-      prev.set("nameSort", String(nameSort));
+      prev.set("nameSort", String(nextNameSort));
       prev.delete("idSort");
-
       return prev;
     });
-  }
 
-  function setIdSort(idSort: string) {
+  const setIdSort = (nextIdSort: string) =>
     setSearchParams((prev) => {
-      prev.set("idSort", String(idSort));
+      prev.set("idSort", String(nextIdSort));
       prev.delete("nameSort");
-
       return prev;
     });
-  }
 
-  function setLimit(limit: number) {
+  const setLimit = (nextLimit: number) =>
     setSearchParams((prev) => {
-      prev.set("limit", String(limit));
+      prev.set("limit", String(nextLimit));
       prev.set("page", "1");
       return prev;
     });
-  }
 
   return (
     <div className="flex flex-1 flex-col">
       <section className="mx-auto max-w-7xl px-6 pt-15 text-center lg:px-0">
         <h1 className="text-4xl font-bold tracking-wider">Данетки</h1>
       </section>
-
       <section className="mx-auto mt-8 w-full max-w-7xl md:mt-12">
         <div className="flex flex-col gap-0 px-6 md:flex-row md:gap-4 lg:justify-end lg:px-0">
           <YnAdminCreateCardModal className="mx-auto shrink lg:mx-0 lg:max-w-none" />
@@ -135,135 +98,20 @@ export function YnAdmin() {
           </p>
         )}
 
-        {!isLoading && (cards?.data.length ?? 0) > 0 && (
+        {!isLoading && cards && cards.data.length > 0 && (
           <div
             ref={tableRef}
-            className="bg-cards-list mt-4 rounded-lg p-4 shadow sm:p-6"
+            className="bg-cards-list mt-4 rounded-lg px-6 py-4 shadow"
           >
-            <Table className="text-base">
-              <TableHeader>
-                <TableRow className="hover:bg-transparent">
-                  <TableHead
-                    onClick={() => {
-                      setIdSort(idSort === "asc" ? "desc" : "asc");
-                    }}
-                    className="hover:bg-muted/50 flex cursor-pointer items-center gap-1 transition"
-                  >
-                    ID
-                    {!idSort ? (
-                      <ArrowUpDown />
-                    ) : idSort === "asc" ? (
-                      <ChevronsUp />
-                    ) : (
-                      <ChevronsDown />
-                    )}
-                  </TableHead>
-                  <TableHead className="hover:bg-muted/50 transition">
-                    Изображение
-                  </TableHead>
-                  <TableHead
-                    onClick={() => {
-                      setNameSort(nameSort === "asc" ? "desc" : "asc");
-                    }}
-                    className="hover:bg-muted/50 flex cursor-pointer items-center gap-1 transition"
-                  >
-                    Название
-                    {!nameSort ? (
-                      <ArrowUpDown />
-                    ) : nameSort === "asc" ? (
-                      <ChevronsUp />
-                    ) : (
-                      <ChevronsDown />
-                    )}
-                  </TableHead>
-                  <TableHead className="hover:bg-muted/50 transition">
-                    Вопрос
-                  </TableHead>
-                  <TableHead className="hover:bg-muted/50 transition">
-                    Категории
-                  </TableHead>
-                  <TableHead className="hover:bg-muted/50 transition">
-                    <span className="flex items-center gap-1">
-                      <BiLike strokeWidth={0.5} />
-                      Оценка
-                    </span>
-                  </TableHead>
-                  <TableHead className="hover:bg-muted/50 transition">
-                    <span className="flex items-center gap-1">
-                      <BiTimeFive strokeWidth={0.5} />
-                      Время
-                    </span>
-                  </TableHead>
-                  <TableHead className="hover:bg-muted/50 transition">
-                    <span className="flex items-center gap-1">
-                      <HiArrowsUpDown strokeWidth={0.5} />
-                      Сложность
-                    </span>
-                  </TableHead>
-                  <TableHead className="hover:bg-muted/50 text-right transition">
-                    Действия
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-
-              <TableBody>
-                {cards?.data.map((card: IYnCard) => (
-                  <TableRow
-                    key={card.id}
-                    style={{ backgroundColor: card.cardColor }}
-                    className="border-0"
-                  >
-                    <TableCell className="truncate font-medium">
-                      {card.id}
-                    </TableCell>
-                    <TableCell>
-                      <YnAdminImagePreviewModal
-                        image={card.image}
-                        title={card.title}
-                      />
-                    </TableCell>
-                    <TableCell className="max-w-48 truncate font-medium">
-                      {card.title}
-                    </TableCell>
-                    <TableCell className="max-w-sm whitespace-normal">
-                      <p className="line-clamp-2">{card.question}</p>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex max-w-56 flex-wrap gap-1">
-                        {card.categories.map((category) => (
-                          <span
-                            key={category.id}
-                            className="rounded-full px-2 py-1 text-xs font-semibold"
-                            style={{ backgroundColor: category.color }}
-                          >
-                            {category.name}
-                          </span>
-                        ))}
-                      </div>
-                    </TableCell>
-                    <TableCell>{card.liked}%</TableCell>
-                    <TableCell>{card.duration} мин.</TableCell>
-                    <TableCell>{card.difficulty}/10</TableCell>
-                    <TableCell>
-                      <div className="flex justify-end gap-2 text-3xl">
-                        <YnAdminEditCardModal card={card} />
-                        <YnAdminDeleteCardModal cardId={card.id} />
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-
-              <TableFooter>
-                <TableRow className="bg-cards-list">
-                  <TableCell colSpan={9} className="px-0">
-                    <div className="relative flex max-w-37.5 min-w-25 items-center gap-2 lg:ml-auto">
-                      <LimitInput limit={limit} onLimitChange={setLimit} />
-                    </div>
-                  </TableCell>
-                </TableRow>
-              </TableFooter>
-            </Table>
+            <YnAdminTable
+              cards={cards.data}
+              idSort={idSort}
+              limit={limit}
+              nameSort={nameSort}
+              onIdSortChange={setIdSort}
+              onLimitChange={setLimit}
+              onNameSortChange={setNameSort}
+            />
           </div>
         )}
 

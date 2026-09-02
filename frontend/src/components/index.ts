@@ -9,6 +9,7 @@ export { YnSkeleton } from "./yes-no-comps/yn-skeleton";
 export { YnRulesModal } from "./yes-no-comps/yn-rules-modal";
 export { YnFeedBackForm } from "./yes-no-comps/yn-feed-back-form";
 export { YnAdmin } from "./yes-no-comps/yn-admin";
+export { YnAdminTable } from "./yes-no-comps/yn-admin-table";
 export { YnAdminCreateCardModal } from "./yes-no-comps/yn-admin-create-card-modal";
 export { YnAdminCreateCardForm } from "./yes-no-comps/yn-admin-create-card-form";
 export { DeleteButton } from "./delete-button";
