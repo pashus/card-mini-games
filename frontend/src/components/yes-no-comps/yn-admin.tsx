@@ -27,15 +27,13 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { ArrowUpDown, ChevronsDown, ChevronsUp, Plus } from "lucide-react";
+import { ArrowUpDown, ChevronsDown, ChevronsUp } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { LimitInput } from "../limit-input";
 
 export function YnAdmin() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const limitInputRef = useRef<HTMLInputElement>(null);
   const tableRef = useRef<HTMLDivElement>(null);
 
   const limit = Number(searchParams.get("limit")) || 10;
@@ -62,6 +60,15 @@ export function YnAdmin() {
       });
     }
   }, [limit, page]);
+
+  useEffect(() => {
+    if (window.innerWidth >= 768) {
+      window.scrollTo({
+        behavior: "smooth",
+        top: 0,
+      });
+    }
+  }, [page]);
 
   const totalPages = cards?.pagination.totalPages || 1;
   const hasNext = cards?.pagination.hasNext || false;
@@ -99,11 +106,6 @@ export function YnAdmin() {
       prev.set("page", "1");
       return prev;
     });
-  }
-
-  function handleLimitChange() {
-    const inputValue = limitInputRef.current?.value;
-    setLimit(Number(inputValue));
   }
 
   return (
@@ -254,31 +256,9 @@ export function YnAdmin() {
 
               <TableFooter>
                 <TableRow className="bg-cards-list">
-                  <TableCell colSpan={9} className="pl-0">
-                    <div className="relative max-w-[150px] min-w-[100px] lg:ml-auto">
-                      <form
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          handleLimitChange();
-                        }}
-                      >
-                        <Input
-                          ref={limitInputRef}
-                          placeholder="Лимит"
-                          className="pr-10"
-                          defaultValue={limit}
-                          type="number"
-                        />
-
-                        <Button
-                          size="icon"
-                          type="submit"
-                          variant="ghost"
-                          className="absolute top-1/2 right-1 -translate-y-1/2 hover:bg-transparent"
-                        >
-                          <Plus />
-                        </Button>
-                      </form>
+                  <TableCell colSpan={9} className="px-0">
+                    <div className="relative flex max-w-37.5 min-w-25 items-center gap-2 lg:ml-auto">
+                      <LimitInput limit={limit} onLimitChange={setLimit} />
                     </div>
                   </TableCell>
                 </TableRow>

@@ -29,27 +29,27 @@ export function Header({ className }: HeaderProps) {
           <Link className="text-2xl" to="/yes-no-game">
             <LuSmile
               strokeWidth={2.5}
-              className="transition hover:text-black"
+              className="transition hover:text-black/80"
             />
           </Link>
           {/* {!isAuth && (
             <Link className="text-2xl" to="/admin/login">
               <LuAnnoyed
                 strokeWidth={2.5}
-                className="transition hover:text-black"
+                className="transition hover:text-black/80"
               />
             </Link>
           )} */}
           <Link className="text-2xl" to="/admin/yes-no-game">
             <LuAngry
               strokeWidth={2.5}
-              className="transition hover:text-black"
+              className="transition hover:text-black/80"
             />
           </Link>
           <Link className="text-2xl" to="/rip">
             <LuFrown
               strokeWidth={2.5}
-              className="transition hover:text-black"
+              className="transition hover:text-black/80"
             />
           </Link>
         </div>

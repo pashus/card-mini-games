@@ -27,7 +27,7 @@ import { useEffect } from "react";
 export function Yn() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const limit = 4;
+  const limit = 16;
   const page = Number(searchParams.get("page")) || 1;
   const idSort = "desc";
 
