@@ -9,8 +9,13 @@ import {
 } from "../ui/dialog";
 import { EditButton } from "../edit-button";
 import { YnAdminEditCardForm } from "./yn-admin-edit-card-form";
+import type { IYnCard } from "@/types";
 
-export function YnAdminEditCardModal({ card }: { card: any }) {
+interface YnAdminEditCardModalProps {
+  card: IYnCard;
+}
+
+export function YnAdminEditCardModal({ card }: YnAdminEditCardModalProps) {
   const [open, setOpen] = useState(false);
   const [isPending, setIsPending] = useState(false);
 

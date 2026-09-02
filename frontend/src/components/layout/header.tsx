@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMe } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { LuAngry, LuAnnoyed, LuFrown, LuSmile } from "react-icons/lu";
@@ -8,7 +9,7 @@ interface HeaderProps {
 }
 
 export function Header({ className }: HeaderProps) {
-  const { data: isAuth, isLoading, isError } = useMe();
+  const { data: isAuth } = useMe();
   const location = useLocation();
 
   const isAdminRoute = location.pathname.includes("admin/");
@@ -31,14 +32,14 @@ export function Header({ className }: HeaderProps) {
               className="transition hover:text-black"
             />
           </Link>
-          {!isAuth && (
+          {/* {!isAuth && (
             <Link className="text-2xl" to="/admin/login">
               <LuAnnoyed
                 strokeWidth={2.5}
                 className="transition hover:text-black"
               />
             </Link>
-          )}
+          )} */}
           <Link className="text-2xl" to="/admin/yes-no-game">
             <LuAngry
               strokeWidth={2.5}

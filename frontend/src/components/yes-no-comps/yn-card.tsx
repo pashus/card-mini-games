@@ -28,10 +28,6 @@ export function YnCard() {
     );
   }, []);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   if (isAxiosError(error) && error.response?.status === 404) {
     return <Navigate to="/not-found" replace />;
   }

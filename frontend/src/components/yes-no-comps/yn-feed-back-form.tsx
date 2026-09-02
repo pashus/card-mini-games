@@ -42,7 +42,6 @@ export function YnFeedBackForm({ cardId, enteredAt }: IYnFeedBackFormProps) {
   // что интересно лучше, обрабатывать так, или через mutateAsync и try/catch
   // и надо подумать над UX, про выбранные варианты отзыва пользователя
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
     const fullData = {
       ...data,
       cardId,
@@ -54,9 +53,6 @@ export function YnFeedBackForm({ cardId, enteredAt }: IYnFeedBackFormProps) {
     mutate(fullData, {
       onSuccess: () => {
         form.reset();
-      },
-      onError: (error) => {
-        console.log(error);
       },
     });
   }

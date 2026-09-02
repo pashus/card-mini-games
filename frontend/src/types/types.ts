@@ -55,3 +55,24 @@ export interface IYnReviewResponse {
   duration: number;
   createdAt: string;
 }
+
+export interface ApiError {
+  error: string;
+}
+
+export interface IAdminLoginResponse {
+  success: boolean;
+}
+
+export interface IAdminLogoutResponse {
+  success: boolean;
+}
+
+export interface IAdminRefreshResponse {
+  success: boolean;
+}
+
+export interface IAdminMeResponse {
+  id: number;
+  email: string;
+}

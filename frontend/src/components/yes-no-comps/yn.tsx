@@ -5,7 +5,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useCards } from "@/hooks";
-import { useEffect } from "react";
 import type { IYnCard } from "@/types";
 import { Link, useSearchParams } from "react-router-dom";
 import { HiOutlineLightBulb } from "react-icons/hi";
@@ -27,7 +26,7 @@ import { TextArrow } from "../text-arrow";
 export function Yn() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const limit = 12;
+  const limit = 1;
   const page = Number(searchParams.get("page")) || 1;
   const sort = "desc";
 
@@ -37,10 +36,6 @@ export function Yn() {
   const hasNext = cards?.pagination.hasNext || false;
   const hasPrev = cards?.pagination.hasPrev || false;
   const pages: number[] = Array.from({ length: totalPages }, (_, i) => i + 1);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [page]);
 
   function setPage(nextPage: number) {
     setSearchParams({ page: String(nextPage) });
@@ -152,7 +147,7 @@ export function Yn() {
                       onClick={() => page > 1 && setPage(page - 1)}
                       className={
                         hasPrev
-                          ? "hover:bg-hover-pagination-button-bg cursor-pointer"
+                          ? "hover:bg-muted cursor-pointer"
                           : "pointer-events-none opacity-50"
                       }
                     />
@@ -162,7 +157,7 @@ export function Yn() {
                       <PaginationLink
                         onClick={() => setPage(pageNum)}
                         isActive={page === pageNum}
-                        className="hover:bg-hover-pagination-button-bg border-foreground/40 cursor-pointer"
+                        className="hover:bg-muted border-foreground/40 cursor-pointer"
                       >
                         {pageNum}
                       </PaginationLink>
@@ -173,7 +168,7 @@ export function Yn() {
                       onClick={() => page < totalPages && setPage(page + 1)}
                       className={
                         hasNext
-                          ? "hover:bg-hover-pagination-button-bg cursor-pointer"
+                          ? "hover:bg-muted cursor-pointer"
                           : "pointer-events-none opacity-50"
                       }
                     />

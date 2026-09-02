@@ -53,7 +53,9 @@ api.interceptors.response.use(
       console.log("ошибка при рефреше");
       console.log(err);
       queue = [];
+
       forceLogout();
+
       return Promise.reject(err);
     } finally {
       console.log("рефреш завершен");

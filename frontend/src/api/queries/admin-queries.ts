@@ -1,8 +1,14 @@
 import { api } from "@/api";
+import type {
+  IAdminLoginResponse,
+  IAdminLogoutResponse,
+  IAdminMeResponse,
+  IAdminRefreshResponse,
+} from "@/types";
 
 export const adminQueries = {
   login: async (email: string, password: string) => {
-    const res = await api.post<any>("/auth/login", {
+    const res = await api.post<IAdminLoginResponse>("/auth/login", {
       email,
       password,
     });
@@ -10,17 +16,17 @@ export const adminQueries = {
   },
 
   logout: async () => {
-    const res = await api.post<any>("/auth/logout");
+    const res = await api.post<IAdminLogoutResponse>("/auth/logout");
     return res.data;
   },
 
   refresh: async () => {
-    const res = await api.get<any>("/auth/refresh");
+    const res = await api.get<IAdminRefreshResponse>("/auth/refresh");
     return res.data;
   },
 
   me: async () => {
-    const res = await api.get<any>("/auth/me");
+    const res = await api.get<IAdminMeResponse>("/auth/me");
     return res.data;
   },
 };

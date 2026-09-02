@@ -1,12 +1,13 @@
 import { categoriesQueries } from "@/api";
-import type { IYnCategory } from "@/types";
+import type { ApiError, IYnCategory } from "@/types";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 
 export function useCreateCategories() {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<unknown, AxiosError<ApiError>, Omit<IYnCategory, "id">[]>({
     mutationFn: (data: Omit<IYnCategory, "id">[]) =>
       categoriesQueries.createCategories(data),
     onSuccess: () => {
@@ -14,8 +15,8 @@ export function useCreateCategories() {
         queryKey: ["categories"],
       });
     },
-    onError: () => {
-      console.log("Ошибка при создании категорий");
+    onError: (error) => {
+      console.error("Ошибка при создании категорий", error);
     },
   });
 }

@@ -11,7 +11,7 @@ export async function login(req: any, res: any) {
 
     if (!admin) {
       return res.status(400).json({
-        message: "Такого пользователя не существует или неверный пароль",
+        error: "Такого пользователя не существует или неверный пароль",
       });
     }
 
@@ -19,7 +19,7 @@ export async function login(req: any, res: any) {
 
     if (!isValidPassword) {
       return res.status(400).json({
-        message: "Такого пользователя не существует или неверный пароль",
+        error: "Такого пользователя не существует или неверный пароль",
       });
     }
 
@@ -55,7 +55,7 @@ export async function login(req: any, res: any) {
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      message: "Ошибка сервера",
+      error: "Ошибка сервера",
     });
   }
 }
@@ -65,7 +65,7 @@ export async function refresh(req: any, res: any) {
 
   if (!refreshToken) {
     return res.status(400).json({
-      message: "Рефреш токен невалиден или его нет",
+      error: "Рефреш токен невалиден или его нет",
     });
   }
 
@@ -94,7 +94,7 @@ export async function refresh(req: any, res: any) {
   } catch (error) {
     console.log(error);
     return res.status(401).json({
-      message: "Unauthorized",
+      error: "Unauthorized",
     });
   }
 }

@@ -35,30 +35,22 @@ export function AdminLogin() {
         form.reset();
         navigate("/admin/yes-no-game");
       },
-      onError: (error: any) => {
-        const message = error?.response?.data?.message;
-        setServerError(message);
-        console.log(error);
+      onError: (error) => {
+        const message = error.response?.data.error;
+        setServerError(message || "Ошибка");
       },
     });
   }
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center">
+    <div className="bg-primary/30 border-primary/30 absolute top-1/2 left-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg border p-6 shadow-md">
+      <h2 className="mb-2 text-center text-xl font-bold">Авторизация</h2>
       <form
         noValidate
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full max-w-sm"
       >
         <FieldGroup className="gap-5">
-          <div className="min-h-[39px] text-center text-sm">
-            {serverError ? (
-              <span className="text-destructive">{serverError}</span>
-            ) : (
-              <span></span>
-            )}
-          </div>
-
           <Controller
             name="email"
             control={form.control}
@@ -67,6 +59,7 @@ export function AdminLogin() {
                 <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                 <Input
                   id={field.name}
+                  className="h-11 md:text-base"
                   type="email"
                   placeholder="Введите email"
                   {...field}
@@ -90,6 +83,7 @@ export function AdminLogin() {
                 <FieldLabel htmlFor={field.name}>Пароль</FieldLabel>
                 <Input
                   id={field.name}
+                  className="h-11 md:text-base"
                   type="password"
                   placeholder="Введите пароль"
                   {...field}
@@ -105,10 +99,20 @@ export function AdminLogin() {
             )}
           />
 
-          <Button type="submit" disabled={isPending} className="w-full">
+          <Button
+            type="submit"
+            disabled={isPending}
+            className="h-10 w-full text-base"
+          >
             {isPending ? "Вход..." : "Войти"}
           </Button>
         </FieldGroup>
+
+        <div className="mt-2 flex h-10 items-center justify-center text-center text-sm">
+          {serverError && (
+            <span className="text-destructive">{serverError}</span>
+          )}
+        </div>
       </form>
     </div>
   );

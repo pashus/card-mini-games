@@ -63,7 +63,7 @@ export function YnAdminEditCardForm({
 
   useEffect(() => {
     onPendingChange(isPending);
-  }, [isPending]);
+  }, [isPending, onPendingChange]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -118,9 +118,6 @@ export function YnAdminEditCardForm({
       onSuccess: () => {
         form.reset();
         onClose();
-      },
-      onError: (error: any) => {
-        console.log(error);
       },
     });
   }

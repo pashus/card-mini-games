@@ -110,9 +110,6 @@ export function YnAdminCreateCardForm({
         form.reset();
         onClose();
       },
-      onError: (error: unknown) => {
-        console.log(error);
-      },
     });
   }
 

@@ -1,12 +1,17 @@
 import { reviewQueries } from "@/api";
-import type { IYnReview, IYnReviewResponse } from "@/types";
+import type { ApiError, IYnReview, IYnReviewResponse } from "@/types";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 
 export function useCreateReview() {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<
+    IYnReviewResponse,
+    AxiosError<ApiError>,
+    Omit<IYnReview, "id" | "createdAt">
+  >({
     mutationFn: (data: Omit<IYnReview, "id" | "createdAt">) =>
       reviewQueries.createReview(data),
     onSuccess: (data: IYnReviewResponse) => {
@@ -14,8 +19,8 @@ export function useCreateReview() {
         queryKey: ["cards", String(data.cardId)],
       });
     },
-    onError: () => {
-      console.log("Ошибка при создании отзыва");
+    onError: (error) => {
+      console.log("Ошибка при создании отзыва", error);
     },
   });
 }

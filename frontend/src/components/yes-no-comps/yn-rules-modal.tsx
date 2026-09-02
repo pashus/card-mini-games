@@ -30,7 +30,7 @@ export function YnRulesModal() {
       <DialogTrigger>
         <GiHelp
           strokeWidth={10}
-          className="hover:text-muted-foreground relative top-0.5 cursor-pointer text-3xl duration-200"
+          className="relative top-0.5 cursor-pointer text-3xl duration-200 hover:text-black/80"
         />
       </DialogTrigger>
       <DialogContent>
