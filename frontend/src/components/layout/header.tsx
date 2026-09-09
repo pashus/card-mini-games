@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMe } from "@/hooks";
 import { cn } from "@/lib/utils";
-import { LuAngry, LuAnnoyed, LuFrown, LuSmile } from "react-icons/lu";
+import { LuAngry, LuFrown, LuSmile } from "react-icons/lu";
 import { Link, useLocation } from "react-router-dom";
 
 interface HeaderProps {
@@ -9,7 +9,7 @@ interface HeaderProps {
 }
 
 export function Header({ className }: HeaderProps) {
-  const { data: isAuth } = useMe();
+  // const { data: isAuth } = useMe();
   const location = useLocation();
 
   const isAdminRoute = location.pathname.includes("admin/");

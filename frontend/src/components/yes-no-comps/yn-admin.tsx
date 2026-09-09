@@ -40,9 +40,9 @@ export function YnAdmin() {
       window.scrollTo({ behavior: "smooth", top: 0 });
   }, [page]);
 
-  const totalPages = cards?.pagination.totalPages || 1;
-  const hasNext = cards?.pagination.hasNext || false;
-  const hasPrev = cards?.pagination.hasPrev || false;
+  const totalPages = cards?.meta.pagination.totalPages || 1;
+  const hasNext = cards?.meta.pagination.hasNext || false;
+  const hasPrev = cards?.meta.pagination.hasPrev || false;
   const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 
   const setPage = (nextPage: number) =>

@@ -14,9 +14,9 @@ export function useCreateReview() {
   >({
     mutationFn: (data: Omit<IYnReview, "id" | "createdAt">) =>
       reviewQueries.createReview(data),
-    onSuccess: (data: IYnReviewResponse) => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: ["cards", String(data.cardId)],
+        queryKey: ["cards", String(data.data.cardId)],
       });
     },
     onError: (error) => {

@@ -37,10 +37,10 @@ export function YnCard() {
       <section className="mx-auto hidden h-8 w-full max-w-[1550px] items-center justify-between px-6 lg:flex lg:px-0">
         <TextArrow to="/yes-no-game" text="К списку" where="left" />
         <TextArrow
-          to={`/yes-no-game/card/${card?.nextYnCardId}`}
+          to={`/yes-no-game/card/${card?.data.nextYnCardId}`}
           text="Следующая"
           where="right"
-          disabled={isLoading || !card || card?.nextYnCardId === null}
+          disabled={isLoading || !card || card?.data.nextYnCardId === null}
         />
       </section>
 
@@ -49,13 +49,13 @@ export function YnCard() {
           <YnCardSkeleton />
         ) : (
           <Card
-            style={{ backgroundColor: card?.cardColor }}
+            style={{ backgroundColor: card?.data.cardColor }}
             className="flex h-[calc(100svh-128px)] w-full max-w-5xl flex-col overflow-hidden border-0 shadow-xl lg:grid lg:h-[420px] lg:grid-cols-3"
           >
             <div className="flex max-h-80 items-center justify-center overflow-hidden lg:max-h-full lg:pl-8">
               <img
-                src={card?.image}
-                alt={card?.title}
+                src={card?.data.image}
+                alt={card?.data.title}
                 className="w-2/3 lg:w-auto"
               />
             </div>
@@ -65,7 +65,7 @@ export function YnCard() {
                 <span className="text-muted-foreground text-sm uppercase">
                   Данетка
                 </span>
-                <h1 className="text-2xl font-bold">{card?.title}</h1>
+                <h1 className="text-2xl font-bold">{card?.data.title}</h1>
               </div>
 
               <div className="relative flex-1 perspective-distant">
@@ -76,10 +76,10 @@ export function YnCard() {
                 >
                   <div className="relative h-60 w-full text-sm transform-3d md:text-base lg:h-40">
                     <div className="absolute inset-0 flex items-center bg-white p-6 shadow-xl backface-hidden">
-                      <p>{card?.question}</p>
+                      <p>{card?.data.question}</p>
                     </div>
                     <div className="bg-foreground absolute inset-0 flex transform-[rotateY(180deg)] items-center p-6 text-[#fff7f0] shadow-xl backface-hidden">
-                      <p>{card?.answer}</p>
+                      <p>{card?.data.answer}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -102,10 +102,10 @@ export function YnCard() {
       <section className="mx-auto mt-6 flex h-8 w-full max-w-[1550px] items-center justify-between px-6 lg:hidden lg:px-0">
         <TextArrow to="/yes-no-game" text="К списку" where="left" />
         <TextArrow
-          to={`/yes-no-game/card/${card?.nextYnCardId}`}
+          to={`/yes-no-game/card/${card?.data.nextYnCardId}`}
           text="Следующая"
           where="right"
-          disabled={isLoading || !card || card?.nextYnCardId === null}
+          disabled={isLoading || !card || card?.data.nextYnCardId === null}
         />
       </section>
 
@@ -115,7 +115,7 @@ export function YnCard() {
           {isLoading ? (
             <Skeleton className="mx-auto mt-1 h-7 w-13 bg-gray-300" />
           ) : (
-            <span>{card?.liked}%</span>
+            <span>{card?.data.liked}%</span>
           )}
         </div>
         <div className="flex flex-col items-center">
@@ -123,7 +123,7 @@ export function YnCard() {
           {isLoading ? (
             <Skeleton className="mx-auto mt-1 h-7 w-13 bg-gray-300" />
           ) : (
-            <span>{card?.duration} мин.</span>
+            <span>{card?.data.duration} мин.</span>
           )}
         </div>
         <div className="flex flex-col items-center">
@@ -131,7 +131,7 @@ export function YnCard() {
           {isLoading ? (
             <Skeleton className="mx-auto mt-1 h-7 w-13 bg-gray-300" />
           ) : (
-            <span>{card?.difficulty}/10</span>
+            <span>{card?.data.difficulty}/10</span>
           )}
         </div>
       </section>

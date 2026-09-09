@@ -133,7 +133,7 @@ export function YnAdminTable({
             <TableCell>
               <div className="flex justify-end gap-2 text-3xl">
                 <YnAdminEditCardModal card={card} />
-                <YnAdminDeleteCardModal cardId={card.id} />
+                <YnAdminDeleteCardModal cardId={String(card.id)} />
               </div>
             </TableCell>
           </TableRow>

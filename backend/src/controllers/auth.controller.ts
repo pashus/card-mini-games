@@ -2,6 +2,9 @@ import { loginService } from "../services";
 import bcrypt from "bcrypt";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import "dotenv/config";
+import { CODE_ERROR } from "../constants";
+import { failure, success } from "../utils";
+import type { IUser } from "../types";
 
 export async function login(req: any, res: any) {
   try {
@@ -10,17 +13,29 @@ export async function login(req: any, res: any) {
     const admin = await loginService(email);
 
     if (!admin) {
-      return res.status(400).json({
-        error: "Такого пользователя не существует или неверный пароль",
-      });
+      return res
+        .status(400)
+        .json(
+          failure(
+            400,
+            CODE_ERROR[400],
+            "Такого пользователя не существует или неверный пароль",
+          ),
+        );
     }
 
     const isValidPassword = await bcrypt.compare(password, admin.passwordHash);
 
     if (!isValidPassword) {
-      return res.status(400).json({
-        error: "Такого пользователя не существует или неверный пароль",
-      });
+      return res
+        .status(400)
+        .json(
+          failure(
+            400,
+            CODE_ERROR[400],
+            "Такого пользователя не существует или неверный пароль",
+          ),
+        );
     }
 
     const accessToken = jwt.sign(
@@ -49,14 +64,12 @@ export async function login(req: any, res: any) {
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
-    return res.status(200).json({
-      success: true,
-    });
+    return res.status(200).json(success(null));
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
-      error: "Ошибка сервера",
-    });
+    return res
+      .status(500)
+      .json(failure(500, CODE_ERROR[500], "Ошибка сервера"));
   }
 }
 
@@ -64,9 +77,11 @@ export async function refresh(req: any, res: any) {
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {
-    return res.status(400).json({
-      error: "Рефреш токен невалиден или его нет",
-    });
+    return res
+      .status(400)
+      .json(
+        failure(400, CODE_ERROR[400], "Рефреш токен невалиден или его нет"),
+      );
   }
 
   try {
@@ -88,14 +103,12 @@ export async function refresh(req: any, res: any) {
       maxAge: 15 * 60 * 1000,
     });
 
-    return res.status(200).json({
-      success: true,
-    });
+    return res.status(200).json(success(null));
   } catch (error) {
     console.log(error);
-    return res.status(401).json({
-      error: "Unauthorized",
-    });
+    return res
+      .status(401)
+      .json(failure(401, CODE_ERROR[401], "Не авторизован"));
   }
 }
 
@@ -103,13 +116,9 @@ export async function logout(req: any, res: any) {
   res.clearCookie("accessToken");
   res.clearCookie("refreshToken");
 
-  return res.status(200).json({
-    success: true,
-  });
+  return res.status(200).json(success(null));
 }
 
 export async function getMe(req: any, res: any) {
-  return res.status(200).json({
-    user: req.user,
-  });
+  return res.status(200).json(success<IUser>(req.user));
 }

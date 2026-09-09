@@ -1,0 +1,8 @@
+export const CODE_ERROR = {
+  400: "BAD_REQUEST",
+  401: "UNAUTHORIZED",
+  403: "FORBIDDEN",
+  404: "NOT_FOUND",
+  418: "I_AM_A_TEAPOT",
+  500: "SERVER_ERROR",
+};

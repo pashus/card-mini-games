@@ -200,7 +200,7 @@ export function YnAdminCreateCardForm({
                         className="flex-1 whitespace-normal"
                       >
                         {field.value.length > 0
-                          ? categories
+                          ? categories?.data
                               ?.filter((category: IYnCategory) =>
                                 field.value.includes(category.id),
                               )
@@ -215,9 +215,12 @@ export function YnAdminCreateCardForm({
                         <div className="text-sm opacity-70">Загрузка...</div>
                       )}
 
-                      {!isCategoriesLoading && categories?.length === 0 && (
-                        <div className="text-sm opacity-70">Категорий нет</div>
-                      )}
+                      {!isCategoriesLoading &&
+                        categories?.data.length === 0 && (
+                          <div className="text-sm opacity-70">
+                            Категорий нет
+                          </div>
+                        )}
 
                       {isCategoriesError && (
                         <div className="text-sm opacity-70">
@@ -226,12 +229,12 @@ export function YnAdminCreateCardForm({
                       )}
 
                       {!isCategoriesLoading &&
-                        (categories?.length ?? 0) > 0 && (
+                        (categories?.data.length ?? 0) > 0 && (
                           <div
                             className="max-h-60 space-y-2 overflow-y-auto"
                             onWheel={(e) => e.stopPropagation()}
                           >
-                            {categories?.map((category) => (
+                            {categories?.data.map((category) => (
                               <Field key={category.id} orientation="horizontal">
                                 <Checkbox
                                   id={`category-${category.id}`}

@@ -37,3 +37,34 @@ export async function mapCard(card: any, ...other: any) {
     ...other,
   };
 }
+
+export function success<T>(data: T, meta = {}) {
+  return {
+    success: true,
+    data,
+    meta: {
+      timestamp: new Date().toISOString(),
+      ...meta,
+    },
+  };
+}
+
+export function failure(
+  code: number,
+  codeTitle: string,
+  message?: string,
+  details: unknown = null,
+) {
+  return {
+    success: false,
+    error: {
+      code,
+      codeTitle,
+      message,
+      details,
+    },
+    meta: {
+      timestamp: new Date().toISOString(),
+    },
+  };
+}

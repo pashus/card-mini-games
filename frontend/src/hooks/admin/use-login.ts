@@ -1,5 +1,5 @@
 import { adminQueries } from "@/api";
-import type { ApiError } from "@/types";
+import type { ApiError, IAdminLoginResponse } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 
@@ -7,7 +7,7 @@ export function useLogin() {
   const queryClient = useQueryClient();
 
   return useMutation<
-    unknown,
+    IAdminLoginResponse,
     AxiosError<ApiError>,
     { email: string; password: string }
   >({

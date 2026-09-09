@@ -5,8 +5,8 @@ export interface IYnCategory {
 }
 
 export interface IYnCard {
-  id: string;
-  nextYnCardId: string | null;
+  id: number;
+  nextYnCardId: number | null;
   title: string;
   image: string;
   cardColor: string;
@@ -16,19 +16,48 @@ export interface IYnCard {
   liked: number;
   difficulty: number;
   duration: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IYnReview {
+  id: number;
+  cardId: number;
+  liked: number;
+  difficulty: number;
+  duration: number;
+  createdAt: Date;
+}
+
+export interface IYnCardResponse {
+  success: boolean;
+  data: IYnCard;
+  meta: {
+    timestamp: Date;
+  };
 }
 
 export interface IYnCardsResponse {
+  success: boolean;
   data: IYnCard[] | [];
-  pagination: {
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
-    hasNext: boolean;
-    hasPrev: boolean;
+  meta: {
+    timestamp: Date;
+    pagination: {
+      page: number;
+      limit: number;
+      total: number;
+      totalPages: number;
+      hasNext: boolean;
+      hasPrev: boolean;
+    };
+  };
+}
+
+export interface IYnDeleteCardResponse {
+  success: boolean;
+  data: IYnCard;
+  meta: {
+    timestamp: Date;
   };
 }
 
@@ -39,43 +68,74 @@ export interface IYnCardsParams {
   nameSort?: string | null;
 }
 
-export interface IYnReview {
-  id: number;
-  cardId: number;
-  liked: number;
-  difficulty: number;
-  duration: number;
-  createdAt: string;
+export interface IYnReviewResponse {
+  success: boolean;
+  data: IYnReview;
+  meta: {
+    timestamp: Date;
+  };
 }
 
-export interface IYnReviewResponse {
-  id: number;
-  cardId: number;
-  liked: number;
-  difficulty: number;
-  duration: number;
-  createdAt: string;
+export interface IYnReviewsResponse {
+  success: boolean;
+  data: IYnReview[];
+  meta: {
+    timestamp: Date;
+  };
+}
+
+export interface IYnCategoriesResponse {
+  success: boolean;
+  data: IYnCategory[];
+  meta: {
+    timestamp: Date;
+  };
 }
 
 export interface ApiError {
-  error: string;
+  success: boolean;
+  error: {
+    code: number;
+    codeTitle: string;
+    message?: string;
+    details?: unknown;
+  };
+  meta: {
+    timestamp: Date;
+  };
 }
 
 export interface IAdminLoginResponse {
   success: boolean;
+  data: null;
+  meta: {
+    timestamp: Date;
+  };
 }
 
 export interface IAdminLogoutResponse {
   success: boolean;
+  data: null;
+  meta: {
+    timestamp: Date;
+  };
 }
 
 export interface IAdminRefreshResponse {
   success: boolean;
+  data: null;
+  meta: {
+    timestamp: Date;
+  };
 }
 
 export interface IAdminMeResponse {
-  user: {
+  success: boolean;
+  data: {
     id: number;
     email: string;
+  };
+  meta: {
+    timestamp: Date;
   };
 }

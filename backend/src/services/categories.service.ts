@@ -3,7 +3,7 @@ import prisma from "../prisma";
 export async function createCategoriesService(
   categories: { color: string; name: string }[],
 ) {
-  return await prisma.categories.createMany({
+  return await prisma.categories.createManyAndReturn({
     data: categories,
   });
 }

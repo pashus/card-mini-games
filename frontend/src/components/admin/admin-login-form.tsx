@@ -36,7 +36,7 @@ export function AdminLogin() {
         navigate("/admin/yes-no-game");
       },
       onError: (error) => {
-        const message = error.response?.data.error;
+        const message = error.response?.data.error.message;
         setServerError(message || "Ошибка");
       },
     });

@@ -1,5 +1,5 @@
 import { api } from "@/api";
-import type { IYnReview, IYnReviewResponse } from "@/types";
+import type { IYnReview, IYnReviewResponse, IYnReviewsResponse } from "@/types";
 
 export const reviewQueries = {
   getReview: async (id: string) => {
@@ -8,7 +8,7 @@ export const reviewQueries = {
   },
 
   getReviews: async () => {
-    const res = await api.get<IYnReviewResponse[]>(`/reviews`);
+    const res = await api.get<IYnReviewsResponse>(`/reviews`);
     return res.data;
   },
 

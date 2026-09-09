@@ -127,7 +127,16 @@ export async function updateCardService(
 }
 
 export async function deleteCardService(id: number) {
-  return await prisma.yes_no_cards.delete({
+  const card = await prisma.yes_no_cards.delete({
     where: { id },
+    include: {
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+    },
   });
+
+  return mapCard(card);
 }

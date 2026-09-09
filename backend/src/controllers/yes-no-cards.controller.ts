@@ -1,3 +1,4 @@
+import { CODE_ERROR } from "../constants";
 import {
   createCardService,
   deleteCardService,
@@ -5,6 +6,8 @@ import {
   getCardsService,
   updateCardService,
 } from "../services";
+import type { IYnCard } from "../types";
+import { failure, success } from "../utils";
 
 export async function createCard(req: any, res: any) {
   try {
@@ -13,7 +16,7 @@ export async function createCard(req: any, res: any) {
     const image = `/uploads/${req.file.filename}`;
     // const image = req.file ? `/uploads/${req.file.filename}` : req.body.image;
 
-    const card = await createCardService(
+    const card: IYnCard = await createCardService(
       title,
       cardColor,
       question,
@@ -22,26 +25,32 @@ export async function createCard(req: any, res: any) {
       categories,
     );
 
-    return res.status(201).json(card);
+    return res.status(201).json(success<IYnCard>(card));
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: "Ошибка сервера" });
+    console.error(error);
+    return res
+      .status(500)
+      .json(failure(500, CODE_ERROR[500], "Ошибка сервера"));
   }
 }
 
 export async function getCard(req: any, res: any) {
   try {
-    const card = await getCardService(Number(req.params.id));
+    const card: IYnCard = await getCardService(Number(req.params.id));
     if (!card) {
       return res
         .status(404)
-        .json({ error: "Карточка по такому id не найдена" });
+        .json(
+          failure(404, CODE_ERROR[404], "Карточка по такому id не найдена"),
+        );
     }
 
-    return res.status(200).json(card);
+    return res.status(200).json(success<IYnCard>(card));
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: "Ошибка сервера" });
+    console.error(error);
+    return res
+      .status(500)
+      .json(failure(500, CODE_ERROR[500], "Ошибка сервера"));
   }
 }
 
@@ -52,28 +61,27 @@ export async function getCards(req: any, res: any) {
   const nameSort = req.query.nameSort ?? undefined;
 
   try {
-    const { cards, total } = await getCardsService(
-      page,
-      limit,
-      idSort,
-      nameSort,
-    );
+    const { cards, total }: { cards: IYnCard[]; total: number } =
+      await getCardsService(page, limit, idSort, nameSort);
     const totalPages = Math.ceil(total / limit);
 
-    return res.status(200).json({
-      data: cards,
-      pagination: {
-        page,
-        limit,
-        total,
-        totalPages,
-        hasNext: page < totalPages,
-        hasPrev: page > 1,
-      },
-    });
+    return res.status(200).json(
+      success<IYnCard[]>(cards, {
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages,
+          hasNext: page < totalPages,
+          hasPrev: page > 1,
+        },
+      }),
+    );
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: "Ошибка сервера" });
+    console.error(error);
+    return res
+      .status(500)
+      .json(failure(500, CODE_ERROR[500], "Ошибка сервера"));
   }
 }
 
@@ -84,7 +92,7 @@ export async function updateCard(req: any, res: any) {
     const categories = JSON.parse(req.body.categories);
     const image = req.file ? `/uploads/${req.file.filename}` : req.body.image;
 
-    const card = await updateCardService(id, {
+    const card: IYnCard = await updateCardService(id, {
       title,
       cardColor,
       question,
@@ -93,20 +101,24 @@ export async function updateCard(req: any, res: any) {
       categories,
     });
 
-    return res.status(200).json(card);
+    return res.status(200).json(success<IYnCard>(card));
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: "Ошибка сервера" });
+    console.error(error);
+    return res
+      .status(500)
+      .json(failure(500, CODE_ERROR[500], "Ошибка сервера"));
   }
 }
 
 export async function deleteCard(req: any, res: any) {
   try {
-    const card = await deleteCardService(Number(req.params.id));
+    const card: IYnCard = await deleteCardService(Number(req.params.id));
 
-    return res.status(200).json({ message: "Карточка успешно удалена" });
+    return res.status(200).json(success<IYnCard>(card));
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: "Ошибка сервера" });
+    console.error(error);
+    return res
+      .status(500)
+      .json(failure(500, CODE_ERROR[500], "Ошибка сервера"));
   }
 }

@@ -17,11 +17,11 @@ import { ProtectedRoute, PublicRoute } from "./components";
 import { useMe } from "@/hooks";
 
 function App() {
-  const { data } = useMe();
+  const { data: user } = useMe();
 
-  if (data) {
+  if (user) {
     console.log(
-      `Данные авторизованного пользователя: id: ${data.user.id}, email: ${data.user.email}`,
+      `Данные авторизованного пользователя: id: ${user.data.id}, email: ${user.data.email}`,
     );
   }
 
