@@ -15,9 +15,11 @@ import {
 import { YnAdminDeleteCardModal } from "./yn-admin-delete-card-modal";
 import { YnAdminEditCardModal } from "./yn-admin-edit-card-modal";
 import { YnAdminImagePreviewModal } from "./yn-admin-image-preview-modal";
+import { cn } from "@/lib/utils";
 
 interface YnAdminTableProps {
   cards: IYnCard[];
+  isDataFetching: boolean;
   idSort: string | null;
   limit: number;
   nameSort: string | null;
@@ -28,6 +30,7 @@ interface YnAdminTableProps {
 
 export function YnAdminTable({
   cards,
+  isDataFetching,
   idSort,
   limit,
   nameSort,
@@ -36,7 +39,12 @@ export function YnAdminTable({
   onNameSortChange,
 }: YnAdminTableProps) {
   return (
-    <Table className="text-base">
+    <Table
+      className={cn(
+        "text-base",
+        isDataFetching ? "select-none, pointer-events-none, opacity-50" : "",
+      )}
+    >
       <TableHeader>
         <TableRow className="hover:bg-transparent">
           <TableHead

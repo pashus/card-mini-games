@@ -27,6 +27,7 @@ export function YnAdmin() {
   const {
     data: cards,
     isLoading,
+    isFetching,
     isError,
   } = useCards({ page, limit, idSort, nameSort });
 
@@ -87,13 +88,13 @@ export function YnAdmin() {
         {isLoading && <YnSkeletonTable />}
 
         {!isLoading && cards?.data.length === 0 && (
-          <p className="mt-4 px-6 text-center text-lg opacity-70 lg:text-start">
+          <p className="mt-4 px-6 text-center text-lg opacity-70 lg:px-0 lg:text-start">
             Карточек нет
           </p>
         )}
 
         {isError && (
-          <p className="mt-4 px-6 text-center text-lg opacity-70 lg:text-start">
+          <p className="mt-4 px-6 text-center text-lg opacity-70 lg:px-0 lg:text-start">
             Произошла ошибка при загрузке карточек
           </p>
         )}
@@ -105,6 +106,7 @@ export function YnAdmin() {
           >
             <YnAdminTable
               cards={cards.data}
+              isDataFetching={isFetching}
               idSort={idSort}
               limit={limit}
               nameSort={nameSort}
